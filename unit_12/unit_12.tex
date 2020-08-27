@@ -1,0 +1,827 @@
+\documentclass[12pt, block=fill]{beamer}
+\usepackage{graphicx}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{FiraMono}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{mathtools}
+
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+\definecolor{burntOrange}{rgb}{.8, .5, .1}
+\definecolor{textgray}{rgb}{.8,.8,.8}
+\definecolor{berkeleyYellow}{HTML}{FDB515}
+
+\usepackage{dcolumn}
+
+\newcommand{\alex}[1]{\textcolor{berkeleyYellow}{#1}}
+\newcommand{\paul}[1]{\textcolor{red}{#1}}
+
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\usetheme[
+  titleformat frame = smallcaps,
+  subsectionpage = progressbar]
+  {metropolis}
+
+\metroset{
+  block=fill
+}
+\newcommand{\E}{\text{E}}
+\newcommand{\V}{\text{V}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\indep}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\bs}{\boldsymbol}
+q
+\usepackage{pgfpages}
+% \setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+\setbeameroption{show notes on second screen=right} % Both
+
+\begin{document}
+
+\section{Importance of the Classical Linear Model}
+\begin{frame}
+
+
+\note[item]{Why are we devoting this unit to the classical linear model?}
+\note[item]{Well, there's one big reason and a bunch of small ones.}
+\note[item]{The big reason is that, for all the talk about big data, small data still matters}
+\note[item]{As a data scientist, you are very likely to work with small data at some point in your career.  There's a few reasons for that...}
+
+Small data still matters.
+  \begin{itemize}
+\item Experimental data can be expensive
+\item Data may be aggregated
+\begin{itemize}
+\item Policy regions
+\item Markets
+\item Prior studies
+\end{itemize}
+
+\item Some units of observation are limited
+\begin{itemize}
+\item Space shuttle launches
+\item Viral pandemics
+\item Elections
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Why Can't we use the Large-Sample Model?}
+  
+  \note[item]{First, let's clearly say why we can't just use the large-sample model for small data}
+  \note[item]{In the large sample model, we rely on consistency and asymptotic normality, but those require a large n.}
+  \note[item]{For small n, our coefficients naturally have higher variance, but they may also have high bias}
+  \note[item]{That's a problem because standard errors only account for variance, they don't recognize bias}
+  \note[item]{Furthermore, we have to estimate our standard errors, but those use consistent estimators.}
+  \note[item]{In small data, our standard error estimates have high variance, and they might be very biased as well.}
+  \note[item]{So we're off but our instruments for understanding how far off we are don't work!}
+  \begin{itemize}
+\item  Coefficients may have high bias
+\item Standard error estimators have high variance
+\item Standard error estimates may have high bias
+\end{itemize}
+
+
+$\implies$ Our coefficients could be far from the truth
+
+$\implies$ We can't trust our estimates of uncertainty
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Twenty (Noisy) Questions}
+  \note[item]{Imagine a noisy game of 20 questions.}
+  \note[item]{I'm thinking of a secret object.  You're trying to guess it by asking yes or no questions.}
+  \note[item]{This is a noisy game, so my answers can be wrong with some probability - say 10\%.}
+  \note[item]{To represent small data, imagine that you get just 5 questions.}
+  \note[item]{To represent biased coefficients, say that I can strategically choose when to give the wrong answer to try to direct you to a false target.}
+  \note[item]{To represent biased standard errors, imagine that you have no idea what fraction of the time I'm allowed to lie.}
+  \note[item]{The game doesn't sound like very much fun, does it?  This captures the problems that our asymptotic machinery faces in a small sample.}
+  \begin{columns}
+  \begin{column}{.38\textwidth}
+\begin{itemize}
+\item Is it in a school?
+\item Is it bigger than a breadbox?
+\item Is it red?
+\item It is alive?
+\end{itemize}
+
+  \end{column}
+    \begin{column}{.65\textwidth}
+  \includegraphics[width=\textwidth]{images/questions}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+  \frametitle{}
+  \note[item]{So how do fix this?  The super short answer is this: we need more assumptions.}
+  \center More assumptions
+  
+  $\downarrow$
+  
+  Fewer unknowns
+  
+    $\downarrow$
+
+More mileage from data
+  
+  \note[item]{More assumptions means fewer unknowns.  Which means that we can get more mileage out of our data. }
+
+\end{frame}
+
+
+{
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{images/pets}}
+\begin{frame}
+  \frametitle{Five (Noisy) Questions about Pets}
+  \note[item]{Back to the twenty questions game.  You still get just 5 questions.  But for this game, you get some extra assumptions at the start of the game.  You assume that I'm thinking of a pet.  And you assume that I can only answer incorrectly randomly, I can't be strategic.}
+  \note[item]{If those assumptions are correct, you have a much better chance of winning this game.  Or at least narrowing down the answer to a small set of possibilities.}
+ %   \includegraphics[width=\textwidth]{images/pets}
+    
+%  \begin{columns}
+%  \begin{column}{.5\textwidth}
+%\begin{itemize}
+%\item Is it in a school?
+%\item Is it bigger than a breadbox?
+%\item Is it red?
+%\item It is alive?
+%\end{itemize}
+%
+%  \end{column}
+%    \begin{column}{.5\textwidth}
+%  \includegraphics[width=\textwidth]{images/pets}
+%  \end{column}
+%  \end{columns}
+\end{frame}
+}
+
+
+\begin{frame}
+  \frametitle{The Classical Linear Model (CLM)}
+  
+ Key assumption: $f_{Y|X}$ belongs to a parametric family.
+  
+Goal: Identify which member is the true one.
+  
+  
+  \note[item]{The enlarged set of assumptions we’re talking about is known as the Classical Linear Model.}
+  
+  \note[item]{We're going to assume that the conditional distribution of $Y$ belongs to a parametric family.}
+  \note[item]{Then our job is much smaller.  all we need to do is figure out which member of the family is the true one.}
+  
+  \note[item]{The CLM Is extremely popular.  It’s the traditional starting point for linear regression, and the centerpiece of most textbooks in statistics, econometrics, and machine learning.}
+
+\note[item]{It’s also a basis for other statistical models.  So it's very important to know this model.  let's get started..}
+\end{frame}
+
+
+\section{Unit Plan}
+
+\begin{frame}
+  \frametitle{Plan for the Week}
+ 
+  
+  Three sections:
+  \begin{enumerate}
+  \item 
+  \item 
+  \item
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Plan for the Week (cont'd)}
+  At the end of this week, you will be able to:
+  \begin{itemize}
+  \item Understand statistical inference based on the classical linear model
+  \item Use regression diagnostics to assess all CLM assumptions
+  \item Understand how to leverage transformations to help meet CLM assumptions
+  \end{itemize}
+\end{frame}
+
+\section{Part 1: Importance of the Classical Linear Model}
+
+
+\section{Reading: The CLM Assumptions}
+
+\begin{frame}
+  \frametitle{Reading: The CLM Assumptions}
+  Read \textit{Foundations of Agnostic Statistics} Chapter 5 through section 5.1.1.
+  
+  Pay attention to the discussion of the disturbance, and notice how the last paragraph seems to imply a particular causal model. 
+  \end{frame}
+
+
+\section{The CLM Assumptions}
+
+\begin{frame}
+  \frametitle{The CLM Assumptions}
+  \note[item]{The book presents a very compact version of the CLM, and it's 100\% correct.  But we're going to break it apart into a series of 5 assumptions.  This is similar to what you'd see in an econometrics textbook.  This is helpful because later, we'll separately discuss how to assess each one.}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{CLM Assumption 1}
+  
+  \textbf{I.I.D. Data.}  $(Y_1, \boldsymbol{X}_1), (Y_2, \boldsymbol{X}_2),...,(Y_n, \boldsymbol{X}_n)$ are independent and identically distributed.  
+  
+    \note[item]{First, just like before, we need an assumption of I.I.D.   iid tells us that each datapoint is 100\% new information about the joint distribution.}  
+  \note[item]{The model is this: you have a joint distribution and you draw a datapoint.  then you reset, totally clear memory and draw the next datapoint.}
+ \note[item]{Real data generating processes very often don't look like that.  Here are some of the most common violations}
+Common violations:
+\begin{itemize}
+\item Clusters
+\item Dependencies among family members, competitors, geographic neighbors
+\item Dependencies from one time period to the next
+\end{itemize}
+  
+  We denote a representative datapoint as $(Y, \boldsymbol{X})$.
+  
+\note[item]{ Some of these violations you can test for and model the dependency.  for example, if you know what the clusters are, you can build them into a hierarchical model.  but in general, you may now even know where all the dependencies are and have no way to model them.}
+\note[item]{We usually don't get a perfectly random sample. That usually doesn't mean you throw away your data, but you should always assess the assumption honestly.  and you may have to be skeptical about your standard errors.}
+  \note[item]{Since we assume our data is iid, we can drop the subscript, and just discuss a representative random vector, (Y,X). }
+\end{frame}
+
+
+%\begin{frame}
+%  \frametitle{CLM Assumption 2 (Alternate Form)}
+%  \note[item]{You may encounter this assumption in a slightly different form, common in econometrics books}
+%  \note[item]{This would be called ZERO conditional expectation.}
+%  \note[item]{Instead of the conditional expectation of $Y$, you switch to thinking about the error term $\epsilon$.  then you assume that the conditional expectation of the error is zero. }
+%  
+%
+%  \textbf{Zero Conditional Expectation.}  There exists a vector $\boldsymbol{\beta}$ such that the error term,
+%  
+%  $$\epsilon = Y - \boldsymbol{X \beta}$$
+%  
+%  satisfies $E[\epsilon|\boldsymbol{X}]=0$, for all $\boldsymbol{x} \in \text{Supp}[\boldsymbol{X}]$.
+%\end{frame}
+
+
+\begin{frame}
+  \frametitle{CLM Assumption 2}
+  
+  \textbf{No Perfect Collinearity.}    $\E[X^TX]$ exists and is invertible.
+  
+
+$\implies$ No $X_i$ can be written as a linear combination of the other $X$'s.
+
+
+\note[item]{First, the mathematically precise definition...}
+\note[item]{What does this mean?  For this to be invertible, that tells us that no x variable can be written as an exact linear combination of the other X's.  It has to have some unique variation.} 
+\note[item]{That makes sense because we know ols works on unique variation.  If we combine this assumption with the next one, we can prove that a unique BLP exists.}
+  
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Perfect Collinearity Example 1}
+  
+  \note[item]{Here's an example to help understand why we need this assumption}
+  \note[item]{You regress the price on both number of donuts and number of dozens of donuts.}
+  \note[item]{it's 50 cents per donut, so you can write the price as 50 cents times number of donuts}
+  \note[item]{But you can also write it as 6 dollars times number of dozens.}
+  \note[item]{Both are equivalent for predicting the price - this problem doesn't affect prediction.}
+  \note[item]{But you can't estimate coefficients, because they aren't uniquely defined.}
+  
+  $$\widehat{Price} =  .5\ Donuts + 0.0\ Dozens $$
+  
+  \center or
+  $$\widehat{Price} =  0.0\ Donuts + 6.0\ Dozens$$
+  \paul{Alex, I already used these two examples in week 9, so you may want to remove and just give a quick review.}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Perfect Collinearity Example 2}
+  
+  \note[item]{Here's another example, to show you that multicollinearity isn't always about pairs of variables, it might be more variables}
+  \note[item]{Here you have a regression with number of positive ads, number of negative ads, and the total number of ads.}
+  \note[item]{Once again, you can find multiple ways to write the same model. }
+  
+  $$\widehat{Voters} =  200\ Positive\_Ads + 100\ Negative\_Ads + 0\ Total\_Ads  $$
+  
+  \center or
+  $$\widehat{Voters} =  100\ Positive\_Ads + 0\ Negative\_Ads + 100\ Total\_Ads  $$
+\end{frame}
+
+\begin{frame}
+  \frametitle{CLM Assumption 3}
+  
+  \note[item]{Next, we have linear conditional expectation.}
+  \note[item]{This is quite strong.  It's telling us that our joint distribution is essentially linear, although possible distributions around that line can still look very different.}
+  \note[item]{This makes the regression problem much easier - we know we have a line, we just need to figure out which line.}
+  
+  \textbf{Linear Conditional Expectation.}  The conditional expectation of $Y$ given $\boldsymbol{X}$ exists and has the linear form,
+  
+  $$\E[Y|\boldsymbol{X}=\bs x]= \boldsymbol{x \beta}$$
+  
+ Where $\boldsymbol{\beta}$ is a vector of parameters, for all $\boldsymbol{x} \in \text{Supp}[\boldsymbol{X}]$
+ 
+ \note[item]{\paul{commented out the zero-conditional mean version}}
+ \note[item]{\paul{Alex, can you remind students that $\bs X = [1,X_1,X_2,..,X_k]$}}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{CLM Assumption 4}
+  
+  \textbf{Homoskedasticity.} Letting $\epsilon = Y - \boldsymbol{X \beta}$, the conditional variance $\V[\epsilon | \boldsymbol{X}]$ is a constant, which we label $\sigma^2$.
+  
+  \note[item]{We already assumed we have a linear CEF, now we also need to know that the spread around that line is constant.}
+  \note[item]{homo = same, skedasis = Greek for scattering }
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Understanding Homoskedasticity}
+  
+  \includegraphics[width=\textwidth]{images/homoskedasticity}
+  
+  \note[item]{\paul{borrowed image - make our own or fair use?}}
+  \note[item]{Here's a picture to show you what this assumption looks like.}
+  \note[item]{To understand conditional variance, choose an X and then look at how wide the distribution is along the Y-axis.}
+  \note[item]{On the left, we have an example of homoskedasticity - for any X, the conditional variance in Y looks the same.}
+  \note[item]{On the right, we have heteroskedasticity, the conditional variance seems to increase towards the right.}
+  \note[item]{This will complicate the behavior of our coefficients in a small sample, so we require homoskedasticity in the CLM.}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{CLM Assumption 5}
+  
+  \textbf{Normally Distributed Errors.}. Letting $\epsilon = Y - \boldsymbol{X \beta}$, the conditional distribution of $\epsilon$ given $\boldsymbol{X} = \boldsymbol{x}$ is normal.
+  
+  \begin{itemize}
+\item Given previous assumptions, $\epsilon \sim N(0, \sigma^2)$.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Common CLM Errors}
+  
+  \note[item]{Finally, it's worth mentioning some common mistakes  These are assumptions that are NOT part of the CLM.}
+  
+  NOT CLM Assumptions:
+  \begin{itemize}
+\item Normality of $X_i$ or $Y$
+\note[item]{First, there is no requirement that any variables are normal. Errors are normal.  sometimes, if your variables are very skewed the error term will also be skewed, but that's not true 100\% of the time.}
+\item No outliers
+\note[item]{Next, the CLM says nothing about outliers.  Now, outliers may indicate that the error term is non-normal, but not necessarily.  In any case, Never remove an outlier just because it's an outlier.  You don't get to change the data just because it doesn't fit the model you want.}
+\item No high Collinearity
+\note[item]{Finally, there is no assumption against multicollinearity, except for perfect multicollinearity.  When multicollinearity is high, betas will be high variance.  but that's not a violation of the assumptions, and you'll see the problem in the form of high standard errors. }
+\end{itemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{CLM Model Summary}
+  
+  \begin{enumerate}
+\item I.I.D. Data
+\item No Perfect Collinearity
+\item Linear Conditional Expectation
+\item Homoskedastic Errors
+\item Normally Distributed Errors
+\end{enumerate}
+
+  
+\end{frame}
+
+
+
+\section{Part 2: Properties of the CLM}
+
+
+\section{OLS is Unbiased under the CLM}
+
+\begin{frame}[t]
+\frametitle{OLS is Unbiased under the CLM}
+ Assume CLM 1-3.
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{OLS is Unbiased under the CLM}
+ Assume CLM 1-3.  $ \E[Y|\bs X] = \bs X \bs \beta$
+ \note[item]{First, we need to write CLM 3 in matrix form. CLM 3 says that a single data point is expected to fall on the line, and we need to say that all the points fall on the line.}
+ \note[item]{So you can see that the coefficients are unbiased, and for this we only needed CLM 1-3.  The one strong assumption is linear conditional expectation.}
+ \note[item]{This results is important, because it eliminates one way that our estimates can be wrong.  There's no bias at any sample size.  Next, we need a way to estimate variance in a small sample, and then we can start to understand our results.}
+  \begin{align*}
+\E[\bs Y | \X] &= \left[ \begin{matrix} \E[Y_1|\X] \\ \E[Y_2|\X] \\ \vdots \\ \E[Y_n| \X] \end{matrix} \right]
+= \left[ \begin{matrix} X_1 \bs \beta \\ X_2 \bs \beta\\ \vdots \\ X_n \bs \beta \end{matrix} \right]
+= \X \bs \beta
+  \end{align*}
+    \begin{align*}
+ \E[\boldsymbol{ \hat \beta}] &= \E[(\X^T\X)^{-1}\X^T\boldsymbol{Y}]  = \E\Big[ \E[(\X^T\X)^{-1}\X^T\boldsymbol{Y} | \X] \Big] \\ 
+ &= \E\Big[ (\X^T\X)^{-1}\X^T \E[ \boldsymbol{Y} | \X] \Big]   = \E\Big[ (\X^T\X)^{-1}\X^T  \X \bs \beta \Big] \\
+  &= \E[\bs \beta] = \bs \beta
+  \end{align*}  
+\end{frame}
+
+\section{Classical Standard Errors}
+
+\begin{frame}
+  \frametitle{Standard Errors under the CLM}
+  
+  \note[item]{We already know that $\boldsymbol{ \hat \beta }$ is unbiased, but estimation is only the start of statistic.  Now we turn to the issue of uncertainty - how can we quantify uncertainty in a small sample?}
+\note[item]{Let's start with the most fundamental metric of uncertainty: standard errors.}
+\note[item]{When working with the CLM, people use two different types of standard errors.}
+\note[item]{You've already seen robust standard errros, let's defines what classical standard errors are, and then talk about which of these you should use.}
+Two choices:
+  \begin{itemize}
+\item Robust Standard Errors
+\item Classical Standard Errors
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{Classical Standard Errors: Intuition}
+  \note[item]{The basic idea is that under the CLM, we have fewer unknowns, so we should be able to use our data to get more accuracy}
+  \textbf{Fewer unknowns $\implies$ more accurate estimates}
+\begin{itemize}
+\item   All data points share a common variance $\V[Y_i] = \sigma^2$.
+\item   Leverage all data points to estimate a single number.
+\end{itemize}
+\note[item]{In particular, each datapoint has the same variance.  Estimating n different variances would be hard.}
+\note[item]{since there's one variance, we can use every single datapoint to get more information about it}
+\note[item]{Here's a data point that's high - that's a signal that variance is high.}
+\note[item]{We can use a good estimate for error variance to compute the variance of the betas.}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{A Simple Equation for Sampling Variance}
+  \note[item]{Let me remind you that the general equation for variance of betas is really complicated}
+  \note[item]{But under homoskedasticity, we were able to simplify it a lot.}
+  \note[item]{Here's the theorem we saw earlier.  we just multiply the error variance by this matrix.}
+  \note[item]{How do we get an estimator for this.  we just plug in sample analogues for variance and for the matrix}
+  
+  \begin{block}{Theorem: OLS variance under homoskedasticity}
+  Under CLM 1-4, the variance of the OLS coefficients is given by,
+  
+    $$ \V[ \boldsymbol{ \hat \beta} ]  =  \sigma^2 \E[   \boldsymbol{X}^T\boldsymbol{X} ] ^{-1}$$
+\end{block} 
+
+\end{frame}
+
+
+
+\begin{frame}
+\note[item]{This is what we call classical standard errors.}
+\note[item]{For us, these are consistent, but textbooks that use stronger assumptions list them as unbiased.}
+  \begin{block}{Classical Standard Errors}
+The classical variance estimator is 
+  $$ \widehat{\V}_C[ \boldsymbol{ \hat \beta} ]  =  \hat \sigma^2 (   \X^T\X) ^{-1}$$
+  
+ Where $\hat \sigma^2$ is the \textit{residual variance}, given by
+ $$\hat \sigma^2 = \frac{1}{n-k-1} \sum_{i=1}^n \hat \epsilon_i^2$$
+    \end{block}
+
+\begin{itemize}
+\item Consistent under CLM 1-4
+\item Unbiased if $\X$ is nonrandom.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Should you use Classical Standard Errors?}
+  
+  \begin{columns}[t]
+\begin{column}{0.5\textwidth}
+YES
+\begin{itemize}
+\item Classical standard errors are efficient.
+\item If you transform variables to fit CLM, want to take advantage of extra precision.
+\item t-Tests, other Wald tests are based on classical standard errors.
+\end{itemize}
+
+\end{column}
+\begin{column}{0.5\textwidth}
+NO
+\begin{itemize}
+\item Without homoskedasticity, classical standard errors are inconsistent
+\item Hard to assess homoskedasticity in small samples
+\end{itemize}
+
+\note[item]{In simulations that we ran, classical standard errors had about half the variance of robust standard errors.}
+\note[item]{For these reasons, there are statisticians that recommend always using robust standard errors.  It's not a bad policy, but you can look at the tradeoff and make your own decision.  Just make sure the evidence for homoskedasticity is strong before you use classical standard errors.  }
+
+\end{column}
+\end{columns}
+\end{frame}
+
+
+
+\section{Sampling Distributions under the CLM}
+
+\begin{frame}
+  \frametitle{CLM Sampling Distributions}
+  
+  \note[item]{To do more precise inference, including confidence intervals and tests, we have to know what the sampling distribution of our beta hats is.}
+  \note[item]{We need the full CLM for this. The result is that under CLM 1-5, our beta hats are normal.}
+  \note[item]{Here's how you know.  remember this equation for beta hat...}
+  \note[item]{\paul{Draw arrow for epsilon and label normal.}}
+  \note[item]{$\epsilon$ is normal, and we pass it through a linear transformation.  so the result is also normal.}
+  
+  \begin{block}{Normality of OLS Coefficients}
+   Under CLM 1-5, $\boldsymbol{\hat \beta}$ is distributed multivariate normal.
+   \end{block}
+   
+   \vspace{.4cm}
+   $$ \boldsymbol{ \hat \beta} = \boldsymbol{\beta} +  (\X^T\X)^{-1}\X^T\boldsymbol{\epsilon}$$
+   
+    \begin{itemize}
+\item Each $\beta_i$ is normal
+\item Any linear combination (e.g. $\beta_i - \beta_j$) is normal
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Testing Coefficients under the CLM}
+  \note[item]{Now that we know that our sampling distribution is normal, we can derive a t-statistic}
+  \note[item]{The setup is very similar to a classic t-test for one variable.}
+  \note[item]{We have a null hypothesis, which is usually that our $\beta_i$ is zero.}
+  \note[item]{We standardize, by subtracting the hypothesized mean, and dividing by the standard error.}
+  \note[item]{Since we're estimating the standard error, the statistic doesn't follow a z-distribution, it follows a t-distribution.}
+  \note[item]{By the way, the degrees of freedom is n-k, we lose a degree of freedom for every beta we estimate.}
+  \note[item]{So this is why we always run t-tests instead of z-tests in a regression.  T-tests are accurate in small samples under the CLM.  Of course, your statistical software will run these tests automatically.}
+  
+  \begin{block}{Theorem: t-statistics for OLS Coefficients}
+ Assume CLM 1-5 and the null hypothesis:
+ 
+ $H_0: \beta_i = \mu_0$
+ 
+ Let $\hat \sigma_i$ be the classical standard error for $\hat \beta_i$.
+  $$t = \frac{\hat \beta_i - \mu_0}{\hat \sigma_i}$$
+  
+  is distributed $T$ with $n-k -1$ degrees of freedom.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Take-Aways}
+  
+  Under CLM 1-5
+  \begin{itemize}
+\item t-tests based on classical standard errors are valid
+\item Confidence intervals based on classical standard errors are valid
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+\section{Efficiency Theorems for OLS}
+
+\begin{frame}
+  \frametitle{OLS and Alternative Estimators}
+  \note[item]{I want to talk about efficiency, but first, let me remind you that there are many possible estimators out there.}
+  \note[item]{OLS is simple and elegant, but we should remember that it's just one choice out of many}
+  \note[item]{If you take a step back and think about how you would design an algorithm to estimate the true betas, here are a few things you might consider.}
+  \note[item]{Should we weight some datapoints more than others - maybe those that appear least noisy...}
+  \note[item]{If you think about these choices, you could write different algorithms to take the place of ols - is that a good idea?}
+  
+OLS is one of many possible estimators for $\boldsymbol{\beta}$:
+  \begin{itemize}
+\item Should we weight some datapoints more than others?
+\item What is the right form for the cost function?
+\item Should we reduce influence of outliers?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Understanding Efficiency}
+  
+\note[item]{When you're comparing estimators, it's good to go back and review the properties that we want estimators to have.  Here's two...}
+\note[item]{One is being unbiased, and we know ols is unbiased}
+\note[item]{Another is what Statisticians call efficiency.  An estimator is efficient if it has low variance.}
+\note[item]{That really means efficient with data, getting more precision with less data.}
+\note[item]{your standard errors will be small, you'll have good precision, your hypothesis tests will be powerful...}
+
+\note[item]{Is the OLS estimator efficient?  There are some famous theorems about this.  I'm going to give you a very brief overview of two.}
+
+
+Desirable estimator properties
+\begin{itemize}
+\item Unbiased: $\E[\boldsymbol{\hat \beta}] = \E[\boldsymbol{ \beta}]$
+\item Efficient: $\V[\boldsymbol{\hat \beta}]$ is small.
+\end{itemize}
+
+
+Efficiency: More precision with less data
+
+
+\begin{itemize}
+\item Is the OLS estimator efficient?
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \begin{block}{The Gauss-Markov Theorem}
+  Under CLM 1-4, out of all estimators that are
+  \begin{enumerate}
+  \item Unbiased
+  \item Linear (of the form $\mathbb{M}\boldsymbol{Y}$ for some random matrix $\mathbb{M}$)
+  \end{enumerate}
+  OLS has the minimum variance.  \end{block}
+  
+  Remember the phrase: OLS is BLUE
+  \begin{itemize}
+\item Best
+\item Linear
+\item Unbiased
+\item Estimator
+\end{itemize}
+
+\note[item]{First, we have the famous Gauss-Markov theorem.  These guys looked at all estimators that are unbiased and also linear, meaning they can be written as some matrix times $Y$.  Our of all those estimators, ols has minimum variance.}
+\note[item]{You need the first 4 CLM assumptions for this to be true, including homoskedasticity.  Without homoskedasticity, a different algorithm, called weighted least squares is more efficient. }
+
+\end{frame}
+
+
+
+\begin{frame}
+  \begin{block}{The Rao-Blackwell Theorem}
+ Under CLM 1-5, out of all estimators that are
+  \begin{enumerate}
+  \item Unbiased
+  \end{enumerate}
+  OLS has the minimum variance.  \end{block}
+
+\note[item]{There's also the Rao-Blackwell theorem, that says that under all 5 CLM assumptions, if you look at unbiased estimators, ols has the minimum variance.}
+\note[item]{You can take these as evidence that ols is efficient.  As a data scientist, you probably don't need more reasons to use ols, you just use it.  But this is a peek at how statisticians think about estimators that can help you as you learn more statistics. }
+\note[item]{\paul{Talk about how these theorems are a little silly.  because they apply only to a very restrictive setting.}}
+\end{frame}
+
+
+
+
+\section{Reading Assignment}
+
+\begin{frame}
+  \frametitle{Reading Assignment}
+  
+Make sure you remember the material in section 5.2 through page 189.
+
+Then read the last paragraph of page 189 through 191.
+\end{frame}
+
+\section{Maximum Likelihood Estimation of the CLM}
+
+\begin{frame}
+  \frametitle{Likelihood}
+  
+  \textbf{Likelihood:} A function that takes values for a model's parameter's as inputs, and yields the probability of the (fixed) data as output.
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Maximum Likelihood Estimators}
+  
+  \textbf{If the model is true:}
+  \begin{itemize}
+\item Consistent and asymptotically efficient.
+\end{itemize}
+
+\textbf{If the model is not true:}
+\begin{itemize}
+\item Consistently estimates the parameters that minimize KL divergence.
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Maximum Likelihood Estimation of the CLM}
+\end{frame}
+
+
+\begin{frame}
+
+\begin{align*}
+\text{Data } \boldsymbol{Y}, \X.  &\text{ Find ML estimator for CLM}\\
+L(b,s |  \boldsymbol{Y}, \X) &= \prod_{i=1}^n \phi\big( Y_i, (\boldsymbol{X_ib},s^2) \big) \\
+\ln(L) &= \ln \prod_{i=1}^n \phi\big( ... \big) = \sum_{i=1}^n \ln \phi( ...) \\
+&= \sum_{i=1}^n ln  \frac{1}{s \sqrt{2 \pi}}e^{\frac{-(Y_i - \boldsymbol{X_ib})^2}{2s^2}} \\
+&= \sum_{i=1}^n \Bigg[ ln  \frac{1}{s \sqrt{2 \pi}} - \frac{(Y_i - \boldsymbol{X_ib})^2}{2s^2} \Bigg] \\
+\text{argmin} \ln(L) &= \text{argmin} \sum_{i=1}^n (Y_i - \boldsymbol{X_ib})^2. \qquad \boldsymbol{\beta_{ML} }= \boldsymbol{\beta_{OLS}}
+\end{align*}
+
+\note[item]{Conclusion: We get exactly the ols estimator.  In this case, the ML estimator and the ols estimator are the same.   This is another way that you can motivate the ols algorithm.}
+\note[item]{By the way, remember one cool fact about ML estimators.  even if the model is not true, ML will consistently find the model that's as close as possible to the true distribution, where close is defined as KL-divergence.  So that means that even if the CLM does hold, we're estimating betas that give as good as approximation as possible. }
+\note[item]{We usually prefer to use as few assumptions as possible, so this isn't our favorite way to think about ols.  But we want you to see it from this perspective, so you can connect it to the models you'll see in ML or in your advanced statistics courses.}
+\note[item]{\paul{Talk about asymptotic efficiency}}
+\end{frame}
+
+\section{Can We Believe the CLM?}
+
+\begin{frame}
+\center \textit{All models are wrong, but some are useful.}
+\flushright George Box
+  \note[item]{If we assume the CLM, then we get a lot of great statistical guarantees - guarantees that let us work with small samples.}
+\note[item]{But assumptions are not true because we want them to be true.}
+\note[item]{the CLM in particular is a parametric model - a very strict set of assumptions.  Can we really believe it?}
+\note[item]{Clearly the textbook authors are skeptics.  The repeatedly say that you can't take the CLM literally. }
+\note[item]{Alex and I think they make a good point.  Of course you should be skeptical of any model.  No model is actually TRUE - it's a model.  What's important is to examine the model and see if it reminds us of the real world, or if we can find aspects of the real world that run counter to model assumptions}
+\note[item]{But when you see strong parametric assumptions, there's not enough flexibility in the model to account for the messiness we see in the world.}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{The CLM Assumptions}
+
+\note[item]{So we think that you should indeed be skeptical of the CLM.  But it's important to qualify that statement.  First, we shouldn't lump the entire CLM in together}
+\note[item]{We provided 5 assumptions.  and as you go from top to bottom, adding one at a time, the model gets more restrictive}
+\note[item]{Remember that some guarantees require all 5 assumptions, and some don't.  unbiased coefficients only require 1-3.  and you can usually transform your data so that the linear conditional expectation assumption looks plausible.}
+\note[item]{t-Tests require all 5 assumptions, and we think that you should definitely be more skeptical about whether they're valid.}
+    \begin{enumerate}
+\item I.I.D. Data
+\item No Perfect Collinearity
+\item Linear Conditional Expectation
+\item Homoskedastic Errors
+\item Normally Distributed Errors
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{CLM as a Maximum Likelihood Estimator}
+  \begin{block}{OLS when the CLM is false}
+The OLS estimator is consistent for the parameter values that minimize KL divergence between the true distribution and the model distribution.
+\end{block}
+  \note[item]{Another important point that the authors make, is that even if the CLM is not true, it's a max likelihood estimator.}
+  \note[item]{So that means that it consistently estimates a distribution that's as close to the true distribution as possible.}
+  \note[item]{So even if the CLM is false, OLS doesn't totally give up.  It still tries to get as close as possible.  Of course, we need a somewhat large n for this to be meaningful.}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Can We Believe the CLM?}
+  
+  All models are wrong; they are, at best, approximations of reality. But, even without assuming that they are exactly true, when employed and interpreted correctly, they can nonetheless be useful for obtaining estimates of features of probability distributions.
+  \flushright \footnotesize - Aronow and Miller
+
+\end{frame}
+
+
+
+
+
+
+
+\section{Assessing the CLM assumptions - Software Demo}
+
+
+\begin{frame}
+\paul{This one will be a screenshare using R Studio}
+  
+\end{frame}
+
+
+
+\end{document}
