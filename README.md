@@ -3,9 +3,9 @@
 | Unit    | Async                        | Async                         | Sync | Sync |
 |---------|------------------------------|-------------------------------|------|------|
 | Unit 01 | [PDF](./unit_01/unit_01.pdf) | [.tex](./unit_01/unit_01.tex) |      |      |
-| Unit 02 | [PDF](./unit_01/unit_02.pdf) | [.tex](./unit_01/unit_02.tex) |      |      |
-| Unit 03 | [PDF](./unit_01/unit_03.pdf) | [.tex](./unit_01/unit_03.tex) |      |      |
-| Unit 04 |                              |                               |      |      |
+| Unit 02 | [PDF](./unit_02/unit_02.pdf) | [.tex](./unit_02/unit_02.tex) |      |      |
+| Unit 03 | [PDF](./unit_03/unit_03.pdf) | [.tex](./unit_03/unit_03.tex) |      |      |
+| Unit 04 | [PDF](./unit_04/unit_04.pdf) | [.tex](./unit_04/unit_04.tex) |      |      |
 | Unit 05 |                              |                               |      |      |
 | Unit 06 |                              |                               |      |      |
 | Unit 07 | [PDF](./unit_01/unit_07.pdf) | [.tex](./unit_01/unit_07.tex) |      |      |
