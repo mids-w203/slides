@@ -1,0 +1,13 @@
+x = seq(-2,2,.01)
+par(mfrow=c(3,1), mai = c(.3, 0.1, 0.1, 0.1))
+plot(x, dnorm(x), type='l',xlab='', ylab='', col=2, xlim=c(-2,2))
+d1 = c(-1,1)
+r1 = c(.5,.5)
+plot(d1,r1,type="h",col=2, xlab='', ylab="", xlim=c(-2,2), ylim=c(0,1))
+points(d1,r1,col=2)
+d2 = c(-.5,2)
+r2 = c(.8,.2)
+plot(d2,r2,type="h",col=2,xlab='', ylab="", xlim=c(-2,2), ylim=c(0,1))
+points(d2,r2,col=2)
+
+1- pnorm(2)
