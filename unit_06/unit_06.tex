@@ -1,0 +1,606 @@
+\documentclass[12pt, block=fill]{beamer}
+\usepackage{graphicx}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{FiraMono}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{mathtools}
+
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+\definecolor{burntOrange}{rgb}{.8, .5, .1}
+\definecolor{textgray}{rgb}{.8,.8,.8}
+\definecolor{berkeleyYellow}{HTML}{FDB515}
+
+\usepackage{dcolumn}
+
+\newcommand{\alex}[1]{\textcolor{berkeleyYellow}{#1}}
+\newcommand{\paul}[1]{\textcolor{red}{#1}}
+
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+\usetheme[
+  titleformat frame = smallcaps,
+  subsectionpage = progressbar]
+  {metropolis}
+
+\metroset{
+  block=fill
+}
+\newcommand{\E}{\text{E}}
+\newcommand{\V}{\text{V}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\indep}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+\newcommand{\bs}{\boldsymbol}
+
+\usepackage{pgfpages}
+ \setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+\begin{document}
+
+\section{Properties of Maximum Likelihood Estimators}
+
+
+\begin{frame}
+  \frametitle{Assumptions}
+
+  \begin{enumerate}
+\item   $(X_1, X_2, X_3...)$ is an infinite sequence of I.I.D. continuous random variables
+\item  $f(X|\theta)$ is a family of probability density functions, with parameter $\theta$ in a compact space
+\item if $\theta_1 \neq \theta_2$, then the resulting distributions are different ($P\big(f(X|\theta_1)/f(X|\theta_1) \neq 1 \big) >0$)
+\item $f$ is continuous in $\theta$.
+\item The log-likelihood is integrable ($\E\big[ | \ln f(X|\theta) | \big] < \infty$ for all $\theta$)
+\end{enumerate}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{MLE: Consistent when the Model is True}
+\begin{block}{Theorem: Consistency of MLE}
+If $(X_1, X_2, X_3...)$ are drawn from $f(X|\theta_t)$ for some parameter $\theta_t$, then under assumptions 1-5,
+
+$$\theta_{MLE} \overset{p}{\rightarrow} \theta_t$$
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{MLE: "Close" when the Model is False}
+\begin{block}{Theorem: MLE and KL divergence}
+If $(X_1, X_2, X_3...)$ are drawn from some distribution $g$, and $\theta_c$ minimizes the KL divergence,
+
+$$\text{KL} \big[f(\cdot| \theta) \| g  \big] = \int_{-\infty}^\infty f( x | \theta) \log \frac{ f( x | \theta)}{g(x)}dx$$
+
+Then under assumptions 1-5,
+
+$$\theta_{MLE} \overset{p}{\rightarrow} \theta_c$$
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Extra Assumptions}
+
+  \begin{enumerate}
+   \setcounter{enumi}{5}
+\item  The parameter $\theta_0$ that maximizes likelihood is in the interior of the parameter space.
+\item  Likelihood is twice continuously differentiable.
+\item  Intergration and differentiation operators are interchangeable for likelihood.
+\item The Fisher information, $I(\theta_0) = - \E[ \frac{\partial^2 }{\partial \theta^2} \ln f(X|\theta) | \theta=\theta_0]  $ exists and is nonsingular.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{MLE: Asymptotically Normal}
+  \begin{block}{Theorem: MLE is asymptotically normal}
+  Under assumptions 1-9,
+
+  $$\frac{\theta_{MLE} - \theta_0 }{\sqrt{n}} \overset{d}{\rightarrow} N\big(0,1/I(\theta_0)\big)$$
+
+
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{MLE: Asymptotically Efficient}
+    \begin{block}{Theorem: MLE is asymptotically efficient}
+      Under assumptions 1-9, $\theta_{MLE}$ is asymptotically efficient.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Summary of MLE Properties}
+  \begin{itemize}
+\item Consistent when the model is true
+\item As close as possible when the model is false
+\item Asymptotically normal
+\item Asymptotically efficient
+\end{itemize}
+
+\end{frame}
+
+
+\section{Handling Outliers}
+
+\begin{frame}
+  \frametitle{Outliers}
+
+  \begin{block}{Outlier definition}
+    An \textit{outlier} is:
+
+  \begin{itemize}
+  \item A data point that is unusual (or unlikely) \pause
+  \item With respect to some statistical model
+  \end{itemize}
+
+  \note[item]{That second part is very important: you cannot define an
+    outlier without first choosing a statistical model.  Let's see
+    this with a very simple example.}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Where is the Outlier? Part I}
+  \begin{center}
+    \includegraphics[height=.95\textheight]{figures/salary_no_summary.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Where is the Outlier? Part II}
+  \begin{center}
+    \includegraphics[height=.95\textheight]{figures/salary_linear.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Where is the Outlier? Part III}
+  \begin{center}
+    \includegraphics[height=.95\textheight]{figures/salary_exponential.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Where is the Outlier? Part IV}
+  \begin{center}
+    \includegraphics[height=.95\textheight]{figures/salary_grad.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Lessons}
+
+  \begin{itemize}
+  \item Outliers are interesting.
+  \item An outlier could be telling you something important.
+  \item \textbf{Never} remove a point just because it is an outlier.
+
+    \begin{itemize}
+    \item This is altering the data to fit your idea of what the model is.
+  \end{itemize}
+\end{itemize}
+
+\note[item]{Every blockbuster movie is about an outlier.  The jedi
+  protected the galaxy until one day one of them turned to the dark
+  side.}
+\note[item]{Outliers might be telling you something important, they
+  might guide you to a new model specification.}
+\note[item]{The thing about altering your data to fit your model is
+  that you never know for sure what the true model is - so you need to
+  approach outliers with some modesty.}
+\end{frame}
+
+\begin{frame}
+  \frametitle{How to Handle an Outlier}
+  \note[item]{This is where Alex and Paul can have a back and forth
+    conversation about these pieces.}
+  Is the outlier a coding error, measurement error, or
+  otherwise not a meaningful value from the distribution being
+  studied?
+
+  \begin{itemize}
+  \item Then, remove the outlier and document your decision.
+  \end{itemize}
+
+  Is the outlier a meaningful value?
+
+  \begin{itemize}
+  \item Do not remove the outlier.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Alternatives to Removing Outliers}
+
+  What are our options if we do \textit{not} remove outliers?
+
+  \note[item]{There are different modeling choices that you can make,
+    and outliers relative to a single model might lead us to be
+    careful and critical about refitting a different model.}
+  \note[item]{Or, you can change your data; but there is an
+    artlessness to changing the data. ``I'm just going to put it into
+    a different universe is a silly way of resolving the problem.'' }
+  \begin{enumerate}
+
+  \item Apply a log or exponential transform to represent non-linearity.
+  \item Adopt a more flexible functional form (e.g., polynomial terms).
+  \item Use indicator variables to treat outlying points separately.
+  \item Compute outlier robust statistics.
+  \end{enumerate}
+  \note[item]{You can see that the answer if complicated.  there can
+    be different models with strengths and weaknesses. This is
+    something that you'll get better at the more you dig into
+    statistics.}
+\end{frame}
+
+\section{Levels of Measurement}
+
+\begin{frame}
+  \frametitle{Measuring Soup}
+  \note[item]{As we turn our attention to working with samples, we have to be think carefully about what operations are valid for our variables}
+  \note[item]{Here's a simple example: You have a dataset that lists the type of broth ordered at a Ramen restaurant.  You can see that each point is coded as a number.  1 represents Shoyu, 2 represents Shio, 3 represents Miso.}
+  \note[item]{Now the question: what is the average ramen broth?}
+  \note[item]{Is that a sensible question?}
+  \note[item]{You take take these numbers and average them.  But would the result have any meaning?}
+  \note[item]{Well, not really, because these numbers are arbitrary.  That means that the average is not a valid operation.}
+
+\begin{columns}
+\begin{column}{0.4\textwidth}
+
+    \begin{tabular}{c  c}
+        Codebook \\
+        \hline
+  1 = Shoyu \\
+  2 = Shio \\
+  3 = Miso
+  \end{tabular}
+
+  \begin{tabular}{c | c}
+  Observation & Broth\\
+  \hline
+  1 & 1 \\
+  2 & 3 \\
+  3 & 1 \\
+  4 & 2 \\
+  5 & 1
+  \end{tabular}
+
+  \end{column}
+\begin{column}{0.6\textwidth}
+\includegraphics[width = \textwidth]{figures/ramen}
+  \end{column}
+  \end{columns}
+
+\center  \textit{What is the average broth?}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Random Variable Definition}
+\note[item]{This is something we glossed over earlier.  Our definition of a random variable was a function from a sample space to R.}
+\note[item]{When we say R, we usually mean the real numbers, but also all the operations that the numbers have.  you can add them, multiply, and so forth.}
+\note[item]{So we assumed up till now that a random variable can do all the same operations that real numbers have.}
+\note[item]{That may not make sense, we may need to restrict the things we can do.}
+
+  \begin{block}{Random Variable}
+  Given probability space $(\Omega, S, P)$, a \textit{random variable} is a measurable function from $\Omega$ to  $\mathbb{R}$.
+  \end{block}
+\begin{itemize}
+\item $\R$ usually means real numbers with field operations ($+,-,\cdot,...$).
+\item Some operations may not be sensible.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Levels of Measurement}
+
+  \center
+  \begin{tabular}{c | c}
+  Level & Operations \\
+  \hline
+  Nominal & = \\
+  Ordinal & $<,=,>$ \\
+  Interval & $-$, average, weighted average \\
+  Ratio & All arithmetic operations
+  \end{tabular}
+\footnotesize \flushright  - Stanley Smith Stevens
+
+  \note[item]{To make sense of this, statisticians have divided variables into classes.}
+  \note[item]{Another word for these is levels of measurement.  They define the operations that are sensible for a random variable}
+  \note[item]{There are a lot of ways to do this, and a lot of classification schemes.  I'm going to show you the most famous one, which was developed by pychologist Stanley Smith Stevens}
+  \note[item]{Stevens defined 4 types of variables.  This is roughly hierarchy, a variable close to the bottom usually has all the operations above it.  It doesn't describe every possible structure that a variable could have.  But it's still useful 95\% of the time.}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Nominal Variables}
+  \note[item]{When you hear nominal, think about the ramen example.  We had broths that aren't related to each other.  We couldn't add them together, we can't even compare them and say that miso is greater than Shoyu.  All we can do is check if two broths are equal or not equal.}
+  \note[item]{So a bit more formally, nominal means that we have an equality operator that we can use to compare datapoint.}
+  \note[item]{But that may be the only operation.  Often when we say nominal colloquially, that's what we mean, no other operations.}
+  \note[item]{You can't use less than or greater than.  you can't add, subtract, multiply.}
+
+  A \textit{nominal variable} defines categories
+
+    \begin{itemize}
+\item Can check if two values are \textbf{equal} or \textbf{not equal}
+\end{itemize}
+
+
+
+  \begin{columns}
+\begin{column}{0.45\textwidth}
+Other operations may not be defined
+
+ \begin{itemize}
+\item $<,>$
+\item $+,-,\cdot, /$
+\end{itemize}
+
+  \end{column}
+\begin{column}{0.55\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/ramen}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{What Can You Do with Nominal Variables?}
+  \note[item]{What can do you with nominal variables?  One thing you can do is count.  You can generate a table to see how many customers order each type of broth, and then you can analyze that table.}
+  \note[item]{Pretty much any analysis you do starts with counting.}
+
+  \begin{columns}
+\begin{column}{0.45\textwidth}
+ Valid:
+\begin{itemize}
+\item Value Counts
+\item Mode
+\end{itemize}
+
+Requires more structure:
+\begin{itemize}
+\item Median
+\item Mean
+\item Variance
+\end{itemize}
+
+  \end{column}
+\begin{column}{0.55\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/ramen}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Ordinal / Rank Variables}
+  \note[item]{For an example, think of this vintage love meter.}
+  \note[item]{There are categories, and they have an order.  Burning > Wild, and Wild > Mild.}
+  \note[item]{That means that we can use $<,>$.}
+  \note[item]{But an ordinal variable still doesn't allow arithmetic - no $+,-,\cdot, /$ no averaging}
+  \note[item]{Why not?  You don't know how big the intervals are between the categories}
+  \note[item]{If I ask you whether Burning - Wild is the same as Wild - Naughty but Nice, you can't tell.}
+  \note[item]{You can guess, but there's no scientific way to know which interval is bigger.}
+  \note[item]{Similarly, what's the average of Wild and Mild?  There's no way to know}
+
+\note[item]{What can you do with ordinal variables?  One important thing is you can compute a median.  The median only uses the rank properties, so it's valid.}
+\note[item]{You can compute other quantiles.  you can compute probabilities of getting a Wild score on this machine.}
+
+\vspace{.2cm}
+      \begin{columns}
+\begin{column}{0.45\textwidth}
+
+    An \textit{ordinal variable} defines categories that have an order.
+
+\begin{itemize}
+\item Can apply $<,=,>$
+\end{itemize}
+
+Intervals may not be meaningful.
+
+\begin{itemize}
+\item No $+,-,\cdot,/$
+\end{itemize}
+
+
+
+  \end{column}
+\begin{column}{0.53\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/love_tester}
+  \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{What Can You Do with Ordinal Variables?}
+        \begin{columns}
+\begin{column}{0.45\textwidth}
+
+
+Valid:
+\begin{itemize}
+\item Median, Quantiles
+\item Probabilities that A > B, etc.
+\end{itemize}
+
+Requires more structure:
+\begin{itemize}
+\item Mean
+\item $+,-,\cdot, /$
+\item Notions of "shape" of distribution
+\end{itemize}
+
+  \end{column}
+\begin{column}{0.53\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/love_tester}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Likert Scales}
+
+\note[item]{Here's a slightly controversial example: a Likert scale}
+\note[item]{You've probably seen one: This is a type of survey instrument, in which a participant evaluates a statement.}
+\note[item]{Most often the answers range from strongly disagree, to strongly agree}
+\note[item]{What kind of variable is this?  There's an order, 5 is bigger than 4, 4 is bigger than 3.}
+\note[item]{But what about the intervals?  Is the difference between Strongly Agree and Agree, the same as between Agree and Neutral?  Maybe, maybe not.  We can guess, but there's no scientific way to argue for that.}
+\note[item]{So I would say that this is an ordinal variable.}
+\note[item]{If you look at articles, you'll that see a lot of people report means for Likert variables - not supposed to!}
+\note[item]{Some people will argue that that's ok, that we can believe the intervals are close enough.}
+\note[item]{You can argue one way or the other, but for this class, we want you to be conservative.  If you see a variable like this, it's ordinal, so do not take the mean.}
+
+  \textit{The interface was easy to navigate}
+ \center \begin{tabular}{|p{1.7cm}|p{1.6cm}|p{1.6cm}|p{1.6cm}|p{1.6cm}|}
+Strongly Disagree & Disagree & Neutral & Agree & Strongly Agree \\
+\hline
+1 & 2 & 3 & 4 & 5
+  \end{tabular}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Interval / Metric Variables}
+
+  \note[item]{Next, we have Interval Variables.}
+  \note[item]{For an example, think of a temperature scale.}
+  \note[item]{There is a rank order, but intervals can be compared.  20-10 = 10-0}
+  \note[item]{That means we can subtract.  we can also average points together.  This is what we call the affine structure of R.}
+  \note[item]{But the zero point isn't really meaningful. (at least that's true for Celsius.  If you work with Kelvin, the zero has a meaning).}
+  \note[item]{If it's 80 degrees one day and 85 the next, you can't add them together - the result isn't meaningful.  that's because if you move the zero point, you get a different result.}
+  \note[item]{Also no $\cdot, /$, logs, etc}
+
+
+      \begin{columns}
+\begin{column}{0.45\textwidth}
+
+    An \textit{interval variable} defines categories with consistent intervals
+
+\begin{itemize}
+\item Can apply $-$, average
+\end{itemize}
+
+May have no notion of zero
+
+\begin{itemize}
+\item No $+,\cdot,/$
+\end{itemize}
+
+  \end{column}
+\begin{column}{0.53\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/thermometer}
+  \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{What Can You Do with Interval Variables?}
+
+
+
+      \begin{columns}
+\begin{column}{0.45\textwidth}
+Valid:
+
+\begin{itemize}
+\item Mean
+\item Variance
+\item Most common statistics
+\end{itemize}
+
+Requires more structure:
+\begin{itemize}
+\item Log
+\item Root-Mean-Square
+\end{itemize}
+
+
+
+  \end{column}
+\begin{column}{0.53\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/thermometer}
+  \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Ratio Variables}
+
+
+
+        \begin{columns}
+\begin{column}{0.45\textwidth}
+
+\note[item]{Finally, we have a ratio variable.  for an example, think about money.}
+\note[item]{money amounts have meaningful intervals.  An extra dollar is always an extra dollar.}
+\note[item]{And there's a meaningful zero point - zero dollars really represents zero}
+\note[item]{You can look at ratios.  a 10\% raise means something.}
+\note[item]{This means that you have the entire structure of the real numbers as a field.  so all possible operations are valid.}
+
+    A \textit{ratio variable} defines categories with consistent intervals and a meaningful zero.
+
+    \begin{itemize}
+\item Can apply all arithmetic operations.
+\end{itemize}
+
+
+  \end{column}
+\begin{column}{0.53\textwidth}
+\vspace{.5cm}
+\includegraphics[width = \textwidth]{figures/money}
+  \end{column}
+  \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Levels of Measurement}
+
+  \center
+  \begin{tabular}{c | c}
+  Level & Operations \\
+  \hline
+  Nominal & = \\
+  Ordinal & $<,=,>$ \\
+  Interval & $-$, average, weighted average \\
+  Ratio & All arithmetic operations
+  \end{tabular}
+\footnotesize \flushright  - Stanley Smith Stevens
+
+  \note[item]{As we go forward, most of our statistical techniques will require one of these levels of measurement}
+  \note[item]{Those are important assumptions, and we'll try to highlight them for you.}
+\end{frame}
+
+
+\end{document}
