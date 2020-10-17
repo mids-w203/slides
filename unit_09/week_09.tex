@@ -46,9 +46,9 @@
 \newcommand{\indep}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
 
 \usepackage{pgfpages}
-%\setbeameroption{hide notes} % Only slides
+\setbeameroption{hide notes} % Only slides
 % \setbeameroption{show only notes} % Only notes
- \setbeameroption{show notes on second screen=right} % Both
+% \setbeameroption{show notes on second screen=right} % Both
 
 \begin{document}
 
@@ -91,7 +91,7 @@
 \begin{frame}
 \frametitle{The Regression Algorithm}
   
-\center \textbf{ Idea: Draw a line given a sample of data}
+\center \textbf{Idea: Draw a line given a sample of data}
 
 \note[item]{ So regression is absolutely foundational to modern data science.}
 
@@ -127,9 +127,7 @@ Under what assumptions?
 \note[item]{You can think of this unit as covering the mechanics of linear regression.  The algorithm itself, statistical assumptions, and statistical guarantees.  This is a foundation, and later on, we'll move on to applications.  let's get started.}
 \end{frame}
 
-
 \section{Unit Plan}
-
 
 \begin{frame}
   \frametitle{Goals of This Week}
@@ -151,7 +149,6 @@ Under what assumptions?
     produce estimates through a brute-force, numeric optimization
     route.}
 \end{frame}
-
 
 \section{Reading: The Golem of Prague}
 
@@ -234,8 +231,6 @@ Under what assumptions?
   \note[item]{But, on the other hand...} 
 \end{frame}
 
-  
-
 \section{Elements of a Linear Model}
 
 \begin{frame}
@@ -307,7 +302,8 @@ Under what assumptions?
 
 \begin{frame}
   \frametitle{A Linear Model Example}
-    \begin{block}{Brunch in Berkeley}
+
+  \begin{block}{Brunch in Berkeley}
     \[
       \widehat{\text{Avocados}} = 2 + 1 \cdot \text{Lemons} + 2 \cdot
       \text{Loaves\_Bread}
@@ -346,8 +342,6 @@ Under what assumptions?
 
 \end{frame}
 
-
-
 \section{Metric Inputs}
 
 \begin{frame}[t]
@@ -368,26 +362,25 @@ Under what assumptions?
     very important.  This is ONLY true if the other $X$'s are held
     constant.}
   
-\[
+  \[
     \hat{Y} =\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_k X_k
-    % \frac{\partial \hat{Y}}{\partial X_i} &= \beta_i\\
-    % \Delta \hat{Y} &= \beta_{i} \cdot \Delta X_{i}
   \]
-  \vspace{0.5em} 
+
+  \vspace{0.5em}
   \begin{block}{Interpretation of coefficients}
     \begin{itemize}
-    \item If $X_{i}$ changes by $\Delta X_{i}$ units, the predicted value
+      \item If $X_{i}$ changes by $\Delta X_{i}$ units, the predicted value
       of the target, $\hat{Y}$ changes by $\beta_{i} \cdot \Delta X_{i}$
       units.
-    \item If $X_{i}$ and $X_{j}$ change by $\Delta X_{i}$ and $\Delta
+      \item If $X_{i}$ and $X_{j}$ change by $\Delta X_{i}$ and $\Delta
       X_{j}$ respectively, then the predicted value of the target,
-      $\hat{Y}$ changes by $\beta_{i} \cdot \Delta X_{i} + \beta_{j} +
-      \Delta X_{j}$.
+      $\hat{Y}$ changes by $(\beta_{i}\Delta X_{i}) + (\beta_{j}
+      \Delta X_{j})$.
     \end{itemize} 
     \textbf{Ceteris paribus:} all else equal
-  \end{block} 
+  \end{block}
 \end{frame}
-  
+
 
 \begin{frame}
   \frametitle{Interpreting Model Coefficients: Example}
@@ -400,7 +393,7 @@ Under what assumptions?
   \]
  
  \centering
- \centering
+
  \includegraphics[width = .6 \textwidth]{images/peacock}\\
   \vspace{-.3cm} \scalebox{.5}{Photo by Thimindu Goonatillake CC BY-SA
     2.0}
@@ -420,13 +413,31 @@ Under what assumptions?
     faster.} 
 \end{frame}
 
-
 \section{Categorical Inputs}
 
-\begin{frame}
-\paul{Alex fills in this section}
+\begin{frame}[t]
+  \frametitle{Categorial Inputs, Part I}
+  What if, rather than \textit{numeric} inputs, we had \textit{categorical} inputs?
+  \begin{itemize}
+    \item Information that says it belongs to one category or another, but doesn't provide a value to that category?
+    \item \textbf{Reminder}: There are four ``levels'' of information -- (1) Categorical; (2) Ordinal; (3) Interval; (4) Ratio
+  \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Categorical Inputs, Part II}
+  How is this represented in a model?
+  \begin{itemize}
+    \item The model aims only to distinguish one category from another, and so switches from stacked \textit{labels} to \textit{one-hot encoded}, or \textit{dummy} variables.
+    \item Practically, in this model, one of the labels is identified as the \textit{baseline}, \textit{default}, or \textit{omitted} category
+    \item Indicators for \textit{alternate} levels mark changes from the baseline to the alternate level. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Categorical Inputs, Part II}
+
+\end{frame} 
 
 \section{Learnosity: Interpreting Model Weights}
 
@@ -444,11 +455,7 @@ Under what assumptions?
   \end{itemize} 
 \end{frame}
 
-
 \section{Part 2: Selecting a Linear Model with OLS}
-
-
-
 
 \section{OLS is Regression for Estimating the BLP}
 
@@ -856,14 +863,10 @@ Different statistical guarantees
 \section{The Bivariate OLS Solution}
 
 \begin{frame}
- Bring in content from old version of course:
+ Existing Content (in distinct format) 
  
  9.5 Deriving the Bivariate OLS Estimators
  
- \paul{Alex, note that the notation isn't perfectly aligned.  but I
-   think on the balance, this is probably still better than the
-   iPad scribble that would replace it.} 
-
 \end{frame}
 
 
@@ -1439,34 +1442,74 @@ The BLP is unique:
 \end{frame}
 
 
-\section{Robust Standard Errors}
+% \section{Robust Standard Errors}
+
+% \begin{frame}
+%  \paul{You might want to split this segment into 2: one show the equation for $V[\beta_j]$, pointing out unique variation, error variance, etc, then another segment to talk about estimation with robust standard errors.}
+% \end{frame}
+
+\section{Robust Standard Errors} 
 
 \begin{frame}
- \paul{You might want to split this segment into 2: one show the equation for $V[\beta_j]$, pointing out unique variation, error variance, etc, then another segment to talk about estimation with robust standard errors.}
+  \frametitle{Robust Standard Errors, Part I}
+
+  \begin{itemize}
+    \item Regression coefficients are random variables
+    \item As such, they have sampling variance, just as any other realized random variable
+    \item Recall you've used the sampling variance of the sample mean, $\hat{V}[\overline{X}]$, and the related concept, the standard error of the sample mean, $\hat{\sigma}[\overline{X}] = \sqrt{\hat{V}[\overline{X}]}$.
+    \item Here, we introduce the equivalent concept in OLS regression:  $\hat{\sigma}[\hat{\beta}_{k}] = \sqrt{\hat{V}[\hat{\beta}_{k}]}$
+  \end{itemize}
 \end{frame}
 
+\begin{frame}[t]
+  \frametitle{Robust Standard Errors, Part II}
+
+  \begin{itemize}
+    \item On the bottom of page 152, the authors seem to, from nowhere, divine the statement
+  \end{itemize}
+
+  \[
+    \left( E[X^{T}X]\right)^{-1} E[\epsilon^{2}X^{T}X] \left( E[X^{T}X]\right)^{-1}
+  \]
+
+  \begin{itemize}
+      \item Let's slow that down just a little bit. 
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
-  \frametitle{Robust Standard Errors} 
-  
+  \frametitle{Robust Standard Errors, Part III}
 
-  
-  \textbf{Note:} Lightboard of how changes in data shape increase and decrease the
-  errors of regression
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{Robust Standard Errors, Part IV}
+
   \begin{itemize}
-  \item More data
-  \item More variance in X
-  \item More unique variance in X
-  \item Possible demo of bootstrapping
-  \end{itemize} 
+    \item What information is contained in: $X^{T}X$?
+  \end{itemize}
+
+
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{Robust Standard Errors, Part V}
+
+  \begin{itemize}
+      \item How do changes in data \textit{shape} increase or decrease the standard errors of regression coefficients?
+  \end{itemize}
+
+  % \begin{itemize}
+  %   \item More data
+  %   \item More variance in X
+  %   \item More unique variance in X
+  %   \item Possible demo of bootstrapping
+  % \end{itemize}
 
   % Show bootstrapping uncertainty here! 
   % Straight to the Matrix Algebra formulation of this \hat{beta} = \frac{X'Y}{X'X}
 
 \end{frame}
-
-
-
 
 \section{Hypothesis Tests}
 
