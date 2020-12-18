@@ -1,0 +1,536 @@
+---
+title: "Classic Linear Model: Assessment and Response"
+author: "203 Statistics for Data Science"
+output: 
+  revealjs::revealjs_presentation: 
+    transition: fade
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message=FALSE)
+
+library(tidyverse)
+library(patchwork)
+
+knitr::opts_chunk$set(message=FALSE)
+theme_set(theme_minimal())
+```
+
+```{r make data, include=FALSE}
+make_linear_data <- function(n_observations=100) {
+  ## this makes simple linear data 
+  d <- data.frame(
+    id = 1:n_observations, 
+    x = runif(n = n_observations, min = -5, max = 5)) %>% 
+    mutate(
+      y = 2 + x + rnorm(n = n_observations)
+    )
+} 
+
+make_squared_data <- function(n_observations=100) { 
+  ## this makes simple data that is quadratic in x 
+  d <- data.frame(
+    id = 1:n_observations, 
+    x = runif(n = n_observations, min = -5, max = 5)) %>% 
+    mutate(
+        y = 2 + 3 * x + x^2 + rnorm(n = n_observations)
+    )
+  }
+```
+
+# Assessing the Classic Linear Model 
+
+## Assumptions 
+
+The *five* CLM Assumptions are: 
+
+1. IID (i.e. Random) Sampling 
+2. Linear Conditional Expectation
+3. No Perfect Collinearity 
+4. Homoskedastic Conditional Variance (Constant Conditional Variance)
+5. Normally Distributed Errors
+
+# IID Sampling (Assumption 1)
+## Assessing whether the data is IID 
+
+- Assessing random sampling comes from analysis of the *design* not from the data   
+- What is the *reference population*? 
+  - Practically, "How did was the reference population sampled to generate data?"
+  - Could people *select* to answer a survey? 
+  - Were only new hires surveyed? Was there some other "sorting" in the sampling process? 
+  - Did we examine only the riskiest or most promising leads? 
+
+## Assessing whether the data is IID 
+- Are units that are closer to one another more similar than those that are further 
+  - Did the sampling process identify "clusters" of data? 
+  - Close could be physical distance, social distance, or another metric 
+
+## Consequences of non-IID sampling
+
+- If data isn't **independent** -- "clusters" 
+  - The data generated in that sample holds less information than an independent sample
+  - We can still learn from the data
+    - But what we learn holds no guarantees about the population
+    - Instead, informative of the clusters 
+  - Measures of uncertainty due to sampling that do not acknowledge the clustering will be wrong
+
+## Consequence of non-IID sampling
+- If the data isn't **identically distributed** 
+  - Most of our statistics are *fundamentally* challenged. 
+
+## Responding to non-IID sampling
+- Get new data, not more data 
+- Design or use *a new sampling process* 
+- If a new process isn't possible: 
+  - Acknowledge that the data cannot answer your research question, and re-form the question
+  - Adjust measures of uncertainty to reflect the clustered nature of the data generating process 
+  
+# Linear Conditional Expectation (Assumption 2)
+## Assessing linear conditional expectation, I
+
+- It feels like to check whether we have a linear conditional expectation, we should look at the `X` values. 
+- If we have *very* low dimensional data this might be possible, but a more sound approach is to examine the *residuals*. 
+- Assessing linear conditional expectation is a non-dispositive, but potentially useful test 
+  - If you *reject the null* you've got good evidence that your data is *not* distributed according to your model. 
+  - But, you could try to transform the data!  
+  
+## Assessing linear conditional expectation, II
+
+- Assessing linear conditional expectation in low-dimensional space
+
+```{r, echo = TRUE}
+make_linear_data
+```
+
+## Assessing linear conditional expectation, II
+
+- Assessing linear conditional expectation in low-dimensional space
+
+```{r plot, message=FALSE, echo = TRUE}
+d_linear <- make_linear_data(n_observations = 100)
+
+model_1 <- lm(y ~ x, data = d_linear)
+
+d_linear <- d_linear %>%  
+  mutate(model_1_residuals = resid(model_1))
+
+plot_1 <- d_linear %>%  
+  ggplot(aes(x = x, y = y)) + 
+  geom_point() + geom_smooth(method = 'lm')
+
+plot_2 <- d_linear %>%  
+  ggplot(aes(x = x, y = model_1_residuals)) + 
+  geom_point() + stat_smooth(se = TRUE)
+```
+
+## Assessing linear conditional expectation, II
+
+- Assessing linear conditional expectation in low-dimensional space
+
+```{r, message=FALSE}
+plot_1 | plot_2
+```
+
+## Assessing linear conditional expectation, III
+
+- What does it look like when things are wrong? 
+
+```{r}
+make_squared_data
+```
+
+## Assessing linear conditional expectation, III
+
+- What does it look like when things are wrong? 
+
+```{r, echo = TRUE}
+d_squared <- make_squared_data(n_observations = 100)
+
+model_2 <- lm(y ~ x, data = d_squared)
+
+d_squared <- d_squared %>%  
+  mutate(model_2_residuals = resid(model_2))
+
+plot_3 <- d_squared %>%  
+  ggplot(aes(x = x, y = y)) + 
+  geom_point() + geom_smooth(method = 'lm')
+
+plot_4 <- d_squared %>%  
+  ggplot(aes(x = x, y = model_2_residuals)) + 
+  geom_point() + stat_smooth()
+```
+
+## Assessing linear conditional expectation, III
+
+```{r, message = FALSE}
+plot_3 | plot_4
+```
+
+## Consequences of a non-linear conditional expectation
+
+- The model you have fitted that assumes the data is linear
+- The model you have fitted is still the best **linear** predictor
+- But, the estimated coefficient does not match the relationship in the data
+  1. There are other families of nonlinear models that are more efficient
+  2. Linear relationships don't *fully* model the complexity of the data
+  3. Prediction (and inference) can be improved with more complexity
+
+## Assessing non-linear conditional expectation in higher-dimensional space 
+
+- Much harder for *humans* to assess in higher-dimensional space 
+- Capture that space through predictions, and plot a **predictions vs. residuals** plot 
+
+```{r}
+d_linear <- d_linear %>% 
+  mutate(model_1_prediction = predict(model_1)) 
+
+d_squared <- d_squared %>% 
+  mutate(model_2_prediction = predict(model_2))
+```
+
+## Assessing non-linear conditional expectation in higher-dimensional space 
+
+- Using predictions and residuals is a general approach to evaluate CLM assumption 2 in higher-dimensions
+
+```{r, echo = TRUE}
+plot_5 <- d_linear %>%  
+  ggplot(aes(x = model_1_prediction, y = model_1_residuals)) + 
+  geom_point() + stat_smooth() + 
+  labs(title = 'There is a linear relationship')
+
+plot_6 <- d_squared %>% 
+  ggplot(aes(x = model_2_prediction, y = model_2_residuals)) + 
+  geom_point() + stat_smooth() + 
+  labs(title = 'There is a non-linear relationship')
+```
+
+## Assessing non-linear conditional expectation in higher-dimensional space 
+
+```{r, message=FALSE}
+(plot_1 | plot_3) / 
+(plot_5 | plot_6)
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+
+- What happens when there actually **is** more complexity in the data? 
+
+```{r, echo = TRUE}
+d_higher_dimensions <- make_squared_data(n_observations = 100) %>% 
+  mutate(
+    x2 = runif(n = rep(1, n()), min = x+0, max = x+10), 
+    x3 = runif(n = n(), min = 0, max = 10)) %>%  
+  mutate(
+    y = 10 + x + x2^2 - x3 - x3^3 + rnorm(n = n())
+  )
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+
+- How should we plot the X's and Y to examine linearity?
+- What if we model using one dimension, but there are many in the data? 
+
+```{r, echo = TRUE}
+model_3 <- lm(y ~ x, data = d_higher_dimensions)
+
+d_higher_dimensions <- d_higher_dimensions %>% 
+  mutate(    
+    model_3_predictions = predict(model_3), 
+    model_3_residuals   = resid(model_3)
+    )
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we model using one dimension, but there are many in the data? 
+
+```{r echo = TRUE, message = FALSE}
+plot_model_3a <- d_higher_dimensions %>%  
+  ggplot(aes(x = x, y = model_3_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_3b <- d_higher_dimensions %>% 
+  ggplot(aes(x = x2, y = model_3_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_3c <- d_higher_dimensions %>% 
+  ggplot(aes(x = x3, y = model_3_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_3d <- d_higher_dimensions %>%  
+  ggplot(aes(x = model_3_predictions, y = model_3_residuals)) + 
+  geom_point() + stat_smooth()
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we model using one dimension, but there are many in the data? 
+
+```{r} 
+(plot_model_3a | plot_model_3b) / (plot_model_3c | plot_model_3d)
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we measure all the dimensions, but do not get the *form* correct? 
+
+```{r echo = TRUE, message = FALSE}
+model_4 <- lm(y ~ x + x2 + x3, data = d_higher_dimensions)
+
+d_higher_dimensions <- d_higher_dimensions %>%  
+  mutate(
+    model_4_predictions = predict(model_4), 
+    model_4_residuals   = resid(model_4)
+    )
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we measure all the dimensions, but do not get the *form* correct? 
+
+
+```{r echo = TRUE, message = FALSE}
+plot_model_4a <- d_higher_dimensions %>%  
+  ggplot(aes(x = x, y = model_4_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_4b <- d_higher_dimensions %>% 
+  ggplot(aes(x = x2, y = model_4_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_4c <- d_higher_dimensions %>% 
+  ggplot(aes(x = x3, y = model_4_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_4d <- d_higher_dimensions %>%  
+  ggplot(aes(x = model_4_predictions, y = model_4_residuals)) + 
+  geom_point() + stat_smooth()
+```
+
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we measure all the dimensions, but do not get the *form* correct? 
+
+```{r} 
+(plot_model_4a | plot_model_4b) / (plot_model_4c | plot_model_4d)
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we measure all the dimensions, **and** get the form correct?
+
+
+```{r, echo = TRUE}
+model_5 <- lm(y ~ x + x2 + I(x2^2) + x3 + I(x3^3), data = d_higher_dimensions)
+
+d_higher_dimensions <- d_higher_dimensions %>%  
+  mutate(
+    model_5_predictions = predict(model_5), 
+    model_5_residuals   = resid(model_5))
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we measure all the dimensions, **and** get the form correct?
+
+```{r echo = TRUE, message = FALSE}
+plot_model_5a <- d_higher_dimensions %>%  
+  ggplot(aes(x = x, y = model_5_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_5b <- d_higher_dimensions %>% 
+  ggplot(aes(x = x2, y = model_5_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_5c <- d_higher_dimensions %>% 
+  ggplot(aes(x = x3, y = model_5_residuals)) + 
+  geom_point() + stat_smooth()
+
+plot_model_5d <- d_higher_dimensions %>%  
+  ggplot(aes(x = model_5_predictions, y = model_5_residuals)) + 
+  geom_point() + stat_smooth()
+```
+
+## Assessing linear conditional expectation in higher-dimensional space 
+- What if we measure all the dimensions, **and** get the form correct?
+
+```{r} 
+(plot_model_5a | plot_model_5b) / (plot_model_5c | plot_model_5d)
+```
+
+# No Perfect Collinearity  (Assumption 3) 
+## What is Perfect Collinearity  
+
+- If one data series can be produced *exaclty* through a simple transformation of other data series, then the data is collinear. 
+- For example, within the population of MIDS students suppose we have two variables 
+
+```
+mids <- data.frame(
+  alumni = 1,  # if graduated  
+  enrolled = 1 # if presently enrolled (i.e. not graduated)
+)
+```
+
+```{r echo = FALSE}
+d <- data.frame(
+  alumni = sample(0:1, size = 100, replace = TRUE)) %>% 
+  mutate(enrolled = 1 - alumni) %>% 
+  mutate(free_time = 1 + 20 * alumni + rnorm(100))
+```
+
+
+## Why is Perfect Collinearity  a Problem? 
+- To which of the variables should we assign the covariance? 
+- System has two variables and two equations -- non-unique solution
+
+
+## Assessing Perfect Collinearity  
+- **Perfect** Collinearity  is easy to spot
+- Regressions won't run, or will drop a feature
+
+```{r}
+colinear_model <- lm(free_time ~ alumni + enrolled, data = d)
+summary(colinear_model)
+```
+
+## Assessing Near Perfect Collinearity  
+- **Nearly Perfect** Collinearity  is *harder* to spot
+- Regressions will have large standard errors on colinear features.
+- [For example](https://stats.stackexchange.com/questions/3549/why-is-it-possible-to-get-significant-f-statistic-p-001-but-non-significant-r/14528#14528), this conversation with Will Huber over on Stack Overflow.
+
+```{r, echo = TRUE}
+right_shoe_size <- 3:10 #Right shoe size
+left_shoe_size  <- rnorm(right_shoe_size, right_shoe_size, 0.1) #Left shoe size - similar to RSS
+cor(right_shoe_size, left_shoe_size) #correlation ~ 0.99
+
+height <- 4 + 0.5 * rnorm(right_shoe_size, 10*right_shoe_size, 10)
+```
+
+## Assessing Near Perfect Collinearity  
+
+```{r}
+##Fit a joint model
+model <- lm(height ~ left_shoe_size + right_shoe_size)
+summary(model)
+```
+
+```{r} 
+##Fitting RSS or LSS separately gives a significant result. 
+summary(lm(height ~ right_shoe_size))
+```
+
+## Addressing Near Perfect Collinearity  
+
+- A few options that all sound easy, but in practice require some care
+
+1. **Use less data** -- drop the redundent features 
+2. **Use less data but keep information** -- use some form of dimension reduction (i.e. PCA, factor analysis, or other) to produce a lower-dimension representation of the nearly colinear data
+
+# Homoskedastic Conditional Variance (Assumption 4)
+
+- When data has different conditional variance we say that it is *heteroskedastic*. 
+- Beginning in our large sample regression unit, we've estimated standard errors that are responsive to non-constant error variance 
+
+## What causes heteroskedastic variance? 
+
+- Changes in reporting over time
+- Changes in variance at different levels within a panel 
+- Model misspecification
+- Skewness, or long tails in data 
+
+## What are the consequences of heteroskedastic variance? 
+
+1. **Classical Standard Errors are Wrong**  (They are biased!)
+2. **CLM can be improved upon** for producing estimates of coefficients (but beyond this class). 
+
+## Types of tests 
+
+- Two forms of test -- ocular and statistical
+- **Eye test** -- look for "fanning out of data" across the predicted values. 
+- **Statistical test** the *Breusch-Pagan* test *does* come with a p-value
+
+## Ocular Test 
+
+```{r echo = TRUE}
+d <- data.frame(
+  id = 1:100, 
+  x = sort(runif(n = 100, min = 0, max = 1))) %>% 
+  mutate(
+    y_hetero = 1 + 2 * x + rnorm(n = 100, mean = 0, sd = seq(from =  0.1, to = 10, length.out = 100)),
+    y_homo   = 1 + 2 * x + rnorm(n = 100, mean = 0, sd = 5)
+  )
+  
+```
+
+```{r}
+model_6 <- lm(y_hetero ~ x, data = d) 
+model_7 <- lm(y_homo   ~ x, data = d)
+
+d <- d %>% 
+  mutate(
+    model_6_predictions = predict(model_6), 
+    model_6_residuals   = resid(model_6),
+    model_6_residuals2  = resid(model_6) ^ 2, 
+    model_7_predictions = predict(model_7), 
+    model_7_residuals   = resid(model_7),
+    model_7_residuals2  = resid(model_7) ^ 2, 
+  )
+```
+
+## Occular Test
+
+```{r}
+plot_hetero <- d %>% 
+  ggplot(aes(x = model_6_predictions, y = model_6_residuals)) + 
+  geom_point()
+
+plot_homo <- d %>% 
+  ggplot(aes(x = model_7_predictions, y = model_7_residuals)) + 
+  geom_point()
+```
+
+```{r}
+plot_hetero | plot_homo
+```
+
+
+## Breusch-Pagan test, by hand  
+
+- What does this result look like when we *should* reject the null? 
+
+```{r, echo = TRUE}
+model_restricted_hetero   <- lm(model_6_residuals2 ~ 1, data = d)
+model_unrestricted_hetero <- lm(model_6_residuals2 ~ 1 + x, data = d)
+
+anova(model_restricted_hetero, model_unrestricted_hetero)
+```
+
+## Breusch-Pagan test, by can 
+
+- What does this result look like when we *should* reject the null? 
+
+```{r, echo = TRUE}
+lmtest::bptest(model_unrestricted_hetero)
+```
+
+## Breusch-Pagan test, by hand  
+
+- What does this result look like when we *should* reject the null? 
+
+```{r, echo = TRUE}
+model_restricted_homo   <- lm(model_7_residuals2 ~ 1, data = d)
+model_unrestricted_homo <- lm(model_7_residuals2 ~ 1 + x, data = d)
+
+anova(model_restricted_homo, model_unrestricted_homo)
+```
+
+## Breusch-Pagan test, by can 
+
+- What does this result look like when we *should* reject the null? 
+
+```{r, echo = TRUE}
+lmtest::bptest(model_unrestricted_homo)
+```
+
+## General Comments 
+
+- Tests rely on satisfying an earlier CLM assumption -- namely that we have linear conditional expectation -- that our model is correctly specified 
+  - What might looks like heteroskedasticity might instead be a result of a poorly specified model. 
+- In order for the problem of non-constant conditional variance to be its most acute problem, the 
+- While non-constant variance is a this is a problem, and leads us to estimate incorrect standard errors, easily solved using robust standard errors. 
+- One solution -- that are out of scope for this class -- referred to a weighted-least squares *up-weight* the areas of data that are measured relatively more accurately and *down-weight* the areas of data that are measured less accurately
