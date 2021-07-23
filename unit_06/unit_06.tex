@@ -32,6 +32,126 @@
 % \maketitle
 % \end{frame}
 
+
+
+%Begin Edits
+\section{Historical Development of Frequentist Statistics}
+\begin{frame}
+  \frametitle{Introduction}
+  \begin{itemize}
+    \item Hypothesis, H, is a model for how the world might work
+    \item In practice, evidence is rarely conclusive
+    \item We want $Pr(H|D)$, or the probability of the event that our hypothesis is true
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{The Dilemma}
+     Whether our hypothesis is true is something we can never know 
+  \begin{itemize}
+    \item The world is not a perfectly controlled lab
+    \item Evidence collected contains information but does not begin to identify a unique model out of all the possible models
+    \item We do not know how to weight all the possibilities out there
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 1}
+  \begin{exampleblock}{You flip a coin once and it lands on heads}
+    What is the probability that it is a double-headed coin?
+  \end{exampleblock}
+  \textit{Is there enough information to answer this?}
+  \begin{itemize}
+    \item How did the coin get there?
+    \item The context is missing:
+    \begin{itemize}
+        \item How do we choose between the different models?
+        \item How do we weight all the alternatives?
+    \end{itemize}  
+    \item Even with more information, you can never know the context completely
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 2}
+  \begin{exampleblock}{Isaac Newton}
+    Both motions are consistent with a gravitation attraction that is proportional to the square of the distance between the objects
+  \end{exampleblock}
+    \begin{itemize}
+        \item What is the probability that Newton's theory of gravity is correct?
+        \item \textbf{Problem:} Newton's second theory seemed to work up to the precision of 17th-century instruments
+        \item Only later were instruments developed that were precise enough to show Newton's laws were incorrect
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Example 2 (cont.)}
+
+  \begin{itemize}
+
+    \item How could Newton decide how probable his model was compared to general relativity (not imagined yet)?
+    \item If he could have imagined another theory, would we be equipped to compare two very different ideas?
+     \item We could never write down the infinite number of models consistent with observations of the planet in order to assign each a probability
+    \item It may not even make sense to assign a probability to Newton's gravity (eg. true state of world or not)
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Example 3}
+  You discover three specimens of a new species of squid that measure 3.2, 3.3, and 4.0 feet long
+  \begin{itemize}
+  \item What is the probability that the average length amount the entire species is 3.5 feet?
+  
+    \begin{itemize}
+      \item Probability zero for a single number (point estimate)
+  probability that the average length is between 3 and 4 feet?
+        \item Positive number for length
+        \item No new numbers that have not been imagined
+        \item A better grasp of the possibilities
+    \end{itemize}
+    
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Example 3 (cont.)}
+  
+    \begin{itemize}
+        \item However, we don't know how representative the specimens are
+        \begin{itemize}
+            \item We still don't know all the relevant information
+            \item Examples: deep water pressure, amount of light
+        \end{itemize}
+  \end{itemize}    
+  \textbf{We cannot deduce the probability of our model because we do not know enough about the structure of the world} 
+\end{frame}
+
+
+\begin{frame}{Two Branches of Statistics}
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{figures/two_branches_of_statistics.png}
+    \end{center}
+\end{frame}
+%End Edits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Decision Rules}
 
 \begin{frame}
