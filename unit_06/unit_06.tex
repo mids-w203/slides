@@ -118,7 +118,8 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Example 3 (cont.)}
+\begin{frame}
+  \frametitle{Example 3 (cont.)}
   
     \begin{itemize}
         \item However, we don't know how representative the specimens are
@@ -131,7 +132,8 @@
 \end{frame}
 
 
-\begin{frame}{Two Branches of Statistics}
+\begin{frame}
+  \frametitle{Two Branches of Statistics}
     \begin{center}
         \includegraphics[width=1.0\textwidth]{figures/two_branches_of_statistics.png}
     \end{center}
@@ -143,7 +145,8 @@
 %Start of Section 6.4 Edits
 \section{The Frequentist Approach}
 
-\begin{frame}{The Birth of Modern Statistics}
+\begin{frame}
+  \frametitle{The Birth of Modern Statistics}
     \begin{center}
         \includegraphics[width=0.4\textwidth]{figures/neyman_and_pearson.png}     
     \end{center}
@@ -155,7 +158,8 @@
 
 \end{frame}
 
-\begin{frame}{The Central Dilemma}
+\begin{frame}
+  \frametitle{The Central Dilemma}
   \begin{itemize}
       \item We observe data, $D$
       \item Given that this data occurs, we want the probability that our hypothesis $P(H|D)$ is \textbf{true}
@@ -170,7 +174,8 @@
 
 
 
-\begin{frame}{Objective Probability}
+\begin{frame}
+  \frametitle{Objective Probability}
 A frequentist defines probability as a matter of long-run frequencies
 \begin{itemize}
     \item We need to specify a collective of elements
@@ -188,7 +193,8 @@ A frequentist defines probability as a matter of long-run frequencies
 \end{frame}
 
 
-\begin{frame}{Objective Probability and Hypothesis}
+\begin{frame}
+  \frametitle{Objective Probability and Hypothesis}
 \begin{itemize}
     \item If you view probability as objective, you cannot talk about the probability of a hypothesis
     \item it is just true or false
@@ -209,7 +215,8 @@ A frequentist defines probability as a matter of long-run frequencies
 
 
 
-\begin{frame}{PR(D|H)}
+\begin{frame}
+  \frametitle{$PR(D|H)$}
 \begin{itemize}
     \item $H$ = hypothesis
     \item $D$ = data
@@ -225,7 +232,8 @@ Assume H is true and call it the null hypothesis
 
 
 
-\begin{frame}{PR(D|H) (cont.)}
+\begin{frame}
+  \frametitle{$PR(D|H)$ (cont.)}
 Now we have a meaningful collective
 \begin{itemize}
     \item Can look at the relative frequencies of different outcomes
@@ -236,18 +244,6 @@ Now we have a meaningful collective
     \end{itemize}
 \end{itemize}    
 \end{frame}
-
-%End of Section 6.4 Edits
-
-
-
-
-
-
-
-
-
-
 
 \section{Decision Rules}
 
@@ -1064,7 +1060,8 @@ How to increase power
 %Section 6.28 Edits start here
 \section{Guidelines For Statistical Reporting}
 
-\begin{frame}{Guidelines for Statistical Reporting}
+\begin{frame}
+  \frametitle{Guidelines for Statistical Reporting}
   \begin{itemize}
     \item Communicating your results is a key part of statistical analysis
     \item In this class (and other classes in the program) we'll ask you to submit your analysis as a written report
@@ -1077,24 +1074,26 @@ How to increase power
 
 
 
-\begin{frame}{Guideline One}
-\begin{exampleblock}{A statistical analysis is a written argument}
-    \begin{itemize}
-      \item A good writing style is key
-      \item This is technical writing: aim for clarity and exposition
-      \item All rules of good writing apply
+\begin{frame}
+  \frametitle{Guideline One}
+    \begin{exampleblock}{A statistical analysis is a written argument}
       \begin{itemize}
+        \item A good writing style is key
+        \item This is technical writing: aim for clarity and exposition
+        \item All rules of good writing apply
+        \begin{itemize}
           \item Organize your argument clearly
           \item Guide reader through the evidence in the data
           \item Proofread
+        \end{itemize}
       \end{itemize}
-  \end{itemize}
-\end{exampleblock}
+    \end{exampleblock}
 \end{frame}
 
 
 
-\begin{frame}{Guideline Two}
+\begin{frame}
+  \frametitle{Guideline Two}
 \begin{exampleblock}{If you don't have something nice to say (about your output), don't display it at all}
   \begin{itemize}
       \item There should be no output dumps
@@ -1105,7 +1104,8 @@ How to increase power
 \end{frame}
 
 
-\begin{frame}{Guideline Three}
+\begin{frame}
+  \frametitle{Guideline Three}
 \begin{exampleblock}{You should document decisions}
   \begin{itemize}
       \item If you decide that observations should be removed, state which ones
@@ -1118,74 +1118,78 @@ How to increase power
 
 
 
-\begin{frame}{Guideline Four}
-\begin{exampleblock}{Identify features that should be reflected in statistical models}
-  \begin{itemize}
+\begin{frame}
+  \frametitle{Guideline Four}
+  \begin{exampleblock}{Identify features that should be reflected in statistical models}
+    \begin{itemize}
       \item This will make more sense once you have experience building models
       \item Keep in mind the purpose of the analysis
       \item Eg. if you're interested in explaining the price of a house, look to see what kind of relationship that variable has with the explanatory variables
-      \begin{itemize}
+        \begin{itemize}
           \item Is it linear?
           \item Is it exponential?
           \item Are there values that don't seem to fit with the overall trend?
-      \end{itemize}
-  \end{itemize}
-\end{exampleblock}
+        \end{itemize}
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 
-\begin{frame}{Guideline Five}
-\begin{exampleblock}{Remember the difference between sample and population}
-  \begin{itemize}
+\begin{frame}
+  \frametitle{Guideline Five}
+  \begin{exampleblock}{Remember the difference between sample and population}
+    \begin{itemize}
       \item At this point, we don't know how to model a population
       This means that you must confine your conclusions to the sample
       \begin{itemize}
           \item You can talk about sample means, sample covariances
       \end{itemize}
       \item You can't say anything about the population that generated your sample
-  \end{itemize}
-\end{exampleblock}
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
 
 
-\begin{frame}{Guideline Five (cont.)}
-\begin{exampleblock}{Remember the difference between sample and population}
-  \begin{itemize}
+\begin{frame}
+  \frametitle{Guideline Five (cont.)}
+  \begin{exampleblock}{Remember the difference between sample and population}
+    \begin{itemize}
       \item Be wary of technical words--in particular the word \textit{significant}
       \begin{itemize}
           \item People might casually say one value is significantly bigger than another
           \item But this has a technical meaning, and it implies that we've built a model and performed a statistical test
       \end{itemize}
-  \end{itemize}
-\end{exampleblock}
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}{Guideline Six}
-\begin{exampleblock}{Show us the code (a guideline for this class)}
-  \begin{itemize}
+\begin{frame}
+  \frametitle{Guideline Six}
+  \begin{exampleblock}{Show us the code (a guideline for this class)}
+    \begin{itemize}
       \item We really want to see the code that generates your output so we can follow your analysis in detail, step by step
       \begin{itemize}
           \item Typically, your software will have a setting to suppress the code when generating a pdf report, but don't do it
       \end{itemize}
       \item This is probably the biggest difference between writing analyses in school and in a professional context
-  \end{itemize}
-\end{exampleblock}
+    \end{itemize}
+  \end{exampleblock}
 \end{frame}
 
-\begin{frame}{Guideline Six (cont.)}
-\begin{exampleblock}{Show us the code (a guideline for this class)}
-  \begin{itemize}
-    \item In most situations, you have to think about different levels of detail for different audiences
+\begin{frame}
+  \frametitle{Guideline Six (cont.)}
+  \begin{exampleblock}{Show us the code (a guideline for this class)}
     \begin{itemize}
+      \item In most situations, you have to think about different levels of detail for different audiences
+      \begin{itemize}
         \item It's usually a good idea to provide an executive summary
         \item Not everyone can read 50 pages of output
         \item Often, you'll want to move details like your script to an appendix
+      \end{itemize}
+      \item In this class, however, we'd like to see your code in the body of your report so we can evaluate it effectively
     \end{itemize}
-    \item In this class, however, we'd like to see your code in the body of your report so we can evaluate it effectively
-  \end{itemize}
-\end{exampleblock}
+  \end{exampleblock}
 \end{frame}
-%Section 6.28 Edits end here
 
 \end{document} 
