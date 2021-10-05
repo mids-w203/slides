@@ -571,6 +571,155 @@ distribution of $X$.
 Use the old video 3.10 The Normal Distribution
 \end{frame}
 
+
+
+
+
+
+%Begin Section 2.16 Edits
+
+\section{Normal Random Variables}
+
+\begin{frame}
+  \frametitle{The Normal Distribution}
+  \textbf{The most important distribution in statistics}
+  \begin{itemize}
+    \item The variables measured don't always come directly from a normal distribution
+    \begin{itemize}
+      \item Human height has a close-to-normal distribution--so do anthropometric measurements on fossils, reaction times in psychological experiments, etc.
+      \item Most variables deviate from a normal distribution
+    \end{itemize}
+    \item We'll see how the normal distribution pops up as a consequence of basic mathematical laws
+    \item A famous theorem is the \textbf{Central Limit Theorem}. Many of our statistical tests depend on this theorem, and it tells us when certain distributions will approach a normal distribution
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Normal Distribution equation}
+  A continuous rv $X$ is said to have a \textbf{normal distribution} with parameters $\mu$ and $\sigma$ (or $\mu$ and $\sigma^{2}$), where $-\infty < \mu < \infty$ and $ 0 < \sigma$, if the pdf of $X$ is:
+  
+  \begin{equation}
+     f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^{2}}}
+     e^{-(x-\mu)^{2}/(2\sigma^{2})},
+     -\infty < x < \infty
+  \end{equation}
+  This is the equation for the density function of a normal distribution
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Normal Distribution equation}
+  
+  \begin{equation}
+     f(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^{2}}}
+     e^{-(x-\mu)^{2}/(2\sigma^{2})},
+     -\infty < x < \infty
+  \end{equation}
+  
+  \begin{itemize}
+    \item There are two parameters, $\mu$ and $\sigma$
+    \begin{itemize}
+      \item There is an entire family of normal distributions
+    \end{itemize}
+    \item It can be shown that $E(x)=\mu$ and $V(X)=\sigma^{2}$, so the parameters are the mean and the standard deviation of $X$
+    \item The statement that $X$ is normally distributed with parameters $\mu$ and $\sigma^{2}$ is often abbreviated $X \sim N(\mu, \sigma^{2})$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Normal Curve Examples}
+  \begin{center}
+      \includegraphics[width=.5\linewidth]{figures/normal_curve.png}
+  \end{center}
+  \begin{itemize}
+      \item These are normal curves with different $\mu$ and $\sigma$
+      \item Each curve is symmetric around its mean
+      \item $\mu$ is both the mean and the median, changing it moves the curve left or right
+      \item $\sigma$ is also called the scale parameter, since it stretches the curve horizontally
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Standard Normal Distribution}
+  \begin{itemize}
+      \item Often, we need to select one representative distribution out of the normal family
+      \item Typically, we choose $\mu=0$ and $\sigma=1$
+      \begin{itemize}
+          \item This is called the \textit{standard normal distribution}, also called a \textit{z-distribution}
+          \item It is also denoted by a capital Z
+          \item We can write the pdf of Z:
+      \end{itemize}
+  \end{itemize}
+  \begin{equation}
+      f(z; 0, 1)= \frac{1}{\sqrt{2\pi}}e^{-z^{2}/2},
+      -\infty < X < \infty
+  \end{equation}  
+  \begin{itemize}
+      \item The cumulative distribution of Z is often written as $\phi(z)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Standardizing a Normal Variable}
+  \begin{itemize}
+      \item Suppose we have a normal variable that is not standard normal $X \sim N(\mu, \sigma^{2})$
+      \begin{itemize}
+          \item We want to simplify our computations
+      \end{itemize}
+      \item We can compute the random variable $(X-\mu) / \sigma$
+      \begin{itemize}
+          \item This new variable has a standard normal distribution
+          \item This can make it easier to perform tests using the variable
+      \end{itemize}
+      \item Any probabilities involving $X$ can be expressed in terms of areas under the z-distribution
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Standardizing a Normal Variable (cont.)}
+  These are easy to compute in statistical software
+  \begin{center}
+    \includegraphics[width=0.9\linewidth]{figures/standardizing_normal_variable.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Properties of the Normal Distribution}
+  \begin{center}
+      \includegraphics[width=0.5\linewidth]{figures/properties_normal_distribution.png}
+  \end{center}
+  This picture shows certain areas under a normal curve
+  \begin{itemize}
+      \item 68\% of the area is within 1 standard deviation of the mean
+      \item 95\% is within 2 standard deviations
+      \item 99.7\% is within 3 standard deviations
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Properties of the Normal Distribution (cont.)}
+  \begin{exampleblock}{Important Rules of Thumb (helpful to memorize)}
+    \begin{enumerate}
+        \item It can be helpful when you have a variable that is approximately normally distributed
+        \item You would expect about 68\% of values to be within 1 standard deviation
+        \item Very few values are more than 2 standard deviation away from the mean (this will be important when we look at hypothesis testing)
+    \end{enumerate}
+  \end{exampleblock}
+    
+\end{frame}
+
+
+%End Section 2.16 Edits
+
+
+
+
+
+
+
+
+
+
+
 \section{Joint Distributions}
 
 \begin{frame}
