@@ -20,7 +20,13 @@
 \newcommand{\V}{\text{V}}
 \newcommand{\cov}{\text{cov}}
 
+\title{Hypothesis Testing} 
+\subtitle{UC Berkeley, MIDS w203} 
+\author{Statistics for Data Science}
+
 \begin{document}
+
+\maketitle
 
 %Section 7.06 Edits start
 
@@ -104,8 +110,8 @@
   $$t = \frac{\mu_{1}-\mu_{2}}{S_{\mu_{1}-\mu_{2}}} $$
 
   $$
-    S_{\mu_{1}-\mu_{2}} = \sqrt{ (\frac{ (N_{1}-1)S_{1}^{2} + (N_{2}-1)S_{2}^{2} }{ N_{1}+N_{2}-2 })
-                    (\frac{1}{ N_{1} } + \frac{1}{ N_{2} })
+    S_{\mu_{1}-\mu_{2}} = \sqrt{ \left(\frac{ (N_{1}-1)S_{1}^{2} + (N_{2}-1)S_{2}^{2} }{ N_{1}+N_{2}-2 }\right)
+                    \left(\frac{1}{ N_{1} } + \frac{1}{ N_{2} }\right)
                   }
   $$
 
@@ -173,7 +179,7 @@
 
   \begin{block}{Difference in means}
     \[
-      \bar{X}_{A} - \bar{X}_{B}
+      \overline{X}_{A} - \overline{X}_{B}
     \]
   \end{block}
     \begin{itemize}
@@ -196,7 +202,7 @@
     \textit{Cohen's d} is a measure of difference of means
     standardized by the variance in the data.
     \[
-      \frac{ \bar{X}_{A} - \bar{X}_{B} }{s}
+      \frac{ \overline{X}_{A} - \overline{X}_{B} }{s}
     \]
     Where $s$ is a pooled standard deviation:
     $\sqrt \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2}$
@@ -346,12 +352,12 @@
     \column{.49\linewidth}
     \textbf{Unpaired}
     \begin{itemize}
-      \item $t = \frac{\bar{A} - \bar{B}} {\sigma_{A\&B}}$
+      \item $t = \frac{\overline{A} - \overline{B}} {\sigma_{A\&B}}$
     \end{itemize}
     \column{.49\linewidth}
     \textbf{Paired}
     \begin{itemize}
-    \item $t = \frac{\bar{A} - \bar{B}}{\sigma_{(A - B)}}$
+    \item $t = \frac{\overline{A} - \overline{B}}{\sigma_{(A - B)}}$
     \end{itemize}
   \end{columns}
 
@@ -658,7 +664,7 @@
   \frametitle{Interpretation of the Wilcoxon Rank-Sum Test (cont.)}
   
   \begin{itemize}
-      \item For small sample sizes (N<40), R calculates the $p$ value with the Monte Carlo methods
+      \item For small sample sizes ($N<40$), R calculates the $p$ value with the Monte Carlo methods
       \begin{itemize}
           \item ie. simulated data are used to estimate the statistic
       \end{itemize}

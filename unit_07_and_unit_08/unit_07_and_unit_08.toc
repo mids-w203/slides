@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{The Independent Samples t-Test}{2}{0}{1}
+\beamer@sectionintoc {2}{Calculation of \textit {t}, Assumptions and Interpretations}{6}{0}{2}
+\beamer@sectionintoc {3}{Practical Significance of the T-Test}{11}{0}{3}
+\beamer@sectionintoc {4}{The Paired t-Test}{19}{0}{4}
+\beamer@sectionintoc {5}{Introduction to Non-parametric Tests}{28}{0}{5}
+\beamer@sectionintoc {6}{Wilcoxon Rank-sum Test for Independent Groups}{38}{0}{6}
