@@ -1,6 +1,6 @@
 \documentclass[12pt, block=fill]{beamer}
 \usepackage{graphicx}
-\usepackage[sfdefault]{FiraSans}
+\usepackage[sfdefault]{fira}
 \usepackage{FiraMono}
 \usepackage[T1]{fontenc}
 \usepackage{xcolor}
@@ -1431,6 +1431,59 @@ The BLP is unique:
 
 
 \section{Part 3: Measuring Uncertainty}
+
+\section{Introduction to Measuring Uncertainty} 
+
+\begin{frame} 
+  \frametitle{Introduction}
+  \begin{itemize}
+    \item You've run your regression, and produced your BLP estimate.
+    \item How much \textit{could} the coefficients that you are reporting change if you had drawn a different sample?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Becomming a Man}
+  \begin{itemize}
+    \item \textbf{Becomming a Man} is a randomized controlled trial that recruited 7,500 male youth in Chicago. \href{https://www.nber.org/system/files/working_papers/w21178/w21178.pdf}{[link]}
+    \item The program, among many other efforts, taught to think about circumstances before engaging.
+    \item Youth randomized to receive this treatment were:
+          \begin{itemize}
+            \item 28-35\% less likely to be arrested for any reason
+            \item 45-50\% less likely to be arrested for violent crimes.
+            \item 12-19\% more likely to graduate high-school
+          \end{itemize}
+      \item With a sample of this size, with randomly assigned programming to participants, there is little chance that the estimated coefficients would change with a different sample.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Predicting School Achievement}
+  \begin{itemize}
+    \item \textbf{Portuguese High School} Gellman, Hill and Vehtari write about 343 Portuguese high-school students drawn from across the country. They predict final-year math grade (as a percentage) and use a large number of predictors:
+  \begin{itemize}
+    \item \textit{Demographic Features}: family size, health, parent's education
+    \item \textit{Past Education Features}: past-class failures, educational support, paid classes
+    \item \textit{Educational Cost Features}:  home-to-school travel time, home internet access
+    \item \textit{Social Features}: going out with friends, weekday and weekend alcohol consumption
+  \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Describing Uncertainty as ``Resolution''}
+  \begin{itemize}
+    \item Measured data is a point-in-time, limited view of a complex reality.
+    \item With limited data, we can only make out ``fuzzy'' patterns -- which might be enough!
+    \item With more data, we can see more detail
+    \item With different data, we can see different details
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Describing Uncertainty as ``Resolution''}
+  \includegraphics[height = 0.9\textheight]{./images/stop_top.pdf}
+\end{frame}
 
 \section{Review: Review: Statistics, Distributions, and Uncertainty}
 
