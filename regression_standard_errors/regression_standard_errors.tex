@@ -1,0 +1,184 @@
+\documentclass[12pt, block=fill]{beamer}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{mathrsfs}
+\usepackage{FiraMono}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+ % \setbeameroption{show notes on second screen=right} % Both
+
+\definecolor{burntOrange}{rgb}{.8, .5, .1}
+\definecolor{textgray}{rgb}{.8,.8,.8}
+
+\usetheme[titleformat frame = smallcaps]{metropolis}
+
+\metroset{block=fill}
+
+\newcommand{\E}[1]{\mathbb{E}}
+%\newcommand{\V}[1]{\mathbb{V}}
+\newcommand{\C}[1]{\text{Cov}}
+\renewcommand{\v}[1]{\boldsymbol{#1}}
+\newcommand{\m}[1]{\mathbb{#1}}
+\newcommand{\p}[1]{\mathbb{P}\left(#1\right)}
+\newcommand{\eps}{\varepsilon}
+
+\title{OLS Regression Uncertainty} 
+\subtitle{UC Berkeley, MIDS w203} 
+\author{Statistics for Data Science}
+
+\begin{document}
+
+\maketitle
+
+\section{Large-Sample Regression}
+
+\begin{frame}
+
+We assume that the best linear predictor, $\mathscr{P}[Y|\v{X}]$, of $Y$ given $\v{X}$ is $\v{X}\v{\beta}$.
+$$
+Y=\v{X}\v{\beta}+\eps.
+$$
+We have from Theorem \@ref(thm:blperror)
+$$\E{\eps}=0,\mbox{ and }\E{\v{X}^T\eps}=\v{0}.$$
+
+\end{frame}
+
+\begin{frame}
+We also assume that the dataset $\{(Y_i,\v{X}_i)\}$ is taken **i.i.d.** from the joint distribution of $(Y,\v{X})$. For each $i$, we can write
+$$
+Y_i=\v{X_i}\v{\beta}+\eps_i.
+$$
+In matrix notation, we can write
+$$
+\v{Y}=\m{X}\v{\beta}+\v{\eps}.
+$$
+Then
+$$\E{\v{\eps}}=\v{0},\text{ and } \E{\v{\eps}}=\v{0}$$
+\end{frame} 
+
+\begin{frame}
+We start by revealing an alternative expression for the OLS estimators $\widehat{\v{\beta}}$ using matrix notation.
+
+$$
+\begin{aligned}
+\widehat{\v{\beta}}
+&=\left[\m{X}^T\m{X}\right]^{-1}\m{X}^T\v{Y} \\
+&=\left[\m{X}^T\m{X}\right]^{-1}\m{X}^T(\m{X}\v{\beta}+\v{\eps}) \\
+&=\left[\m{X}^T\m{X}\right]^{-1}(\m{X}^T\m{X})\v{\beta}+
+\left[\m{X}^T\m{X}\right]^{-1}\m{X}^T\v{\eps} \\
+&=\v{\beta} + \left[\m{X}^T\m{X}\right]^{-1}\m{X}^T\v{\eps}
+\end{aligned}
+$$
+
+So,
+\begin{equation}
+\widehat{\v{\beta}}-\v{\beta} = \left[\m{X}^T\m{X}\right]^{-1}\m{X}^T\v{\eps}
+\end{equation}
+
+\end{frame}
+
+We can then multiply by $\sqrt{n}$ both sides of Equation \@ref(eq:beta) to get
+$$
+\begin{aligned}
+\sqrt{n}\left(\widehat{\v{\beta}}-\v{\beta}\right)
+&=\left( \frac{1}{n}\sum\limits_{i=1}^n\v{X}_i^T\v{X}_i \right)^{-1}
+\left( \frac{1}{\sqrt{n}}\sum\limits_{i=1}^n\v{X}_i^T\eps_i \right) \\
+&=\widehat{\m Q}_{\v{XX}}^{-1}
+\left( \frac{1}{\sqrt{n}}\sum\limits_{i=1}^n\v{X}_i^T\eps_i \right)
+\end{aligned}
+$$
+From the consistency of OLS estimators, we already have 
+$$ \widehat{\m Q}_{\v{XX}}\xrightarrow[p]{\quad\quad}\m{Q}_{\v{XX}}$$
+Our aim now is to understand the distribution of the stochastic term (the second term) in the above expression.
+
+We first note (from i.i.d. and Theorem \@ref(thm:blperror)) that 
+$$
+\E{\v{X}_i^T\eps_i}=\E{\v{X}^T\eps}=\v{0}.
+$$
+Let us compute the covariance matrix of $\v{X}_i\eps_i$. Since the expectation vector is zero, we have 
+$$
+\m{V}[\v{X}_i^T\eps_i]=\E{\v{X}_i^T\eps_i\left(\v{X}_i^T\eps_i\right)^T}=\E{\v{X}^T\v{X}\eps^2}\stackrel{\text{def}}{=}\m{A}.
+$$
+As any function of $\{(Y_i,\v{X}_i)\}$'s are independent,  $\{\v{X}_i\eps_i\}$'s are independent. By the (multivariate) **Central Limit Theorem**, as $n\to\infty$
+$$
+\frac{1}{\sqrt{n}}\sum\limits_{i=1}^n\v{X}_i^T\eps_i
+\xrightarrow[d]{\quad\quad}\mathcal{N}(\v{0},\m{A}).
+$$
+There is a small technicality here, we must have $\m{A}<\infty$. This can be imposed by a stronger regularity condition on the moments, e.g.,
+$\E{Y^4},\E{||\v{X}||^4}<\infty$.
+Putting everything together, we conclude
+$$
+\sqrt{n}(\widehat{\v{\beta}}-\v{\beta})\xrightarrow[d]{\quad\quad}
+\m{Q}_{\v{XX}}^{-1}\mathcal{N}(\v{0},\m{A})
+=\mathcal{N}\left(\v{0},\left[\m{Q}_{\v{XX}}^{-1}\right]^T\m{A}\m{Q}_{\v{XX}}^{-1}\right)
+=\mathcal{N}\left(\v{0},\m{Q}_{\v{XX}}^{-1}\m{A}\m{Q}_{\v{XX}}^{-1}\right)
+$$
+
+We assume the following
+\begin{enumerate}
+\item The observations $\{(Y_i,\v{X}_i)\}_{i=1}^n$ are i.i.d from the joint
+distribution of $(Y,\v{X})$  
+\item $\E{Y^4}<\infty$  
+\item $\E{||\v{X}||^4}<\infty$  
+\item $\m{Q}_{\v{XX}}=\E{\v{X}\v{X}'}$ is positive-definite.
+\end{enumerate}
+Under these assumptions, as $n\to\infty$
+$$
+\sqrt{n}(\widehat{\v{\beta}}-\v{\beta})\xrightarrow[d]{\quad\quad}
+\mathcal{N}\left(\v{0},\m{V}_{\v{\beta}}\right),
+$$
+where 
+$$\m{V}_{\v{\beta}}\stackrel{\text{def}}{=}\m{Q}_{\v{XX}}^{-1}\m{A}\m{Q}_{\v{XX}}^{-1}$$
+and $\m{Q}_{\v{XX}}=\E{\v{X}^T\v{X}}$, $\m{A}=\E{\v{X}^T\v{X}\eps^2}$.
+
+
+
+The covariance matrix $\m{V}_{\v{\beta}}$ is called the **asymptotic variance matrix** of $\widehat{\v{\beta}}$. The matrix is sometimes referred to as the **sandwich** form.
+
+We now turn our attention to the estimation of the sandwich matrix using a finite sample.
+
+Theorem \@ref(thm:asympvar) presented the asymptotic covariance matrix of
+$\sqrt{n}(\widehat{\v{\beta}}-\v{\beta})$ is
+$$\m{V}_{\v{\beta}}
+=\m{Q}_{\v{XX}}^{-1}\m{A}\m{Q}_{\v{XX}}^{-1}.$$
+Without imposing any homoskedasticity condition, we estimate $\m{V}_{\v{\beta}}$ using a plug-in estimator.
+
+We have already seen that $\widehat{\m{Q}}_{\v{XX}}=\frac{1}{n}\sum\limits_{i=1}^n\v{X}_i^T\v{X}_i$ is a natural estimator for $\m{Q}_{\v{XX}}$. For $\m{A}$, we use the moment estimator
+$$
+\widehat{\m{A}}=\frac{1}{n}\sum\limits_{i=1}^n\v{X}_i^T\v{X}_ie_i^2,
+$$
+where $e_i=(Y_i-\v{X}_i\widehat{\v{\beta}})$ is the $i$-th residual. As it turns out, $\widehat{\m{A}}$ is a consistent estimator
+for $\m{A}$.
+
+
+As a result, we get the following plug-in estimator for $\m{V}_{\v{\beta}}$:
+$$
+\widehat{\m{V}}_{\v{\beta}}=
+\widehat{\m{Q}}_{\v{XX}}^{-1}\widehat{\m{A}}\widehat{\m{Q}}_{\v{XX}}^{-1}
+$$
+The estimator is also consistent. For a proof, see Hensen 2013.
+
+As a consequence, we can get the following estimator for the variance, $\m{V}_{\widehat{\v{\beta}}}$, of $\widehat{\v{\beta}}$ in the heteroskedastic case.
+$$
+\begin{aligned}
+\widehat{\m{V}}\left[\widehat{\v{\beta}}\right]
+&=\frac{1}{n}\widehat{\m{V}}_{\v{\beta}}^{\text{HC0}} \\
+&=\frac{1}{n}\widehat{\m{Q}}_{\v{XX}}^{-1}\widehat{\m{A}}\widehat{\m{Q}}_{\v{XX}}^{-1} \\
+&=\frac{1}{n}\left(\frac{1}{n}\sum\limits_{i=1}^n\v{X}_i^T\v{X}_i\right)^{-1}
+\left(\frac{1}{n}\sum\limits_{i=1}^ne_i^2\v{X}_i^T\v{X}_i\right)
+\left(\frac{1}{n}\sum\limits_{i=1}^n\v{X}_i^T\v{X}_i\right)^{-1} \\
+&=\left(\m{X}^T\m{X}\right)^{-1}
+\m{X}^T\m{D}\m{X}
+\left(\m{X}^T\m{X}\right)^{-1}
+\end{aligned}
+$$
+where $\m{D}$ is an $n\times n$ diagonal matrix with diagonal entries $e_1^2,e_2^2,\ldots,e_n^2$.
+The estimator, $\widehat{\m{V}}\left[\widehat{\v{\beta}}\right]$, is referred to as the **robust error variance estimator** for the OLS coefficients $\widehat{\v{\beta}}$.
+
+%Section 7.06 Edits start
+
+
+\end{document}
