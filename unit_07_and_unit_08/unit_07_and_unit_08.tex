@@ -28,40 +28,66 @@
 
 \maketitle
 
-%Section 7.06 Edits start
-
-\section{The Independent Samples t-Test}
+\section{Introducing the Two-Sample t-Test}
 
 \begin{frame}
-  \frametitle{Comparing Population Means}
-  \begin{exampleblock}{t-Test}
-    Tells us whether the means of two sample populations are significantly different from each other 
+  \frametitle{Motivating the Two-Sample t-Test}
+  \begin{exampleblock}{Comparing Two Metric Variables}
+    Is group A different from group B in expectation?
   \end{exampleblock}
 
-  For example:
+\note[item]{The two-sample t-test is one of the most common procedures in inferential statistics. What is it for? As a data scientist you will often face a question about two groups - group A and group B. Someone will ask you if one is greater or less than than the other.}
+\note[item]{Questions like this are everywhere. In business, you have A-B testing.}
+\note[item]{In medicine, you may want to test a group of patients taking a vitamin against a control group}
+\note[item]{In political science, you may want to test whether democracies or autocracies start more wars.}
+\note[item]{What do these questions have in common? They all have two groups, and in all cases we're measuring the outcome on a metric scale. So it makes sense to ask about the expectation of each population - are the expectations different?}
+
+
+  Examples:
   \begin{itemize}
-      \item Suppose we have two groups
-      \begin{itemize}
-          \item Stanford students
-          \item Berkeley students
-      \end{itemize}
-      \item We want to compare the average attractiveness of these two groups to see if one group is significantly more attractive
+      \item Are customers who get a birthday gift less likely to leave than those who don't?
+      \item Do patients who take Vitamin W get over the flu faster than patients who don't?
+      \item Do democracies or autocracies start more wars?
   \end{itemize}
-\end{frame}
+  \end{frame}
+
+\begin{frame}
+  \frametitle{Example Scenario}
+  \note[item]{Here's a specific example to build more intuition.}
+  \note[item]{write on slide: 13.2-11.1 = 1.1 outfits}
+  \note[item]{Is this a big difference?}
+  \note[item]{To be more precise, if there was no difference between our two populations, would a difference of 1.1 outfits be surprising?}
+  \begin{exampleblock}{From the Journal of Empirical Fashion}
+  \begin{tabular}{c | c | c}
+  & New Yorkers & San Franciscans \\
+  \hline
+black outfits &  12.1 & 13.2  \\
+sample size & 50 & 50
+ \end{tabular}
+ \end{exampleblock}
+ 
+ Is this evidence that San Franciscans have more black outfits than New Yorkers \textit{in general}? \end{frame}
 
 \begin{frame}
   \frametitle{Comparing Population Means}
+  \note[item]{One important piece of information is how much does the number of black outfits vary in the population.}
+  \note[item]{Here's a picture with three different distributions for our sample averages.}
+  \note[item]{The top distribution has very high standard deviation. You can see that it doesn't seem unusual to get two data points that are 1.1 outfits apart.}
+  \note[item]{The middle distribution has medium deviation. Now it starts to look a little more surprising that our two sample averages were 1.1 apart.}
+  \note[item]{The bottom distribution has low standard deviation. Now it seems quite unlikely to get two sample averages 1.1 apart. The data seems inconsistent with this hypothesis.}
     \begin{center}
-        \includegraphics[width = 0.9\linewidth]{figures/t_test_scenarios.png}
+        \includegraphics[width = 0.9\linewidth]{figures/fashion_plot.png}
     \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Comparing Population Means}
-  \begin{exampleblock}{t-Test}
-    Tells us whether the means of two sample populations are significantly different from each other 
-    
-    Allows us to test mean differences \textbf{while accounting for variability}
+  \note[item]{Putting these ideas together, we can make a statistic by taking the difference in sample averages, and dividing by an estimate of standard deviation - that's exactly the idea behind the two- sample t-test}
+  \begin{exampleblock}{Two-Sample t-Test}
+  
+ $$t = \frac{\bar X - \bar Y}{\text{Estimate of Standard Deviation}}$$
+ 
+    Assess whether two populations have the same expectation \textbf{while accounting for variability}
   \end{exampleblock}
 
 
