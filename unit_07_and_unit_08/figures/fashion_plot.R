@@ -14,7 +14,7 @@ names(D) = c('x','values', 'sd')
    facet_grid(sd ~ ., scales = "free_y", labeller = label_both) + 
    expand_limits(y = 0) + 
    ylab('probability density') +
-   geom_vline(xintercept = 12.1) + geom_vline(xintercept = 13.2)  + 
+   geom_vline(xintercept = 12.1) + geom_vline(xintercept = 13.3)  + 
    theme_minimal() +
  theme(legend.position = "none") 
  

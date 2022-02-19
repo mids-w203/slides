@@ -5,9 +5,9 @@
 \usepackage{xcolor}
 
 \usepackage{pgfpages}
-\setbeameroption{hide notes} % Only slides
+% \setbeameroption{hide notes} % Only slides
 % \setbeameroption{show only notes} % Only notes
- % \setbeameroption{show notes on second screen=right} % Both
+  \setbeameroption{show notes on second screen=right} % Both
 
 \definecolor{burntOrange}{rgb}{.8, .5, .1}
 \definecolor{textgray}{rgb}{.8,.8,.8}
@@ -53,28 +53,60 @@
 
 \begin{frame}
   \frametitle{Example Scenario}
-  \note[item]{Here's a specific example to build more intuition.}
-  \note[item]{write on slide: 13.2-11.1 = 1.1 outfits}
-  \note[item]{Is this a big difference?}
-  \note[item]{To be more precise, if there was no difference between our two populations, would a difference of 1.1 outfits be surprising?}
+  \note[item]{Here's a specific example, with data.}
+  \note[item]{write on slide: 13.3-12.1 = 1.2 outfits}
+  \note[item]{Is this a big difference? is it just noise?}
+  \note[item]{To be more precise, is this evidence that SF'ans have more black outfits than NYers in general?}
+  \note[item]{To analyze this question, we need a model...}
   \begin{exampleblock}{From the Journal of Empirical Fashion}
   \begin{tabular}{c | c | c}
   & New Yorkers & San Franciscans \\
   \hline
-black outfits &  12.1 & 13.2  \\
+black outfits &  12.1 & 13.3  \\
 sample size & 50 & 50
  \end{tabular}
  \end{exampleblock}
  
+\vspace{1.5cm}
  Is this evidence that San Franciscans have more black outfits than New Yorkers \textit{in general}? \end{frame}
+ 
+ 
+ \begin{frame}
+  \frametitle{Two-Sample Model Framework}
+  \note[item]{A model is a representation of the world built of RVs. for a two-sample t-test, the model begins like this.}
+  \note[item]{Let $X_1.. X_{n_1}$ be RVs representing group A. Similarly for Y.}
+  \note[item]{Let's assume that the X's are iid with mean $\mu_X$. same for Y}
+  \note[item]{We'll need more assumptions, but this is a start.}
+  \note[item]{The null is that our two means are the same.}
+  \note[item]{Our usual alternative is that the means are different.}
+  \note[item]{It is also possible to run a one-sided test in special circumstances. alt is one mean is greater than other.}
+  \note[item]{Given this model, how plausible is the null hypothesis?}
+
+  \begin{exampleblock}{Basic Model Setup} 
+    Suppose $(X_1,..,X_{n_1})$ are i.i.d. with mean $\mu_X$.    
+    
+    Suppose $(Y_1,..,Y_{n_2})$ are i.i.d. with mean $\mu_Y$. 
+       \end{exampleblock}
+
+  \begin{exampleblock}{Null Hypothesis}
+    $H_{0}: \mu_{X} = \mu_{Y}$ (The two groups' means are equal)
+  \end{exampleblock}
+  
+  \begin{exampleblock}{Alternative hypotheses}
+    $H_{1}: \mu_{X} \neq \mu_{Y}$ (best choice in most cases)\\
+    $H_{2}: \mu_{X} > \mu_{Y}$ \\
+    $H_{3}: \mu_{X} < \mu_{Y}$ 
+  \end{exampleblock}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Comparing Population Means}
   \note[item]{One important piece of information is how much does the number of black outfits vary in the population.}
   \note[item]{Here's a picture with three different distributions for our sample averages.}
-  \note[item]{The top distribution has very high standard deviation. You can see that it doesn't seem unusual to get two data points that are 1.1 outfits apart.}
-  \note[item]{The middle distribution has medium deviation. Now it starts to look a little more surprising that our two sample averages were 1.1 apart.}
-  \note[item]{The bottom distribution has low standard deviation. Now it seems quite unlikely to get two sample averages 1.1 apart. The data seems inconsistent with this hypothesis.}
+  \note[item]{The top distribution has very high standard deviation. You can see that it doesn't seem unusual to get two sample averages that are 1.2 outfits apart.}
+  \note[item]{The middle distribution has medium deviation. Now it starts to look a little more surprising that our two sample averages were 1.2 apart.}
+  \note[item]{The bottom distribution has low standard deviation. Now it seems quite unlikely to get two sample averages 1.2 apart. The data seems inconsistent with this hypothesis.}
     \begin{center}
         \includegraphics[width = 0.9\linewidth]{figures/fashion_plot.png}
     \end{center}
@@ -99,39 +131,87 @@ sample size & 50 & 50
 
 %Section 7.08 Edits start
 
-\section{Calculation of \textit{t}, Assumptions and Interpretations}
+\section{The Two-Sample z-Test}
 
-\begin{frame}
-  \frametitle{\textit{t}-Test: Null and Alternative Hypotheses}
 
-  \begin{exampleblock}{Null Hypothesis}
-    $H_{0}: \mu_{1} = \mu_{c}$ (The two groups' means are equal)
-  \end{exampleblock}
-  
-  \begin{exampleblock}{Alternative hypotheses}
-    $H_{1}: \mu_{1} < \mu_{c}$ (group 1's mean is less than the other) \\
-    $H_{2}: \mu_{1} > \mu_{c}$ (group 1's mean is greater than the other) \\
-    $H_{3}: \mu_{1} \neq \mu_{c}$ (The two groups means not are equal)
-  \end{exampleblock}
-  \begin{itemize}
-      \item $H_{3}$ is a \textbf{two-tailed} test
-      \item $H_{1}$ and $H_{2}$ are \textbf{one-tailed} tests
-  \end{itemize}
+
+
+
+\begin{frame}[t]
+  \frametitle{Two-Sample \textit{z}-Test}
+  \begin{exampleblock}{Assumptions} 
+    Suppose $(X_1,..,X_{n_1})$ are i.i.d. with mean $\mu_X$.    
+    
+    Suppose $(Y_1,..,Y_{n_2})$ are i.i.d. with mean $\mu_Y$. 
+    
+    Assume $X \sim N(\mu_X, \sigma)$.  $Y \sim N(\mu_Y, \sigma)$.  We know $\sigma$.
+      \end{exampleblock}
+      \note[item]{Before we tackle the two-sample t-test, let's begin with the simpler 2 samp. z test. unrealistic, but build intuition.}
+      \note[item]{Same assumptions as before, but add assump. of equal var $\sigma$ which we know.}
+      \note[item]{How do we create a test statistic?}
+      \note[item]{What is the distribution of $\bar{X} - \bar{Y}$? Let's use fact that a difference of normal RVs is normal. but which normal?}
+      \note[item]{$V[\bar{X} - \bar{Y}] = V[\bar{X}] + V[\bar{Y}] = \sigma^2/n_1 +  \sigma^2/n_2$}
+      \note[item]{$\bar{X} - \bar{Y} \sim N(0, \sigma \sqrt{\frac{1}{n_1}+\frac{1}{n_2}})$}
+      \note[item]{Can use the standardized difference in means. $z = \frac{\bar{X} - \bar{Y}}{\sigma \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} \sim N(0,1)$}
+\note[item]{Here's the standard normal. As usual, we can create rejection regions above 1.96 and below -1.96. if we compute the stat this way, under the null, it will land in the rejection region .05 of the time.}
+\vspace{.5cm}
+   \begin{flushright} \includegraphics[height=.5\textheight, width = .5\textwidth]{figures/normal.pdf}
+\end{flushright}
 \end{frame}
 
+\begin{frame}[t]
+  \note[item]{Here's an exercise to build more intuition.}
+  \begin{exampleblock}{From the Journal of Empirical Fashion}
+  \begin{tabular}{c | c | c}
+  & New Yorkers & San Franciscans \\
+  \hline
+black outfits &  12.1 & 13.3  \\
+sample size & 50 & 50
+ \end{tabular}
+ \end{exampleblock}
+   Let $X_1,...,X_{50}$ rep. New Yorkers. Assume iid, mean $\mu_X$.\\
+      Let $Y_1,...,Y_{50}$ rep. San Franciscans. Assume iid, mean $\mu_Y$.\\
+      Assume $\V[X] = \V[Y] = 4.$
+ \note[item]{$z = \frac{\bar{X} - \bar{Y}}{\sigma \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} = \frac{12.1 - 13.3}{2 \sqrt{\frac{1}{50}+\frac{1}{50}}} = \frac{-1.2}{2 \sqrt{\frac{1}{25}}}  = -3.0$}
+ \note[item]{$z>1.96$ REJECT}
+ \note[item]{We can also compute p-value 2*pnorm(-3) = .0027}
+ \end{frame}
+
+
+
 \begin{frame}
-  \frametitle{One- and Two-Tailed Tests: Defining Critical Regions}
+  \frametitle{General Procedure for Testing}
+  \note[item]{From this example, I hope you see that the two-sample t-test is not all that different from the one-sample tests we did earlier.}
+  \note[item]{No matter what the test is, there's a general pattern that you follow...}
   
   Three steps:
   \begin{enumerate}
-      \item Form hypothesis
-      \item Calculate $t$ statistic
-      \item Plot $t$ value on the appropriate curve to get the $p$ value
+      \item Specify model and null hypothesis
+      \item Calculate $z$ or $t$ statistic
+      \item Plot statistic on the null distribution to get the $p$ value.
   \end{enumerate}
 \end{frame}
 
+
+%Section 7.08 New section on t-tests
+
+\section{The Two-Sample t-Test}
+
+
 \begin{frame}
-  \frametitle{The Independent Sample t-Test}
+  \frametitle{Types of Two-Sample t-Tests}
+  \note[item]{There are actually two versions of the two-sample t test you should be aware of.}
+\note[item]{Student's t-test is the original t-test. it's simpler, but requires strong assumptions}
+\note[item]{Welch's t-test is more general, and this is really the modern t-test.}
+  \begin{enumerate}
+  \item Student's t-Test
+  \item Welch's t-Test
+ \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Student's t-Test}
 
   $$t = \frac{\mu_{1}-\mu_{2}}{S_{\mu_{1}-\mu_{2}}} $$
 
@@ -157,23 +237,29 @@ sample size & 50 & 50
   \frametitle{Degrees of Freedom}
   
   \begin{exampleblock}{degrees of freedom \textit{(df)}}
-    Number of independent pieces of information that are allowed to vary
+    Number of independent pieces of information that vary given model parameters
   \end{exampleblock}
   
   \begin{itemize}
-    \item \textbf{Independent sample t-test}
-    \begin{itemize}
-      \item Uses two known quantities (the two group means)
-      \item \textit{df} = $n_{1} + n_{2} -2$
-    \end{itemize}
-    \item \textbf{One sample t-test}
+      \item \textbf{One sample t-test}
     \begin{itemize}
       \item \textit{df} = $n - 1$ (only uses one known quantity)
       \item Tests whether one sample's mean is significantly different from some hypothesized mean
     \end{itemize}
+    \item \textbf{Student's two-sample t-test}
+    \begin{itemize}
+      \item Uses two known quantities (the two group means)
+      \item \textit{df} = $n_{1} + n_{2} -2$
+    \end{itemize}
+
   \end{itemize}
 
 \end{frame}
+
+\begin{frame}
+  \frametitle{Welch's t-Test}
+\end{frame}
+
 %Section 7.08 Edits end
 
 
