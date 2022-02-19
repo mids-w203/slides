@@ -32,7 +32,7 @@
 
 \begin{frame}
   \frametitle{Motivating the Two-Sample t-Test}
-  \begin{exampleblock}{Comparing Two Metric Variables}
+  \begin{exampleblock}{An Important Data Science Question}
     Is group A different from group B in expectation?
   \end{exampleblock}
 
@@ -89,7 +89,7 @@ sample size & 50 & 50
        \end{exampleblock}
 
   \begin{exampleblock}{Null Hypothesis}
-    $H_{0}: \mu_{X} = \mu_{Y}$ (The two groups' means are equal)
+    $H_{0}: \mu_{X} = \mu_{Y}$ (The two population means are equal)
   \end{exampleblock}
   
   \begin{exampleblock}{Alternative hypotheses}
@@ -213,22 +213,18 @@ sample size & 50 & 50
 \begin{frame}
   \frametitle{Student's t-Test}
 
-  $$t = \frac{\mu_{1}-\mu_{2}}{S_{\mu_{1}-\mu_{2}}} $$
+  $$t =  \frac{\bar{X} - \bar{Y}}{s \sqrt{\frac{1}{n_1}+\frac{1}{n_2}}} $$
 
+Where $s$ is a weighted average of the sample standard deviations for each group, $s_X$ and $s_Y$.
   $$
-    S_{\mu_{1}-\mu_{2}} = \sqrt{ \left(\frac{ (N_{1}-1)S_{1}^{2} + (N_{2}-1)S_{2}^{2} }{ N_{1}+N_{2}-2 }\right)
-                    \left(\frac{1}{ N_{1} } + \frac{1}{ N_{2} }\right)
-                  }
+    s = \sqrt{ \left(\frac{ (n_{1}-1)s_X^{2} + (n_{2}-1)s_Y^{2} }{ n_{1}+n_{2}-2 }\right) }
   $$
 
-  $$
-    t = \frac{(mean\ of\ group\ 1) - (mean\ of\ group\ 2)}{standard\ error\ of\ difference\ between\ means}
-  $$
-  
-  
-  \begin{exampleblock}{\textit{t} value}
-    \textbf{Difference between group means} (mean difference), divided by the \textbf{variability of the two groups} (standard error of the differences)
+\begin{exampleblock}{Result}
+$t$ has a T distribution with $n_1 + n_2 -2$ degrees of freedom.
   \end{exampleblock}
+  
+
 
 \end{frame}
 
