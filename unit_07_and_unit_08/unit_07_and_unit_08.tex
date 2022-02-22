@@ -324,7 +324,7 @@ $$v = \frac{\left( \frac{s_X^2}{n_X} +  \frac{s_Y^2}{n_Y}\right)^2}{\frac{\left(
 \end{frame}
 
 \begin{frame}
-  \frametitle{Two-Sample t-Test Summary}
+  \frametitle{Choosing a Two-Sample t-Test}
 Some authors recommend a two step process:
   \begin{enumerate}
   \item Use Levine's test for equal variances ($H_0: \mu_X = \mu_Y$)
@@ -343,6 +343,25 @@ Some authors recommend a two step process:
  \end{itemize}
 
 \end{frame}
+
+\begin{frame}
+  \frametitle{Welch's Two-Sample t-Test Assumptions}
+  \note[item]{Let's summarize the assumptions in a more user-friendly form.}
+  
+  \begin{itemize}
+  \item \textbf{Metric Scale:} $X_1, X_2,..X_{n_X}$ and $Y_1, Y_2,...,Y_{n_Y}$ are random variables measured on a metric scale.
+  \item \textbf{Independence:} $X$'s are iid, $Y$'s are iid, and $X$'s and $Y$'s are mutually independent.
+  \item \textbf{Normality:} The distribution of the $X$'s is normal and the distribution of the $Y$'s is normal
+  \begin{itemize}
+\item The CLT guarantees normality for large samples
+\item Main concern is strong skewness with a small sample
+\end{itemize}
+
+  \end{itemize}
+
+  
+\end{frame}
+
 
 
 %Section 7.08 Edits end

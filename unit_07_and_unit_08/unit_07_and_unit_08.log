@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  21 FEB 2022 17:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 FEB 2022 12:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1632,15 +1632,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation19}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.353 ...ion{Practical Significance of the T-Test}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{page.19}) has been already used, duplicate
- ignored
+l.363 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{page.19}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.353 ...ion{Practical Significance of the T-Test}
-                                                  
+l.363 \end{frame}
+                 
 
 ] [21
 
@@ -1649,14 +1648,15 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation20}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.372 \end{frame}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{page.20}) has been already used, duplicate ignored
+l.372 ...ion{Practical Significance of the T-Test}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{page.20}) has been already used, duplicate
+ ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.372 \end{frame}
-                 
+l.372 ...ion{Practical Significance of the T-Test}
+                                                  
 
 ] [22
 
@@ -1674,34 +1674,24 @@ ame{page.21}) has been already used, duplicate ignored
 l.391 \end{frame}
                  
 
-]
-Overfull \vbox (6.68307pt too high) detected at line 414
- []
-
-[23
+] [23
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation22}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.414 \end{frame}
+l.410 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.22}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.414 \end{frame}
+l.410 \end{frame}
                  
 
 ]
-<./figures/biserial_00.pdf, id=275, 408.52625pt x 315.1775pt>
-File: ./figures/biserial_00.pdf Graphic file (type pdf)
-<use ./figures/biserial_00.pdf>
-Package pdftex.def Info: ./figures/biserial_00.pdf  used on input line 433.
-(pdftex.def)             Requested size: 153.64493pt x 118.53752pt.
-
-Overfull \vbox (34.90819pt too high) detected at line 433
+Overfull \vbox (6.68307pt too high) detected at line 433
  []
 
 [24
@@ -1721,13 +1711,13 @@ l.433 \end{frame}
                  
 
 ]
-<./figures/biserial_05.pdf, id=284, 408.52625pt x 315.1775pt>
-File: ./figures/biserial_05.pdf Graphic file (type pdf)
-<use ./figures/biserial_05.pdf>
-Package pdftex.def Info: ./figures/biserial_05.pdf  used on input line 449.
-(pdftex.def)             Requested size: 122.91406pt x 94.8281pt.
+<./figures/biserial_00.pdf, id=283, 408.52625pt x 315.1775pt>
+File: ./figures/biserial_00.pdf Graphic file (type pdf)
+<use ./figures/biserial_00.pdf>
+Package pdftex.def Info: ./figures/biserial_00.pdf  used on input line 452.
+(pdftex.def)             Requested size: 153.64493pt x 118.53752pt.
 
-Overfull \vbox (11.19876pt too high) detected at line 449
+Overfull \vbox (34.90819pt too high) detected at line 452
  []
 
 [25
@@ -1737,23 +1727,23 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation24}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.449 \end{frame}
+l.452 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.24}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.449 \end{frame}
+l.452 \end{frame}
                  
 
- <./figures/biserial_00.pdf>]
-<./figures/biserial_09.pdf, id=299, 408.52625pt x 315.1775pt>
-File: ./figures/biserial_09.pdf Graphic file (type pdf)
-<use ./figures/biserial_09.pdf>
-Package pdftex.def Info: ./figures/biserial_09.pdf  used on input line 465.
+]
+<./figures/biserial_05.pdf, id=292, 408.52625pt x 315.1775pt>
+File: ./figures/biserial_05.pdf Graphic file (type pdf)
+<use ./figures/biserial_05.pdf>
+Package pdftex.def Info: ./figures/biserial_05.pdf  used on input line 468.
 (pdftex.def)             Requested size: 122.91406pt x 94.8281pt.
 
-Overfull \vbox (11.19876pt too high) detected at line 465
+Overfull \vbox (11.19876pt too high) detected at line 468
  []
 
 [26
@@ -1763,148 +1753,147 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation25}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.465 \end{frame}
+l.468 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.25}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.465 \end{frame}
+l.468 \end{frame}
                  
 
- <./figures/biserial_05.pdf>] [27
+ <./figures/biserial_00.pdf>]
+<./figures/biserial_09.pdf, id=309, 408.52625pt x 315.1775pt>
+File: ./figures/biserial_09.pdf Graphic file (type pdf)
+<use ./figures/biserial_09.pdf>
+Package pdftex.def Info: ./figures/biserial_09.pdf  used on input line 484.
+(pdftex.def)             Requested size: 122.91406pt x 94.8281pt.
+
+Overfull \vbox (11.19876pt too high) detected at line 484
+ []
+
+[27
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation26}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.479 \end{frame}
+l.484 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.26}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.479 \end{frame}
+l.484 \end{frame}
                  
 
- <./figures/biserial_09.pdf>] [28
+ <./figures/biserial_05.pdf>] [28
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation27}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.481 \section{The Paired t-Test}
-                                 pdfTeX warning (ext4): destination with the sa
-me identifier (name{page.27}) has been already used, duplicate ignored
+l.498 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{page.27}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.481 \section{The Paired t-Test}
-                                 
+l.498 \end{frame}
+                 
 
-] [29
+ <./figures/biserial_09.pdf>] [29
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation28}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.497 \end{frame}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{page.28}) has been already used, duplicate ignored
+l.500 \section{The Paired t-Test}
+                                 pdfTeX warning (ext4): destination with the sa
+me identifier (name{page.28}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.497 \end{frame}
-                 
+l.500 \section{The Paired t-Test}
+                                 
 
-]
-<./figures/histogram_unpaired.pdf, id=348, 801.99625pt x 661.47125pt>
-File: ./figures/histogram_unpaired.pdf Graphic file (type pdf)
-<use ./figures/histogram_unpaired.pdf>
-Package pdftex.def Info: ./figures/histogram_unpaired.pdf  used on input line 5
-03.
-(pdftex.def)             Requested size: 276.559pt x 228.10689pt.
-
-Overfull \vbox (23.23033pt too high) detected at line 503
- []
-
-[30
+] [30
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation29}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.503 \end{frame}
+l.516 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.29}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.503 \end{frame}
+l.516 \end{frame}
                  
 
 ]
-<./figures/grip.png, id=357, 516.93124pt x 195.73125pt>
-File: ./figures/grip.png Graphic file (type png)
-<use ./figures/grip.png>
-Package pdftex.def Info: ./figures/grip.png  used on input line 518.
-(pdftex.def)             Requested size: 276.559pt x 104.71965pt.
- [31
+<./figures/histogram_unpaired.pdf, id=356, 801.99625pt x 661.47125pt>
+File: ./figures/histogram_unpaired.pdf Graphic file (type pdf)
+<use ./figures/histogram_unpaired.pdf>
+Package pdftex.def Info: ./figures/histogram_unpaired.pdf  used on input line 5
+22.
+(pdftex.def)             Requested size: 276.559pt x 228.10689pt.
+
+Overfull \vbox (23.23033pt too high) detected at line 522
+ []
+
+[31
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation30}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.518 \end{frame}
+l.522 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.30}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.518 \end{frame}
+l.522 \end{frame}
                  
 
- <./figures/histogram_unpaired.pdf>]
-<./figures/histogram_paired.pdf, id=371, 801.99625pt x 661.47125pt>
-File: ./figures/histogram_paired.pdf Graphic file (type pdf)
-<use ./figures/histogram_paired.pdf>
-Package pdftex.def Info: ./figures/histogram_paired.pdf  used on input line 524
-.
-(pdftex.def)             Requested size: 276.559pt x 228.10689pt.
-
-Overfull \vbox (23.23033pt too high) detected at line 524
- []
-
-[32
+]
+<./figures/grip.png, id=365, 516.93124pt x 195.73125pt>
+File: ./figures/grip.png Graphic file (type png)
+<use ./figures/grip.png>
+Package pdftex.def Info: ./figures/grip.png  used on input line 537.
+(pdftex.def)             Requested size: 276.559pt x 104.71965pt.
+ [32
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation31}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.524 \end{frame}
+l.537 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.31}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.524 \end{frame}
+l.537 \end{frame}
                  
 
- <./figures/grip.png>]
-<./figures/histogram_paired_rescaled.pdf, id=382, 801.99625pt x 661.47125pt>
-File: ./figures/histogram_paired_rescaled.pdf Graphic file (type pdf)
-<use ./figures/histogram_paired_rescaled.pdf>
-Package pdftex.def Info: ./figures/histogram_paired_rescaled.pdf  used on input
- line 530.
+ <./figures/histogram_unpaired.pdf>]
+<./figures/histogram_paired.pdf, id=380, 801.99625pt x 661.47125pt>
+File: ./figures/histogram_paired.pdf Graphic file (type pdf)
+<use ./figures/histogram_paired.pdf>
+Package pdftex.def Info: ./figures/histogram_paired.pdf  used on input line 543
+.
 (pdftex.def)             Requested size: 276.559pt x 228.10689pt.
 
-Overfull \vbox (23.23033pt too high) detected at line 530
+Overfull \vbox (23.23033pt too high) detected at line 543
  []
 
 [33
@@ -1914,61 +1903,72 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation32}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.530 \end{frame}
+l.543 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.32}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.530 \end{frame}
+l.543 \end{frame}
                  
 
- <./figures/histogram_paired.pdf>] [34
+ <./figures/grip.png>]
+<./figures/histogram_paired_rescaled.pdf, id=390, 801.99625pt x 661.47125pt>
+File: ./figures/histogram_paired_rescaled.pdf Graphic file (type pdf)
+<use ./figures/histogram_paired_rescaled.pdf>
+Package pdftex.def Info: ./figures/histogram_paired_rescaled.pdf  used on input
+ line 549.
+(pdftex.def)             Requested size: 276.559pt x 228.10689pt.
+
+Overfull \vbox (23.23033pt too high) detected at line 549
+ []
+
+[34
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation33}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.543 \end{frame}
+l.549 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.33}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.543 \end{frame}
+l.549 \end{frame}
                  
 
- <./figures/histogram_paired_rescaled.pdf>] [35
+ <./figures/histogram_paired.pdf>] [35
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation34}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.561 \end{frame}
+l.562 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.34}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.561 \end{frame}
+l.562 \end{frame}
                  
 
-] [36
+ <./figures/histogram_paired_rescaled.pdf>] [36
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation35}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.578 \end{frame}
+l.580 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.35}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.578 \end{frame}
+l.580 \end{frame}
                  
 
 ] [37
@@ -1978,15 +1978,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation36}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.583 ...ion{Introduction to Non-parametric Tests}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{page.36}) has been already used, duplicate
- ignored
+l.597 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{page.36}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.583 ...ion{Introduction to Non-parametric Tests}
-                                                  
+l.597 \end{frame}
+                 
 
 ] [38
 
@@ -1995,14 +1994,15 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation37}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.597 \end{frame}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{page.37}) has been already used, duplicate ignored
+l.602 ...ion{Introduction to Non-parametric Tests}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{page.37}) has been already used, duplicate
+ ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.597 \end{frame}
-                 
+l.602 ...ion{Introduction to Non-parametric Tests}
+                                                  
 
 ] [39
 
@@ -2011,13 +2011,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation38}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.610 \end{frame}
+l.616 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.38}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.610 \end{frame}
+l.616 \end{frame}
                  
 
 ] [40
@@ -2043,13 +2043,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation40}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.647 \end{frame}
+l.648 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.40}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.647 \end{frame}
+l.648 \end{frame}
                  
 
 ] [42
@@ -2059,13 +2059,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation41}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.668 \end{frame}
+l.666 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.41}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.668 \end{frame}
+l.666 \end{frame}
                  
 
 ] [43
@@ -2075,151 +2075,138 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation42}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.682 \end{frame}
+l.687 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.42}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.682 \end{frame}
+l.687 \end{frame}
                  
 
-]
-<figures/love_tester.png, id=488, 994.71625pt x 487.8225pt>
-File: figures/love_tester.png Graphic file (type png)
-<use figures/love_tester.png>
-Package pdftex.def Info: figures/love_tester.png  used on input line 692.
-(pdftex.def)             Requested size: 307.28987pt x 150.70236pt.
-
-Overfull \vbox (4.2861pt too high) detected at line 692
- []
-
-[44
+] [44
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation43}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.692 \end{frame}
+l.701 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.43}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.692 \end{frame}
+l.701 \end{frame}
                  
 
-] [45
+]
+<figures/love_tester.png, id=497, 994.71625pt x 487.8225pt>
+File: figures/love_tester.png Graphic file (type png)
+<use figures/love_tester.png>
+Package pdftex.def Info: figures/love_tester.png  used on input line 711.
+(pdftex.def)             Requested size: 307.28987pt x 150.70236pt.
+
+Overfull \vbox (4.2861pt too high) detected at line 711
+ []
+
+[45
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation44}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.704 \end{frame}
+l.711 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.44}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.704 \end{frame}
+l.711 \end{frame}
                  
 
- <./figures/love_tester.png>]
-Overfull \vbox (9.98625pt too high) detected at line 704
- []
-
-[46
+] [46
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation45}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.715 \end{frame}
+l.723 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.45}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.715 \end{frame}
+l.723 \end{frame}
                  
 
-] [47
+ <./figures/love_tester.png>]
+Overfull \vbox (9.98625pt too high) detected at line 723
+ []
+
+[47
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation46}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.729 ...xon Rank-sum Test for Independent Groups}
-                                                  pdfTeX warning (ext4): destin
-ation with the same identifier (name{page.46}) has been already used, duplicate
- ignored
+l.734 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{page.46}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.729 ...xon Rank-sum Test for Independent Groups}
-                                                  
+l.734 \end{frame}
+                 
 
-]
-Underfull \hbox (badness 1783) in paragraph at lines 729--729
-[][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 745--745
-[]\T1/FiraSans-OsF/bold/n/12 Non-parametric
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 745--745
-[]\T1/FiraSans-OsF/regular/n/12 Independent
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 745--745
-[]\T1/FiraSans-OsF/regular/n/12 Wilcoxon rank-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 745--745
-[]\T1/FiraSans-OsF/regular/it/12 Two de-pen-dent
- []
-
-
-Overfull \hbox (7.27382pt too wide) in paragraph at lines 745--745
- [] 
- []
-
-[48
+] [48
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation47}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.745 \end{frame}
-                 pdfTeX warning (ext4): destination with the same identifier (n
-ame{page.47}) has been already used, duplicate ignored
+l.748 ...xon Rank-sum Test for Independent Groups}
+                                                  pdfTeX warning (ext4): destin
+ation with the same identifier (name{page.47}) has been already used, duplicate
+ ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.745 \end{frame}
-                 
+l.748 ...xon Rank-sum Test for Independent Groups}
+                                                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 745--745
+Underfull \hbox (badness 1783) in paragraph at lines 748--748
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
 
-Overfull \vbox (14.04677pt too high) detected at line 745
+Underfull \hbox (badness 10000) in paragraph at lines 764--764
+[]\T1/FiraSans-OsF/bold/n/12 Non-parametric
  []
 
 
-Overfull \vbox (12.8826pt too high) detected at line 776
+Underfull \hbox (badness 10000) in paragraph at lines 764--764
+[]\T1/FiraSans-OsF/regular/n/12 Independent
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 764--764
+[]\T1/FiraSans-OsF/regular/n/12 Wilcoxon rank-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 764--764
+[]\T1/FiraSans-OsF/regular/it/12 Two de-pen-dent
+ []
+
+
+Overfull \hbox (7.27382pt too wide) in paragraph at lines 764--764
+ [] 
  []
 
 [49
@@ -2229,22 +2216,26 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation48}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.776 \end{frame}
+l.764 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.48}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.776 \end{frame}
+l.764 \end{frame}
                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 776--776
+Underfull \hbox (badness 1783) in paragraph at lines 764--764
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
 
-Overfull \vbox (11.84035pt too high) detected at line 776
+Overfull \vbox (14.04677pt too high) detected at line 764
+ []
+
+
+Overfull \vbox (12.8826pt too high) detected at line 795
  []
 
 [50
@@ -2254,22 +2245,22 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation49}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.796 \end{frame}
+l.795 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.49}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.796 \end{frame}
+l.795 \end{frame}
                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 796--796
+Underfull \hbox (badness 1783) in paragraph at lines 795--795
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
 
-Overfull \vbox (11.84035pt too high) detected at line 796
+Overfull \vbox (11.84035pt too high) detected at line 795
  []
 
 [51
@@ -2293,6 +2284,10 @@ Underfull \hbox (badness 1783) in paragraph at lines 815--815
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
+
+Overfull \vbox (11.84035pt too high) detected at line 815
+ []
+
 [52
 
 pdfTeX warning (ext4): destination with the same identifier (name{Navigation51}
@@ -2300,22 +2295,18 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation51}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.841 \end{frame}
+l.834 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.51}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.841 \end{frame}
+l.834 \end{frame}
                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 841--841
+Underfull \hbox (badness 1783) in paragraph at lines 834--834
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
- []
-
-
-Overfull \vbox (13.32407pt too high) detected at line 841
  []
 
 [53
@@ -2325,28 +2316,22 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation52}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.858 \end{frame}
+l.860 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.52}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.858 \end{frame}
+l.860 \end{frame}
                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 858--858
+Underfull \hbox (badness 1783) in paragraph at lines 860--860
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
 
-Overfull \vbox (11.84035pt too high) detected at line 858
- []
-
-
-Underfull \hbox (badness 4752) in paragraph at lines 875--875
- [][]\T1/FiraSans-OsF/bold/sc/14.4 Interpretation of the Wilcoxon Rank-Sum Test
- 
+Overfull \vbox (13.32407pt too high) detected at line 860
  []
 
 [54
@@ -2356,22 +2341,28 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation53}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.875 \end{frame}
+l.877 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.53}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.875 \end{frame}
+l.877 \end{frame}
                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 875--875
+Underfull \hbox (badness 1783) in paragraph at lines 877--877
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
 
-Overfull \vbox (13.32407pt too high) detected at line 875
+Overfull \vbox (11.84035pt too high) detected at line 877
+ []
+
+
+Underfull \hbox (badness 4752) in paragraph at lines 894--894
+ [][]\T1/FiraSans-OsF/bold/sc/14.4 Interpretation of the Wilcoxon Rank-Sum Test
+ 
  []
 
 [55
@@ -2381,22 +2372,47 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation54}
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.893 \end{frame}
+l.894 \end{frame}
                  pdfTeX warning (ext4): destination with the same identifier (n
 ame{page.54}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.893 \end{frame}
+l.894 \end{frame}
                  
 
 ]
-Underfull \hbox (badness 1783) in paragraph at lines 893--893
+Underfull \hbox (badness 1783) in paragraph at lines 894--894
 [][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
  []
 
 
-Overfull \vbox (11.84035pt too high) detected at line 893
+Overfull \vbox (13.32407pt too high) detected at line 894
+ []
+
+[56
+
+pdfTeX warning (ext4): destination with the same identifier (name{Navigation55}
+) has been already used, duplicate ignored
+
+\pgfpages@shipoutshipoutbox ...physicalpagesizes }
+                                                  \endgroup 
+l.912 \end{frame}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{page.55}) has been already used, duplicate ignored
+
+\pgfpages@shipoutshipoutbox ...physicalpagesizes }
+                                                  \endgroup 
+l.912 \end{frame}
+                 
+
+]
+Underfull \hbox (badness 1783) in paragraph at lines 912--912
+[][]\T1/FiraSans-OsF/regular/n/10.95 Wilcoxon Rank-sum Test for In-de-pen-dent
+ []
+
+
+Overfull \vbox (11.84035pt too high) detected at line 912
  []
 
 \tf@nav=\write6
@@ -2408,36 +2424,36 @@ Overfull \vbox (11.84035pt too high) detected at line 893
 \tf@snm=\write8
 \openout8 = `unit_07_and_unit_08.snm'.
 
-[56
+[57
 
-pdfTeX warning (ext4): destination with the same identifier (name{Navigation55}
+pdfTeX warning (ext4): destination with the same identifier (name{Navigation56}
 ) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.897 \end{document}
+l.916 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
- (name{page.55}) has been already used, duplicate ignored
+ (name{page.56}) has been already used, duplicate ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.897 \end{document}
+l.916 \end{document}
                     
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 897.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 897.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 916.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 916.
  (./unit_07_and_unit_08.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 897.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 897.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 916.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 916.
 Package rerunfilecheck Info: File `unit_07_and_unit_08.out' has not changed.
 (rerunfilecheck)             Checksum: 0811D0BEBA68258D60D6E297718FC063;454.
  ) 
 Here is how much of TeX's memory you used:
- 22624 strings out of 492616
- 452365 string characters out of 6129482
- 522116 words of memory out of 5000000
- 25885 multiletter control sequences out of 15000+600000
+ 22628 strings out of 492616
+ 452402 string characters out of 6129482
+ 522151 words of memory out of 5000000
+ 25887 multiletter control sequences out of 15000+600000
  272187 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  71i,13n,111p,1849b,750s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2461,10 +2477,10 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on unit_07_and_unit_08.pdf (55 pages, 1573759 bytes).
+Output written on unit_07_and_unit_08.pdf (56 pages, 1575441 bytes).
 PDF statistics:
- 696 PDF objects out of 1000 (max. 8388607)
- 534 compressed objects within 6 object streams
- 118 named destinations out of 1000 (max. 500000)
+ 704 PDF objects out of 1000 (max. 8388607)
+ 540 compressed objects within 6 object streams
+ 120 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
