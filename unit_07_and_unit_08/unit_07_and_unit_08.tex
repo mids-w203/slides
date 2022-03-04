@@ -33,7 +33,7 @@
 \begin{frame}
   \frametitle{Motivating the Two-Sample t-Test}
   \begin{exampleblock}{An Important Data Science Question}
-    Is group A different from group B in expectation?
+    Is group A different from group B?
   \end{exampleblock}
 
 \note[item]{The two-sample t-test is one of the most common procedures in inferential statistics. What is it for? As a data scientist you will often face a question about two groups - group A and group B. Someone will ask you if one is greater or less than than the other.}
@@ -56,7 +56,7 @@
   \note[item]{Here's a specific example, with data.}
   \note[item]{write on slide: 13.3-12.1 = 1.2 outfits}
   \note[item]{Is this a big difference? is it just noise?}
-  \note[item]{To be more precise, is this evidence that SF'ans have more black outfits than NYers in general?}
+  \note[item]{To be more precise, is this evidence that SF'ans have more black outfits than NYers in expectation?}
   \note[item]{To analyze this question, we need a model...}
   \begin{exampleblock}{From the Journal of Empirical Fashion}
   \begin{tabular}{c | c | c}
@@ -68,7 +68,7 @@ sample size & 50 & 50
  \end{exampleblock}
  
 \vspace{1.5cm}
- Is this evidence that San Franciscans have more black outfits than New Yorkers \textit{in general}? \end{frame}
+ Is this evidence that San Franciscans have more black outfits than New Yorkers \textit{in expectation}? \end{frame}
  
  
  \begin{frame}
@@ -183,12 +183,12 @@ sample size & 50 & 50
 
 \begin{frame}
   \frametitle{General Procedure for Testing}
-  \note[item]{From this example, I hope you see that the two-sample t-test is not all that different from the one-sample tests we did earlier.}
+  \note[item]{From this example, I hope you see that the two-sample z-test is not all that different from the one-sample tests we did earlier.}
   \note[item]{No matter what the test is, there's a general pattern that you follow...}
   
   Three steps:
   \begin{enumerate}
-      \item Specify model and null hypothesis
+      \item Specify model, null hypothesis, rejection criterion
       \item Calculate statistic
       \item Plot statistic on the null distribution to get the $p$ value.
   \end{enumerate}
@@ -218,7 +218,7 @@ sample size & 50 & 50
   \note[item]{The big problem with this test is we're using the standard deviations $\sigma_X$ and $\sigma_Y$ - but we don't know what they are}
   \note[item]{We're going to have to estimate these in some way.}
   
-$$z = \frac{\bar{X} - \bar{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_T}}} $$    
+$$z = \frac{\bar{X} - \bar{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} $$    
     \begin{itemize}
     \item Problem : we don't know $\sigma_X$ or $\sigma_Y$
     \end{itemize}
@@ -278,7 +278,7 @@ if $\sigma_X = \sigma_Y$, $t$ has a T distribution with $n_X + n_Y -2$ degrees o
     \begin{itemize}
       \item Model has two parameters ($\mu_X$ and $\mu_Y$)
       \item Given the sample means, $n_X -1$ observations for $X$ and $n_Y - 1$ observations for Y, can compute the rest
-      \item \textit{df} = $n_{1} + n_{2} -2$
+      \item \textit{df} = $n_{X} + n_{Y} -2$
     \end{itemize}
 
   \end{itemize}
@@ -327,7 +327,7 @@ $$v = \frac{\left( \frac{s_X^2}{n_X} +  \frac{s_Y^2}{n_Y}\right)^2}{\frac{\left(
   \frametitle{Choosing a Two-Sample t-Test}
 Some authors recommend a two step process:
   \begin{enumerate}
-  \item Use Levine's test for equal variances ($H_0: \mu_X = \mu_Y$)
+  \item Use Levine's test for equal variances ($H_0: \sigma_X = \sigma_Y$)
   \item If non-significant, proceed with Student's t-Test
   \end{enumerate}
  

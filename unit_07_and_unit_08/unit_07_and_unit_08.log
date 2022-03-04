@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 FEB 2022 12:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  4 MAR 2022 11:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1324,14 +1324,14 @@ pdfTeX warning (ext4): destination with the same identifier (name{Navigation3})
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.71 ...w Yorkers \textit{in general}? \end{frame}
+l.71 ...rkers \textit{in expectation}? \end{frame}
                                                   pdfTeX warning (ext4): destin
 ation with the same identifier (name{page.3}) has been already used, duplicate 
 ignored
 
 \pgfpages@shipoutshipoutbox ...physicalpagesizes }
                                                   \endgroup 
-l.71 ...w Yorkers \textit{in general}? \end{frame}
+l.71 ...rkers \textit{in expectation}? \end{frame}
                                                   
 
 ] [5
@@ -2451,7 +2451,7 @@ Package rerunfilecheck Info: File `unit_07_and_unit_08.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  22628 strings out of 492616
- 452402 string characters out of 6129482
+ 452396 string characters out of 6129482
  522151 words of memory out of 5000000
  25887 multiletter control sequences out of 15000+600000
  272187 words of font info for 77 fonts, out of 8000000 for 9000
@@ -2477,7 +2477,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2019/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on unit_07_and_unit_08.pdf (56 pages, 1575441 bytes).
+Output written on unit_07_and_unit_08.pdf (56 pages, 1575382 bytes).
 PDF statistics:
  704 PDF objects out of 1000 (max. 8388607)
  540 compressed objects within 6 object streams
