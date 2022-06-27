@@ -34,35 +34,12 @@
 
 \maketitle
 
-\section{Large-Sample Regression}
-
-\begin{frame}
-We assume that the best linear predictor of $Y$ given $\v{X}$ is $\v{X}\v{\beta}$.
-$$
-Y=\v{X}\v{\beta}+\eps.
-$$
-We know that
-$$\E{\eps}=0,\mbox{ and }\E{\v{X}^T\eps}=\v{0}.$$
-
-\end{frame}
-
-\begin{frame}{OLS Coefficients}
-We also assume that the dataset $\{(Y_i,\v{X}_i)\}$ is taken \textbf{i.i.d.} from the joint distribution of $(Y,\v{X})$. For each $i$, we can write
-$$
-Y_i=\v{X_i}\v{\beta}+\eps_i.
-$$
-In matrix notation, we can write
-$$
-\v{Y}=\m{X}\v{\beta}+\v{\eps}.
-$$
-And, the solution (when exists) can be written as
+\begin{frame}{An Alternative Form of OLS Coefficients}
 $$
 \widehat{\v{\beta}}
-=\left[\m{X}^T\m{X}\right]^{-1}\m{X}^T\v{Y}. 
+=\left[\m{X}^T\m{X}\right]^{-1}\m{X}^T\v{Y} 
 $$
-\end{frame} 
 
-\begin{frame}{An Alternative Form of Coefficients}
 $$
 \begin{aligned}
 \widehat{\v{\beta}}
