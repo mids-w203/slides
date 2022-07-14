@@ -32,6 +32,158 @@
 % \maketitle
 % \end{frame}
 
+\section{A Tale of Two Statistics}
+
+\begin{frame}
+  A hypothesis, \textbf{H}, is a model for how the world might work.
+
+  In practice, evidence is rarely conclusive.
+
+  \begin{itemize}
+    \item We would like to know, $P(H|D)$. That is, the probability that our hypothesis is true, given the data that we observe from the world.
+    \item But there is a fundamental dilemma: We will never know whether our hypothesis is true.
+    \item The world isn't a perfect laboratory, and although we can collect evidence and information, this evidence cannot identify a single, \textit{unique} model from the set of all possible models.
+    \item We cannot make a probability statement about the models either!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 1: Coin Flips}
+  Suppose that you flip a coin once and it lands heads. \textit{What is the probability that it is a double-headed coin?}
+
+  \begin{itemize}
+    \item Is there enough information to answer this question?
+    \item How did the coin get there? The context is missing?
+    \item Even with more information, we still cannot ever possess the \textit{entire} context.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 2: Gravity}
+  \begin{itemize}
+    \item Both motions are constant with a gravitation attraction that is proportional to the square of the distance between two objects.
+    \item What is the probability that Newton's theory of gravity is ``correct''?
+  \end{itemize}
+
+  \textbf{Problem:} Newton's theory seemed to work well up to the precision of 17th-century instruments.
+
+  \begin{itemize}
+    \item But, it is the present now, and we have developed instruments that pretty clearly say that Newton's laws are incorrect.
+    \item How could Newton decide how likely was his model compared to general relativity (which hadn't even been imagined yet!)?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 2: Take-away}
+  We can never write down the infinite number of models that are possible consistent with our observations. And, even if we could, we could not assign a probability distribution to these models.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 3: Giant Squid }
+  Suppose that you discover three new specimens of a new squid species that measure 3.2, 3.3, and 4.0 feet long.
+
+  \begin{itemize}
+    \item What is the probability that the average length among the entire species is 3.5 feet?
+    \item Probability is zero for a single point (continuous probability measures).
+    \item Probability that the average length is between 3 and 4 feet?
+  \end{itemize}
+
+  What we know and don't know:
+  \begin{itemize}
+    \item We know about our \textit{sample}.
+    \item We do not know about our \textit{population}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Two Branches of Statistics }
+  \centering
+  \includegraphics[width=.9\linewidth]{./figures/two_worlds}
+\end{frame}
+
+\section{The Frequentist Approach}
+
+\begin{frame}
+  \frametitle{The Birth of Modern Statistics}
+  \textbf{Before the 1930s}
+  \begin{itemize}
+    \item Many ``statistical'' procedures; but, no coherent account of how to choose one.
+    \item Neyman and Pearson published articles that added a formal mathematical treatment, laying the foundations for frequentist statistics.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Central Dilemma}
+
+  Despite the ``modern'' development of statistics, there is a problem.
+
+  \begin{itemize}
+    \item We observe data, $D$.
+    \item Given the data that we observe, we \textit{would like to know} the probability that our hypothesis is true.
+    \item That is, $P(H|D)$.
+  \end{itemize}
+
+  But, frequentist statistics:
+
+  \begin{itemize}
+    \item Not only cannot compute this probability.
+    \item Doesn't think it even makes sense to assign a probability to a hypothesis.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Objective Probability}
+
+  A frequentist defines probability as a matter of long-run frequencies.
+
+  \begin{itemize}
+    \item Frequentists specify a collective of elements (e.g. experiments, or throws of dice).
+    \item As the number of observations approaches infinity, the proportion of the throws that show a $3$ is $\frac{1}{6}$.
+    \item For frequentists, \textbf{objective probability} is this long-run frequency of the event.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Objective Probability and Hypotheses}
+  \begin{itemize}
+    \item If one views probability as objective, then they cannot talk about the probability of a hypothesis.
+    \item A hypothesis is just a statement that is either \textit{TRUE}, or \textit{FALSE}.
+    \item This mixes language a little, but when one talks about the probability of a hypothesis, they are talking about \textbf{subjective probability}, which is not the purview of data science.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{What Probabilities Can We Study?}
+  We can study events that have (or could have) a long-run collective.
+
+  $$
+  P(D|H)
+  $$
+
+  where $H$ is a hypothesis and $D$ is data.
+
+  \begin{itemize}
+    \item Assume that $H$ is true, and call it the null hypothesis.
+    \item Has to be \textit{very} specific.
+    \item Is the basis for predictions we need to make about the data that ``should'' come out of the experiment (if this $H$ were actually true).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{An Imprecise Statement}
+  Vitamin W kicks the bad toxins right smack outta your system. (Read this like a TV salesperson.)
+\end{frame}
+
+\begin{frame}
+  \frametitle{A Precise Statement }
+  Vitamin W reduces blood pressure by 12 mmHg on average.
+
+  \begin{itemize}
+    \item With a precise statement, we also have a statement about the data that \textit{should} be observed; and so,
+    \item We have a collective to produce a long-run frequency, i.e. a probability.
+  \end{itemize}
+\end{frame}
+
 \section{Decision Rules}
 
 \begin{frame}
@@ -55,7 +207,7 @@
 
 \begin{frame}
   \frametitle{Two Possible States of the World}
-  \textbf{Goal:} Begin with a resonable default supposition; leave
+  \textbf{Goal:} Begin with a reasonable default supposition; leave
   this supposition behind if data provides compelling evidence
   \begin{columns}[t]
     \column{.5\linewidth}
@@ -841,4 +993,26 @@ How to increase power
   \end{itemize}
 \end{frame}
 
-\end{document} 
+\section{Guidelines for Statistical Reporting}
+
+\begin{frame}
+  \frametitle{Guidelines for Statistical Reporting}
+  \begin{itemize}
+    \item Communicating results is a \textit{key} part of statistical analysis.
+    \item In this class, in other classes, and in your organization, you will be expected to submit your analysis as a written report.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Guidelines}
+  \begin{enumerate}
+    \item A statistical analysis is a written argument.
+    \item If you don't have something to say about some output, don't display it.
+    \item Document every decision that you make.
+    \item Identify features of the population that should be reflected in statistical models.
+    \item Be clear about the difference between the sample and the population.
+    \item The code is a part of the argument.
+  \end{enumerate}
+\end{frame}
+
+\end{document}
