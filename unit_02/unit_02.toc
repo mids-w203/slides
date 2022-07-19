@@ -1,0 +1,30 @@
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Motivating Examples}{4}{0}{1}
+\beamer@sectionintoc {2}{Part 1: Introducing Random Variables}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Introduction Random Variables}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Reading: Random Variables}{14}{0}{2}
+\beamer@subsectionintoc {2}{3}{Functions, Events, and Operators}{16}{0}{2}
+\beamer@subsectionintoc {2}{4}{Learnosity: Roaster Temperature}{20}{0}{2}
+\beamer@subsectionintoc {2}{5}{Reading Call}{22}{0}{2}
+\beamer@subsectionintoc {2}{6}{Discrete Random Variables}{24}{0}{2}
+\beamer@subsectionintoc {2}{7}{Reading: Cumulative Distribution Functions}{30}{0}{2}
+\beamer@subsectionintoc {2}{8}{Lightboard: The Cumulative Distribution Function}{32}{0}{2}
+\beamer@subsectionintoc {2}{9}{Continuous Random Variables}{35}{0}{2}
+\beamer@subsectionintoc {2}{10}{Reading: Continuous Random Variables}{41}{0}{2}
+\beamer@subsectionintoc {2}{11}{Properties of Continuous Random Variables}{43}{0}{2}
+\beamer@subsectionintoc {2}{12}{Uniform Random Variables}{48}{0}{2}
+\beamer@subsectionintoc {2}{13}{Normal Random Variables}{50}{0}{2}
+\beamer@subsectionintoc {2}{14}{Normal Random Variables}{52}{0}{2}
+\beamer@sectionintoc {3}{Part 2: Joint Distributions}{62}{0}{3}
+\beamer@subsectionintoc {3}{1}{Joint Distributions}{63}{0}{3}
+\beamer@subsectionintoc {3}{2}{Reading Assignment}{66}{0}{3}
+\beamer@subsectionintoc {3}{3}{Discrete Bivariate Distributions}{68}{0}{3}
+\beamer@subsectionintoc {3}{4}{Learnosity: The Probability Mass Function}{76}{0}{3}
+\beamer@subsectionintoc {3}{5}{Discrete Marginal and Conditional Distributions}{78}{0}{3}
+\beamer@subsectionintoc {3}{6}{Reading Assignment: Discrete Marginal and Conditional Distributions}{79}{0}{3}
+\beamer@subsectionintoc {3}{7}{Discrete Marginal Distributions}{81}{0}{3}
+\beamer@subsectionintoc {3}{8}{Discrete Conditional Distributions}{86}{0}{3}
+\beamer@subsectionintoc {3}{9}{Reading: Jointly Continuous Random Variables}{91}{0}{3}
+\beamer@subsectionintoc {3}{10}{Jointly Continuous Random Variables}{93}{0}{3}
+\beamer@subsectionintoc {3}{11}{Reading: Independent Random Variables}{99}{0}{3}
+\beamer@subsectionintoc {3}{12}{Independent Random Variables}{101}{0}{3}

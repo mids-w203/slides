@@ -42,15 +42,25 @@ subsectionpage = progressbar]
 %   \setbeameroption{show notes on second screen=right} % Both
 
 
-% \title{Week 2}
-% \subtitle{Introduction to Probability}
+ \title{Week 2}
+ \subtitle{Introduction to Probability}
 
-% \author{Paul Laskowski and Alex Hughes}
-% \institute{UC Berkeley, School of Information}
+ \author{Paul Laskowski and Alex Hughes}
+ \institute{UC Berkeley, School of Information}
 
 \begin{document}
 
-\section{Motivating Examples}
+\begin{frame}
+\maketitle
+\end{frame} 
+
+\begin{frame} 
+\footnotesize
+\tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introduction}
+\subsection{Motivating Examples}
 
 \begin{frame}
   \frametitle{Plan for the Week}
@@ -82,9 +92,10 @@ subsectionpage = progressbar]
   \note[item]{}
 \end{frame}
 
-\section{Introducing Random Variables}
+\section{Part 1: Introducing Random Variables}
 % \section{Introducing Random Variables}
 
+\subsection{Introduction Random Variables}
 \begin{frame}
   \frametitle{What Is a Random Variable?}
   Intuition:
@@ -155,13 +166,6 @@ subsectionpage = progressbar]
     random variable is a function from omega to the reals.}
 \end{frame}
 
-
-
-
-
-
-
-
 \begin{frame}[t]
   \frametitle{What Is a Random Variable (Formally)?}
   \includegraphics[width= \textwidth ]{figures/roaster3}
@@ -172,7 +176,6 @@ subsectionpage = progressbar]
     Annotation, label outcome w, draw arrow to T, draw another arrow
     to 160.}
 \end{frame}
-
 
 \begin{frame}[t]
   \frametitle{Probabilities of Real Numbers}
@@ -195,16 +198,14 @@ subsectionpage = progressbar]
     think about the original outcome space.}
 \end{frame}
 
-
-
-\section{Reading: Random Variables}
+\subsection{Reading: Random Variables}
  
 \begin{frame}
   \frametitle{Reading Assignment}
   Read \textit{Foundations of Agnostic Statistics}, section 1.2.0–1.2.1.
 \end{frame}
 
-\section{Functions, Events, and Operators}
+\subsection{Functions, Events, and Operators}
 
 \begin{frame}[t]
   \frametitle{Functions of a Random Variable}
@@ -249,7 +250,7 @@ subsectionpage = progressbar]
     random variables.}
 \end{frame}
 
-\section{Learnosity: Roaster Temperature}
+\subsection{Learnosity: Roaster Temperature}
 
 \begin{frame}[t]
   \frametitle{Learnosity: Roaster Temperature}
@@ -270,19 +271,16 @@ subsectionpage = progressbar]
   
   \note[item]{Three questions, each with three MC answers: (Event,
     Random Variable, Operator).}
-  
 \end{frame}
 
-\section{Reading Call}
+\subsection{Reading Call}
 
 \begin{frame}
   \frametitle{Reading Assignment}
   Read \textit{Foundations of Agnostic Statistics}, section 1.2.2.
 \end{frame}
 
-
-
-\section{Discrete Random Variables}
+\subsection{Discrete Random Variables}
 
 
 \begin{frame}
@@ -329,7 +327,6 @@ subsectionpage = progressbar]
   \note[item]{Let $X(H) = 1$, $X(T) = 0$.}  \note[item]{$P(X=1) = p$,
     $P(X=0) = 1-p$}
 \end{frame}
- 
  
   
 \begin{frame}[t]
@@ -382,7 +379,7 @@ The pmf contains \textit{all} the information about the probability
 distribution of $X$.
 \end{frame}
  
-\section{Reading: Cumulative Distribution Functions}
+\subsection{Reading: Cumulative Distribution Functions}
 
 \begin{frame}
   \frametitle{Reading Assignment}
@@ -390,7 +387,7 @@ distribution of $X$.
 \end{frame}
  
  
-\section{Lightboard: The Cumulative Distribution Function}
+\subsection{Lightboard: The Cumulative Distribution Function}
  
 \begin{frame}
 
@@ -411,7 +408,7 @@ distribution of $X$.
     distribution of ANY RV, not just a discrete one.  It doesn't place any assumptions on the random variable.  so we like to write theorems that use the CDF, because those are as general as possible.}
 \end{frame}
 
-\section{Continuous Random Variables}
+\subsection{Continuous Random Variables}
 
 \begin{frame}
   \frametitle{Motivation for Continuous Random Variables}
@@ -486,14 +483,14 @@ distribution of $X$.
 
 
 
-\section{Reading: Continuous Random Variables}
+\subsection{Reading: Continuous Random Variables}
 
 \begin{frame}
   \frametitle{Reading: Continuous Random Variables}
   Read \textit{Foundations of Agnostic Statistics}, section 1.2.4.
 \end{frame}
 
-\section{Properties of Continuous Random Variables}
+\subsection{Properties of Continuous Random Variables}
 
 \begin{frame}
   \frametitle{Continuous Random Variables}
@@ -553,7 +550,7 @@ distribution of $X$.
 
 
  
-\section{Uniform Random Variables}
+\subsection{Uniform Random Variables}
 
 \begin{frame}
   \frametitle{Uniform Random Variables}
@@ -565,7 +562,7 @@ distribution of $X$.
 
 \end{frame}
 
-\section{Normal Random Variables}
+\subsection{Normal Random Variables}
 
 \begin{frame}  
 Use the old video 3.10 The Normal Distribution
@@ -578,7 +575,7 @@ Use the old video 3.10 The Normal Distribution
 
 %Begin Section 2.16 Edits
 
-\section{Normal Random Variables}
+\subsection{Normal Random Variables}
 
 \begin{frame}
   \frametitle{The Normal Distribution}
@@ -707,20 +704,9 @@ Use the old video 3.10 The Normal Distribution
     
 \end{frame}
 
+\section{Part 2: Joint Distributions} 
 
-%End Section 2.16 Edits
-
-
-
-
-
-
-
-
-
-
-
-\section{Joint Distributions}
+\subsection{Joint Distributions}
 
 \begin{frame}
   \frametitle{Introducing Joint Distributions}
@@ -766,7 +752,7 @@ Use the old video 3.10 The Normal Distribution
     defining and describing joint distributions? }
 \end{frame}
 
-\section{Reading Assignment}
+\subsection{Reading Assignment}
 
 \begin{frame}
   \frametitle{Reading Assignment}
@@ -774,7 +760,7 @@ Use the old video 3.10 The Normal Distribution
 \end{frame}
 
 
-\section{Discrete Bivariate Distributions}
+\subsection{Discrete Bivariate Distributions}
 
 \begin{frame}
   \frametitle{Equality of Random Variables}
@@ -896,7 +882,7 @@ Use the old video 3.10 The Normal Distribution
     universal.}
 \end{frame}
 
-\section{Learnosity: The Probability Mass Function}
+\subsection{Learnosity: The Probability Mass Function}
 
 \begin{frame}
   \frametitle{Learnosity: The Probability Mass Function}
@@ -915,9 +901,9 @@ Use the old video 3.10 The Normal Distribution
   \end{tabular}
 \end{frame}
 
-\section{Discrete Marginal and Conditional Distributions} 
+\subsection{Discrete Marginal and Conditional Distributions} 
 
-\section{Reading Assignment: Discrete Marginal and Conditional
+\subsection{Reading Assignment: Discrete Marginal and Conditional
   Distributions}
 
 \begin{frame}
@@ -925,7 +911,7 @@ Use the old video 3.10 The Normal Distribution
   Read \textit{Foundations of Agnostic Statistics}, section 1.3.2.
 \end{frame}
 
-\section{Discrete Marginal Distributions}
+\subsection{Discrete Marginal Distributions}
 
 
 \begin{frame}
@@ -1053,7 +1039,7 @@ Use the old video 3.10 The Normal Distribution
   \end{tabular}
 \end{frame}
 
-\section{Discrete Conditional Distributions}
+\subsection{Discrete Conditional Distributions}
 
 \begin{frame}
   \frametitle{The Conditional PMF}
@@ -1117,14 +1103,14 @@ Use the old video 3.10 The Normal Distribution
 \end{frame}
 
 
-\section{Reading: Jointly Continuous Random Variables}
+\subsection{Reading: Jointly Continuous Random Variables}
 
 \begin{frame}
   \frametitle{Reading Assignment}
   Read \textit{Foundations of Agnostic Statistics}, section 1.3.3.
 \end{frame}
 
-\section{Jointly Continuous Random Variables}
+\subsection{Jointly Continuous Random Variables}
 
 \begin{frame}
   \frametitle{The Joint Density Function}
@@ -1201,14 +1187,14 @@ Use the old video 3.10 The Normal Distribution
     densities instead of probability masses.}
 \end{frame}
 
-\section{Reading: Independent Random Variables} 
+\subsection{Reading: Independent Random Variables} 
 
 \begin{frame}
   \frametitle{Reading Assignment}
   Read \textit{Foundations of Agnostic Statistics}, section 1.3.4.
 \end{frame}
 
-\section{Independent Random Variables}
+\subsection{Independent Random Variables}
 
 \begin{frame}
   \frametitle{Independence}
