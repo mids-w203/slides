@@ -5,9 +5,10 @@
 \usepackage{xcolor}
 
 \usepackage{pgfpages}
-% \setbeameroption{hide notes} % Only slides
+\setbeameroption{hide notes} % Only slides
 % \setbeameroption{show only notes} % Only notes
-  \setbeameroption{show notes on second screen=right} % Both
+  % \setbeameroption{show notes on second screen=right}
+  % Both
 
 \definecolor{burntOrange}{rgb}{.8, .5, .1}
 \definecolor{textgray}{rgb}{.8,.8,.8}
@@ -108,7 +109,7 @@ sample size & 50 & 50
   \note[item]{The middle distribution has medium deviation. Now it starts to look a little more surprising that our two sample averages were 1.2 apart.}
   \note[item]{The bottom distribution has low standard deviation. Now it seems quite unlikely to get two sample averages 1.2 apart. The data seems inconsistent with this hypothesis.}
     \begin{center}
-        \includegraphics[width = 0.9\linewidth]{figures/fashion_plot.png}
+        \includegraphics[width = 0.8\linewidth]{figures/fashion_plot.png}
     \end{center}
 \end{frame}
 
@@ -117,7 +118,7 @@ sample size & 50 & 50
   \note[item]{Putting these ideas together, we can make a statistic by taking the difference in sample averages, and dividing by an estimate of standard deviation - that's exactly the idea behind the two- sample t-test}
   \begin{exampleblock}{Two-Sample t-Test}
   
- $$t = \frac{\bar X - \bar Y}{\text{Estimate of Standard Deviation}}$$
+ $$t = \frac{\overline X - \overline Y}{\text{Estimate of Standard Deviation}}$$
  
     Assess whether two populations have the same expectation \textbf{while accounting for variability}
   \end{exampleblock}
@@ -149,11 +150,11 @@ sample size & 50 & 50
       \note[item]{Before we tackle the two-sample t-test, let's begin with the simpler 2 samp. z test. unrealistic, but build intuition.}
       \note[item]{Same assumptions as before, but add assump. of equal var $\sigma$ which we know.}
       \note[item]{How do we create a test statistic?}
-      \note[item]{What is the distribution of $\bar{X} - \bar{Y}$? Let's use fact that a difference of normal RVs is normal. but which normal?}
-      \note[item]{$V[\bar{X} - \bar{Y}] = V[\bar{X}] + V[\bar{Y}] = \sigma_X^2/n_X +  \sigma_Y^2/n_Y$}
-      \note[item]{$\bar{X} - \bar{Y} \sim N(0, \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}})$}
+      \note[item]{What is the distribution of $\overline{X} - \overline{Y}$? Let's use fact that a difference of normal RVs is normal. but which normal?}
+      \note[item]{$V[\overline{X} - \overline{Y}] = V[\overline{X}] + V[\overline{Y}] = \sigma_X^2/n_X +  \sigma_Y^2/n_Y$}
+      \note[item]{$\overline{X} - \overline{Y} \sim N(0, \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}})$}
       \note[item]{
-      We can standardize by dividing. $z = \frac{\bar{X} - \bar{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} \sim N(0,1)$}
+      We can standardize by dividing. $z = \frac{\overline{X} - \overline{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} \sim N(0,1)$}
 \note[item]{Here's the standard normal. 
 We can plot our statistic on this curve, to get a p-value or see if it's in a rejection region.}
 \vspace{.5cm}
@@ -174,7 +175,7 @@ sample size & 50 & 50
    Let $X_1,...,X_{50}$ rep. New Yorkers. Assume iid, mean $\mu_X$.\\
       Let $Y_1,...,Y_{50}$ rep. San Franciscans. Assume iid, mean $\mu_Y$.\\
       Assume $\sigma_X = \sigma_Y = 2.$
- \note[item]{$z = \frac{\bar{X} - \bar{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_T}}} = \frac{12.1 - 13.3}{\sqrt{\frac{4}{50}+\frac{4}{50}}} = \frac{-1.2}{ \sqrt{\frac{4}{25}}}  = -3.0$}
+ \note[item]{$z = \frac{\overline{X} - \overline{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_T}}} = \frac{12.1 - 13.3}{\sqrt{\frac{4}{50}+\frac{4}{50}}} = \frac{-1.2}{ \sqrt{\frac{4}{25}}}  = -3.0$}
  \note[item]{$z<-1.96$ REJECT}
  \note[item]{We can also compute p-value 2*pnorm(-3) = .0027}
  \end{frame}
@@ -218,7 +219,7 @@ sample size & 50 & 50
   \note[item]{The big problem with this test is we're using the standard deviations $\sigma_X$ and $\sigma_Y$ - but we don't know what they are}
   \note[item]{We're going to have to estimate these in some way.}
   
-$$z = \frac{\bar{X} - \bar{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} $$    
+$$z = \frac{\overline{X} - \overline{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} $$
     \begin{itemize}
     \item Problem : we don't know $\sigma_X$ or $\sigma_Y$
     \end{itemize}
@@ -241,7 +242,7 @@ $$z = \frac{\bar{X} - \bar{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n
   \begin{itemize}
 \item  Estimate a single "pooled" standard deviation, $s$.
 \item Substitute $s$ for both $s_X$ and $s_Y$.
-  $$t =  \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{s^2}{n_X}+\frac{s^2}{n_Y}}} $$
+  $$t =  \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{s^2}{n_X}+\frac{s^2}{n_Y}}} $$
   \end{itemize}
 
 \begin{exampleblock}{Theorem}
@@ -313,12 +314,12 @@ if $\sigma_X = \sigma_Y$, $t$ has a T distribution with $n_X + n_Y -2$ degrees o
 \item Substitute $s_X$ for $\sigma_X$ and $s_Y$ for $\sigma_Y$.
 \end{itemize}
   
-    $$t =  \frac{\bar{X} - \bar{Y}}{\sqrt{\frac{s_X^2}{n_X}+\frac{s_Y^2}{n_Y}}} $$
+    $$t =  \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{s_X^2}{n_X}+\frac{s_Y^2}{n_Y}}} $$
     
     \begin{exampleblock}{Theorem}
 $t$ has \textit{approximately} a T distribution. The degrees of freedom are given by
 
-$$v = \frac{\left( \frac{s_X^2}{n_X} +  \frac{s_Y^2}{n_Y}\right)^2}{\frac{\left(s_X^2/n_X\right)^2}{n_X-1} + \frac{\left(s_Y^2/n_Y\right)^2}{n_Y-1}}$$
+$$v = \frac{\left( s_X^2/n_X +  s_Y^2/n_Y\right)^2}{\frac{\left(s_X^2/n_X\right)^2}{n_X-1} + \frac{\left(s_Y^2/n_Y\right)^2}{n_Y-1}}$$
   \end{exampleblock}
   
 \end{frame}
@@ -438,49 +439,56 @@ Some authors recommend a two step process:
     correlation -- Cohen's d divides by the pooled standard deviation;
     correlation divides by the product of two group standard
     deviations.}
-  \begin{block}{Correlation}
-    \textit{Correlation} answers the question ``How strong is the
-    relationship between group identity and the outcome?''
-    \[
-      \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
-    \]
-  \end{block}
-
-  \begin{center}
-    \includegraphics[width = 0.5\linewidth]{./figures/biserial_00}
-  \end{center}
+  \begin{columns}
+    \column{0.5\linewidth}
+      \begin{block}{Biserial Correlation}
+        \textit{Correlation} answers the question ``How strong is the
+        relationship between group identity and the outcome?''
+        \[
+          \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
+        \]
+      \end{block}
+    \column{0.5\linewidth}
+      \begin{center}
+        \includegraphics[width = 0.9\linewidth]{./figures/biserial_00}
+      \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Correlation}
+  \begin{columns}
+    \column{.5\linewidth}
+    \begin{block}{Biserial Correlation}
+      \textit{Correlation} answers the question ``How strong
+      is the relationship between group identity and the outcome?''
+      \[
+        \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
+      \]
+    \end{block}
+    \column{0.5\linewidth}
+  \begin{center}
+    \includegraphics[width = 0.9\linewidth]{./figures/biserial_05}
+  \end{center}
+  \end{columns}
+\end{frame}
 
-  \begin{block}{Biserial correlation}
+\begin{frame}
+  \frametitle{Correlation}
+  \begin{columns}
+    \column{0.5\linewidth}
+  \begin{block}{Biserial Correlation}
     \textit{Correlation} answers the question ``How strong
     is the relationship between group identity and the outcome?''
     \[
       \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
     \]
   \end{block}
-
+\column{0.5\linewidth}
   \begin{center}
-    \includegraphics[width = 0.4\linewidth]{./figures/biserial_05}
+    \includegraphics[width = 0.9\linewidth]{./figures/biserial_09}
   \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Correlation}
-
-  \begin{block}{Biserial correlation}
-    \textit{Correlation} answers the question ``How strong
-    is the relationship between group identity and the outcome?''
-    \[
-      \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
-    \]
-  \end{block}
-
-  \begin{center}
-    \includegraphics[width = 0.4\linewidth]{./figures/biserial_09}
-  \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -668,7 +676,7 @@ Some authors recommend a two step process:
 
 \begin{frame}
   \frametitle{Non-parametric Test Details (cont.)}
-  \begin{columns}
+  \begin{columns}[t]
     \column{0.5\textwidth}
     \textbf{Advantages}
     \begin{itemize}
