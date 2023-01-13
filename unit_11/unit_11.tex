@@ -50,18 +50,17 @@ subsectionpage = progressbar]
   % \setbeameroption{show notes on second screen=right} % Both
 \setbeamerfont{note page}{size=\footnotesize}
 
-% \title{Week 10}
-% \subtitle{Introduction to Probability}
+\title{Week 10}
+\subtitle{Questions of Causation}
 
-% \author{Paul Laskowski and Alex Hughes}
-% \institute{UC Berkeley, School of Information}
+\author{Paul Laskowski and Alex Hughes}
+\institute{UC Berkeley, School of Information}
 
 \begin{document}
 
-% \begin{frame}
-%   \scriptsize
-%   \tableofcontents
-% \end{frame} 
+\begin{frame}
+  \maketitle
+\end{frame}
 
 \section{Questions of Causation}
 
@@ -669,35 +668,35 @@ subsectionpage = progressbar]
     with V...} 
 \end{frame}
 
-\section{Learnosity Check}
+% \section{Learnosity Check}
 
-\begin{frame}
-  \frametitle{Executing An SEM}
-  
-  \begin{columns}
-    \begin{column}{0.6\textwidth}
-      
-      In this SEM, assume the following:
-      
-      $\epsilon_1, \epsilon_2, \epsilon_3$ are Bernoulli variables.
-      \begin{itemize}
-      \item $P(\epsilon_1 = 1) = 2/3$
-      \item $P(\epsilon_2 = 1) = 3/4$ 
-      \item $P(\epsilon_3 = 1) = 1/2$
-        
-      \item $V = f_V(\epsilon_1) = \epsilon_1$
-      \item $A = f_A(V, \epsilon_2) = V \cdot \epsilon_2$
-      \item $I = f_I(A, \epsilon_3) = (1-A) \cdot \epsilon_3$ 
-      \end{itemize}
-      What is $P(I=1)$, representing an infection?
-      \paul{(Answer: 1/4)}
-      
-    \end{column}
-    \begin{column}{0.4\textwidth}
-      \includegraphics[width=\textwidth]{images/vaccine_graph}
-    \end{column}
-  \end{columns}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Executing An SEM}
+
+%   \begin{columns}
+%     \begin{column}{0.6\textwidth}
+
+%       In this SEM, assume the following:
+
+%       $\epsilon_1, \epsilon_2, \epsilon_3$ are Bernoulli variables.
+%       \begin{itemize}
+%       \item $P(\epsilon_1 = 1) = 2/3$
+%       \item $P(\epsilon_2 = 1) = 3/4$
+%       \item $P(\epsilon_3 = 1) = 1/2$
+
+%       \item $V = f_V(\epsilon_1) = \epsilon_1$
+%       \item $A = f_A(V, \epsilon_2) = V \cdot \epsilon_2$
+%       \item $I = f_I(A, \epsilon_3) = (1-A) \cdot \epsilon_3$
+%       \end{itemize}
+%       What is $P(I=1)$, representing an infection?
+%       \paul{(Answer: 1/4)}
+
+%     \end{column}
+%     \begin{column}{0.4\textwidth}
+%       \includegraphics[width=\textwidth]{images/vaccine_graph}
+%     \end{column}
+%   \end{columns}
+% \end{frame}
 
 \section{Statistical Implications of a Causal Graph}
 
@@ -722,7 +721,7 @@ subsectionpage = progressbar]
       about the world
     \item Choose an appropriate estimator for the data and theory 
   \end{itemize}
-  \paul{Currently, this slide doesn't seem to motivate causal graphs?}
+  % \paul{Currently, this slide doesn't seem to motivate causal graphs?}
   
   % \begin{itemize}
   % \item No need to specify functional forms
@@ -833,27 +832,24 @@ subsectionpage = progressbar]
  
 \end{frame}
 
+% \section{Learnosity Check}
 
+% \begin{frame}
+%   \frametitle{Independence in Causal Graphs}
+%   \textbf{Note: This is a learnosity activity. We're placing it here
+%     for organization.}
 
-\section{Learnosity Check}
-
-
-\begin{frame}
-  \frametitle{Independence in Causal Graphs}
-  \textbf{Note: This is a learnosity activity. We're placing it here
-    for organization.} 
-
-  \begin{columns}
-    \column{0.7\linewidth}
-    In this causal graph, which pairs of variables are independent?
-    \centering
-    \includegraphics[width=.3\textwidth]{images/dag_check_1}
-    \column{0.3\linewidth}
-    \paul{Answer: A and D}
-  \end{columns}
-  \note[item]{\alex{This is great -- let's make more to get students
-      into the flow of these!}}
-\end{frame}
+%   \begin{columns}
+%     \column{0.7\linewidth}
+%     In this causal graph, which pairs of variables are independent?
+%     \centering
+%     \includegraphics[width=.3\textwidth]{images/dag_check_1}
+%     \column{0.3\linewidth}
+%     \paul{Answer: A and D}
+%   \end{columns}
+%   \note[item]{\alex{This is great -- let's make more to get students
+%       into the flow of these!}}
+% \end{frame}
 
 \section{The One-Equation Structural Model}
 
@@ -1381,19 +1377,17 @@ We fit:  $\widehat{Wage} = \tilde{\beta}_0 + \tilde{\beta}_1 Education$; \hspace
   \note[item]{$\tilde \beta_1 = \beta_1 + \beta_2 \delta_1$}
  \end{frame}
 
+% \section{Learnosity Check}
 
+% \begin{frame}
+%   \frametitle{Estimating Omitted Variable Bias}
 
-\section{Learnosity Check}
-
-\begin{frame}
-  \frametitle{Estimating Omitted Variable Bias}
-  
-  In the following equation, estimate whether the omitted variable
-  bias is towards zero or away from zero. 
-  $ \widehat{Air\_Purity} =  .97 - .00034 \ Bicycles\_per\_Square\_Mile$
-  Omitted: People per Square Mile
- \note[item]{\alex{We should totally have them code this as well.}} 
-  \end{frame}
+%   In the following equation, estimate whether the omitted variable
+%   bias is towards zero or away from zero.
+%   $ \widehat{Air\_Purity} =  .97 - .00034 \ Bicycles\_per\_Square\_Mile$
+%   Omitted: People per Square Mile
+%  \note[item]{\alex{We should totally have them code this as well.}}
+% \end{frame}
 
 \section{Reverse Causality}
 
@@ -1538,18 +1532,18 @@ We fit:  $\widehat{Wage} = \tilde{\beta}_0 + \tilde{\beta}_1 Education$; \hspace
 % \end{itemize}
 % \end{frame}
   
-\section{Learnosity Check}
+% \section{Learnosity Check}
 
-\begin{frame}
-  \frametitle{Direction of Reverse Causality Budget}
+% \begin{frame}
+%   \frametitle{Direction of Reverse Causality Budget}
 
-  \textbf{Note: This is a Learnosity Activity. We are just placing it
-    here for organization.} 
+%   \textbf{Note: This is a Learnosity Activity. We are just placing it
+%     here for organization.}
 
-  In this causal graph, $P$ is number of police, $C$ is number of
-  crimes. You run a regression of crime on police.  is the direction
-  of bias due to reverse causality positive or negaitve?   
-\end{frame}
+%   In this causal graph, $P$ is number of police, $C$ is number of
+%   crimes. You run a regression of crime on police.  is the direction
+%   of bias due to reverse causality positive or negaitve?
+% \end{frame}
 
 \section{Outcome Variables on Right-Hand Side}
 
