@@ -1,0 +1,170 @@
+---
+title: "Marin Elevation"
+output: html_notebook
+---
+
+```{r load packages, include = FALSE}
+library(plotly)
+library(magrittr)
+library(MASS)
+library(dplyr)
+```
+
+
+```{r make data, include = FALSE}
+d <- data.frame(
+  x = runif(n=5000, min = 0, max = 10),
+  w = rnorm(n = 5000, mean = 0, sd = 3)
+  ) %>%  
+  mutate(
+    y = 10 - 2*x + x**2
+  )
+```
+
+```{r helper to make surface of plot, include = FALSE} 
+marin <- d %$% 
+  kde2d(x = x, y = y, n = 100)
+```
+
+```{r make plot, ecno = FALSE}
+marin %$%
+  plot_ly(x = x, y = y, z = z) %>%  
+  add_surface() 
+```
+
+```{r}
+# d %>% 
+#   ggplot(aes(x=x,y=y)) + 
+#   stat_density_2d(aes(fill = ..level..), geom = 'polygon') +
+#   geom_segment(aes(x = 8.75, y = 10, xend = 9.5, yend = 10), size = 1.5) + 
+#   geom_text(aes(x = 10, y = 10), label = 'North', angle = 270, size = 5) +
+#   scale_y_continuous(limits = c(0, 90)) + 
+#   labs(title = 'Functional Headlands') + 
+#   theme_minimal() + 
+#   theme(legend.position = 'none')
+# ggsave(
+#   filename = './images/marin_density.pdf',
+#   device = 'pdf', bg = 'transparent')
+```
+
+```{r}
+d %>% 
+  ggplot(aes(x=x,y=y)) + 
+  geom_density_2d() +
+  scale_y_continuous(limits = c(0, 90)) + 
+  geom_segment(aes(x = 8.75, y = 10, xend = 9.5, yend = 10), size = 1.5) + 
+  geom_text(aes(x = 10, y = 10), label = 'North', angle = 270, size = 5) +
+  labs(
+    title = 'Functional Headlands'
+  ) + 
+  theme_minimal()
+# ggsave(
+#   filename = './images/marin_contour.pdf', 
+#   device = 'pdf', bg = 'transparent')
+```
+
+
+```{r}
+d %>% 
+  ggplot(aes(x=x,y=y)) + 
+  geom_density_2d() +
+  geom_segment(
+    aes(x = 0, xend = 10, y = (-200/30), yend = (-200/30) + 80),
+    size = 2, color = 'darkorange') +
+  stat_function(
+    fun = function(x) 10 - 2*x + x^2, xlim = c(0,10), 
+    size = 2, color = 'steelblue') +  
+  geom_segment(aes(x = 8.75, y = 10, xend = 9.5, yend = 10), size = 1.5) + 
+  geom_text(aes(x = 10, y = 10), label = 'North', angle = 270, size = 5) +
+  labs(
+    title = 'Functional Headlands'
+  ) + 
+  theme_minimal()
+# ggsave(
+#   filename = './images/marin_contour_highest_prob.pdf', 
+#   device = 'pdf', bg = 'transparent')
+```
+
+
+
+```{r}
+y <- seq(9, 90, by = 0.1)
+Fy <- .1 * sqrt(y-9) + .1
+ecdf_y <- ecdf(sample(d$y, size = 20, replace = TRUE))
+
+plot(
+  ecdf_y, 
+  main = 'CDF and Empirical CDF',
+  col = 'steelblue')
+lines(x=y, y=Fy, col = 'darkorange')
+```
+
+# Student Example 
+
+```{r}
+x <- seq(0,2,.01)
+fx <- .5*x
+```
+
+# More complexity 
+
+```{r}
+d <- data.frame(
+  id = 1:10000,
+  x = c(
+    runif(n=5000, min = 0, max = 10),
+    runif(n=5000, min = 5, max = 15)
+    ), 
+  w = rnorm(n = 10000, mean = 0, sd = 3)
+  )
+```
+
+
+```{r}
+d <- d %>%  
+  mutate(
+    y = ifelse(
+      id <= 5000, 
+      10 - 2*x + x**2 + w,
+      -10 + 20*x - (x - 5)**2 + w
+      ))
+```
+
+```{r}
+complex_marin <- d %$% 
+  kde2d(x = x, y = y, n = 500)
+complex_marin %$%
+  plot_ly(x = x, y = y, z = z) %>%  
+  add_surface() 
+```
+
+```{r}
+d %>% 
+  filter(id %in% sample(1:n(), size = 100)) %$%
+  kde2d(x=x,y=y, n=100) %$%
+  plot_ly(x=x,y=y,z=z) %>%  
+  add_surface()
+```
+
+
+```{r}
+complex_marin %>% 
+  plot_ly(x=x, y=y, z=z) %>%  
+  add_markers()
+  
+```
+
+
+```{r}
+l <- data.frame(
+  lowess(d$x, d$y, f = .05)
+)
+
+d %>% 
+  ggplot() + 
+  geom_density_2d(aes(x=x,y=y)) + 
+  geom_point(data = l, aes(x=x, y=y))
+
+
+```
+

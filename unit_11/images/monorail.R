@@ -1,0 +1,65 @@
+library(ggplot2)
+library(tidyverse)
+
+theme_set(theme_minimal(base_size = 20))
+
+set.seed(1)
+
+m <- data.frame(
+    monorail = factor(
+        rep(0:1, times = c(12, 6)),
+        labels = c("No Monorail","Monorail")
+    )) %>%
+    mutate(
+        visitors = (400 + (3000 * I(monorail == 'Monorail'))) * rexp(18)) %>%
+    mutate(
+        visitors = as.numeric(visitors / 100)
+    )
+
+m
+
+m %>%
+    ggplot(aes(x = monorail, y = visitors, fill = monorail)) +
+    geom_boxplot() +
+    geom_jitter(width = 0.1, alpha = 0.5) +
+    scale_fill_manual(values = c('#003262', '#FDB515')) +
+    labs(
+        y = 'Visitors (in thousands)',
+        x = NULL,
+        title = 'Monorails Increase Visitors?',
+        legend = NULL
+    ) +
+    theme(legend.position = 'none')
+
+ggsave(
+    "monorail.pdf", device = 'pdf',
+    units = 'mm', width = 128, height = 96,
+    bg = 'transparent')
+
+f <- data.frame(
+    fish = factor(
+        rep(0:1, times = c(20, 12)),
+            labels = c('Less than 100', 'More than 100')
+    )) %>%
+    mutate(
+        visitors = as.numeric(
+             (4 + 30 * I(fish == 'More than 100')) * rexp(32)
+        ))
+f %>%
+    ggplot(aes(x = fish, y = visitors, fill = fish)) +
+    geom_boxplot() + 
+    geom_jitter(width = 0.1, alpha = 0.5) +
+    scale_fill_manual(values = c('#003262', '#FDB515')) +
+    labs(
+        y = 'Visitors (in thousands)',
+        x = 'Dumpsters', 
+        title = 'Dumpsters Increase Visitors?',
+        legend = NULL
+    ) +
+    theme(legend.position = 'none')
+ggsave(
+    "dumpsters.pdf", device = 'pdf',
+    units = 'mm', width = 128 * 1.2, height = 96 * 1.2,
+    bg = 'transparent')
+
+
