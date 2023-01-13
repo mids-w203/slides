@@ -1,0 +1,15 @@
+\beamer@sectionintoc {1}{Importance of the Classical Linear Model}{1}{0}{1}
+\beamer@sectionintoc {2}{Unit Plan}{8}{0}{2}
+\beamer@sectionintoc {3}{Part 1: Importance of the Classical Linear Model}{11}{0}{3}
+\beamer@sectionintoc {4}{Reading: The CLM Assumptions}{12}{0}{4}
+\beamer@sectionintoc {5}{The CLM Assumptions, Part 1}{14}{0}{5}
+\beamer@sectionintoc {6}{The CLM Assumptions, Part 2}{19}{0}{6}
+\beamer@sectionintoc {7}{Part 2: Properties of the CLM}{26}{0}{7}
+\beamer@sectionintoc {8}{OLS is Unbiased under the CLM}{27}{0}{8}
+\beamer@sectionintoc {9}{Classical Standard Errors}{30}{0}{9}
+\beamer@sectionintoc {10}{Sampling Distributions under the CLM}{36}{0}{10}
+\beamer@sectionintoc {11}{Efficiency Theorems for OLS}{40}{0}{11}
+\beamer@sectionintoc {12}{Reading Assignment}{45}{0}{12}
+\beamer@sectionintoc {13}{Maximum Likelihood Estimation of the CLM}{47}{0}{13}
+\beamer@sectionintoc {14}{Can We Believe the CLM?}{52}{0}{14}
+\beamer@sectionintoc {15}{Assessing the CLM assumptions - Software Demo}{57}{0}{15}

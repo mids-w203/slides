@@ -1,0 +1,144 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{FiraMono}
+    [2019/10/10 (Bob Tennent and autoinst)  Style file for Fira Mono fonts.]
+
+% nomap option suggested by Harlan Lieberman-Berg (hlieberm@akamai.com) 2016-02-11
+
+\RequirePackage{ifxetex,ifluatex,xkeyval,textcomp}
+
+\newif\iffiramono@otf 
+\ifxetex
+  \firamono@otftrue
+\else\ifluatex
+  \firamono@otftrue
+\else  % [pdf]LaTeX
+  \firamono@otffalse
+\fi\fi
+
+\newif\iffiramono@lining \firamono@liningfalse
+
+\newif\iffiramono@medium  \firamono@mediumfalse
+\newif\iffiramono@ligatures \firamono@ligaturestrue
+
+\newcommand*{\FiraMono@scale}{1}
+\RequirePackage{xkeyval}
+\DeclareOptionX{scaled}{\renewcommand*{\FiraMono@scale}{#1}}
+\DeclareOptionX{scale}{\renewcommand*{\FiraMono@scale}{#1}}
+\DeclareOptionX{type1}{\firamono@otffalse}
+\DeclareOptionX{lining}{\firamono@liningtrue}
+\DeclareOptionX{lf}{\firamono@liningtrue}
+\DeclareOptionX{oldstyle}{\firamono@liningfalse}
+\DeclareOptionX{osf}{\firamono@liningfalse}
+\DeclareOptionX{nomap}{\firamono@ligaturesfalse}
+
+\DeclareOptionX{medium}{\firamono@mediumtrue}
+\DeclareOptionX{mb}{\firamono@mediumtrue}
+
+\ProcessOptionsX
+
+\iffiramono@otf
+  \iffiramono@lining
+    \def\firamono@otffigurestyle{Tabular}
+  \else
+    \def\firamono@otffigurestyle{OldStyle} 
+  \fi
+\fi
+
+\iffiramono@lining
+  \def\firamono@figurestyle{LF}
+\else
+  \def\firamono@figurestyle{OsF}
+\fi
+
+\iffiramono@otf
+  \def\firamono@boldstyle{Bold}
+  \def\firamono@regstyle{Regular}
+  \iffiramono@medium\def\firamono@boldstyle{Medium}\fi
+
+\else % type1
+
+  \def\bfseries@tt{b}
+  \def\mdseries@tt{m}
+  \iffiramono@medium\def\bfseries@tt{sb}\fi
+\fi
+
+
+\iffiramono@otf
+  \RequirePackage{fontspec}
+\else
+  \RequirePackage{fontenc,mweights,fontaxes}
+\fi
+
+\iffiramono@otf
+  \ifxetex\XeTeXtracingfonts=1\fi
+  \iffiramono@ligatures
+    \defaultfontfeatures{
+          Ligatures = TeX ,
+          HyphenChar=None,
+          Scale     = \FiraMono@scale ,
+          Extension = .otf }
+  \else
+    \defaultfontfeatures{
+          Scale     = \FiraMono@scale ,
+          HyphenChar=None,
+          Extension = .otf }
+  \fi
+  \def\firamono@regular{Regular}
+  \setmonofont
+      [ Numbers = {Monospaced,\firamono@otffigurestyle},
+        UprightFont    = *-\firamono@regstyle ,
+        ItalicFont     = *-\ifx\firamono@regstyle\firamono@regular Oblique\else\firamono@regstyle Oblique\fi ,
+        BoldFont    = *-\firamono@boldstyle ,
+        BoldItalicFont     = *-\firamono@boldstyle Oblique,
+      ]
+      {FiraMono}
+  % grab current family in case of subsequent change:
+  \let\firamonofamily\sfdefault  
+
+  \providecommand\sufigures{\addfontfeatures{VerticalPosition=Superior}}
+  \newfontfamily\firamonooldstyle
+      [ Numbers = {Monospaced,OldStyle},
+        UprightFont    = *-\firamono@regstyle ,
+        ItalicFont     = *-\ifx\firamono@regstyle\firamono@regular Oblique\else\firamono@regstyle Oblique\fi ,
+        BoldFont    = *-\firamono@boldstyle ,
+        BoldItalicFont     = *-\firamono@boldstyle Oblique,
+      ]
+      {FiraMono}
+  \newfontfamily\firamonolining
+      [ Numbers = {Monospaced,Tabular},
+        UprightFont    = *-\firamono@regstyle ,
+        ItalicFont     = *-\ifx\firamono@regstyle\firamono@regular Oblique\else\firamono@regstyle Oblique\fi ,
+        BoldFont    = *-\firamono@boldstyle ,
+        BoldItalicFont     = *-\firamono@boldstyle Oblique,
+      ]
+      {FiraMono}
+  \newfontfamily\firamonomedium
+      [ Numbers = {Monospaced,\firamono@otffigurestyle},
+        UprightFont    = *-Medium ,
+        ItalicFont     = *-\ifx\firamono@regstyle\firamono@regular Oblique\else\firamono@regstyle Oblique\fi ,
+        BoldFont    = *-\firamono@boldstyle ,
+        BoldItalicFont     = *-\firamono@boldstyle Oblique,
+      ]
+      {FiraMono}
+
+\else % type1
+
+  \def\firamono@family{FiraMono-T\firamono@figurestyle}
+  \def\ttdefault{\firamono@family}
+  \fa@naming@exception{figures}{{superior}{tabular}}{Sup}
+  \def\sufigures{\@nomath\sufigures\fontfigurestyle{superior}\selectfont}
+
+  \def\firamonooldstyle{\fontfamily{FiraMono-TOsF}\selectfont}
+  \def\firamonolining{\fontfamily{FiraMono-TLF}\selectfont}
+
+  \def\firamonomedium{\fontfamily{\firamono@family}\fontseries{sb}\selectfont}
+\fi
+
+%  Use FiraMono-... as the family, even for otf
+\def\firamonolgr{\fontencoding{LGR}\fontfamily{FiraMono-T\fira@figurestyle}\selectfont}
+
+\iffiramono@otf
+  \defaultfontfeatures{}
+\fi
+
+\endinput

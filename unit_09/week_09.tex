@@ -68,7 +68,6 @@
 \end{frame}
 
 
-
 \begin{frame}
 
 \includegraphics[width = \textwidth]{images/regression_example_2}
@@ -1430,7 +1429,72 @@ The BLP is unique:
 \end{frame}
 
 
-\section{Part 3: Measuring Uncertainty}
+\section{Measuring Uncertainty in Regression Estimates}
+
+\section{Introduction to Measuring Uncertainty} 
+
+\begin{frame} 
+  \frametitle{Introduction}
+  \begin{itemize}
+    \item You've run your regression, and produced your BLP estimate.
+    \item How much \textit{could} the coefficients that you are reporting change if you had drawn a different sample?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Becomming a Man}
+  \begin{itemize}
+  \item \textbf{Becomming a Man} is a randomized controlled trial that recruited 7,500 male youth in Chicago. \href{https://www.nber.org/system/files/working_papers/w21178/w21178.pdf}{[link]}
+  \item The program, among many other efforts, taught to think about circumstances before engaging.
+  \item Youth randomized to receive this treatment were:
+    \begin{itemize}
+    \item 28-35\% less likely to be arrested for any reason
+    \item 45-50\% less likely to be arrested for violent crimes.
+    \item 12-19\% more likely to graduate high-school
+    \end{itemize}
+  \end{itemize}
+  \note[item]{With a sample of this size, with randomly assigned programming to participants, there is little chance that the estimated coefficients would change with a different sample.}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example: Predicting School Achievement}
+  \begin{itemize}
+    \item Gellman, Hill and Vehtari
+      (2020)  write about 343 Portuguese high-school students drawn
+      from across the country.
+      \item Predict final-year math grade (as a percentage) and use a large number of predictors:
+  \begin{itemize}
+    \item \textbf{Demographic Features}: family size, health, parent's education
+    \item \textbf{Past Education Features}: past-class failures, educational support, paid classes
+    \item \textbf{Educational Cost Features}:  home-to-school travel time, home internet access
+    \item \textbf{Social Features}: going out with friends, weekday and weekend alcohol consumption
+  \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Describing Uncertainty as ``Resolution''}
+  \begin{itemize}
+    \item Measured data is a point-in-time, limited view of a complex reality.
+    \item With limited data, we can only make out ``fuzzy'' patterns
+    \item With more data, we can see more detail
+    \item With different data, we can see different details
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Describing Uncertainty as ``Resolution''}
+  \centering
+  \includegraphics[height = 0.9\textheight]{./images/stop_top.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Describing Uncertainty as ``Resolution''}
+  \begin{center}
+    \includegraphics[width =
+    1.1\textwidth]{./images/stop_mid_stretch.jpg}
+   \end{center}
+\end{frame}
 
 \section{Review: Review: Statistics, Distributions, and Uncertainty}
 
@@ -1788,13 +1852,11 @@ at explaining the outcome
     actually do very little to explain the crime rate.} 
   
   \begin{tabular}{cccccc}
- & RSS & Df & Sum of Sq   &   F & Pr(>F)\\
+    & RSS & Df & Sum of Sq   &   F & Pr(>F) \\
     \hline
     Full   & 14526    &&&&                       \\
     Wages   & 14924 & -3  &  -397.57 & 0.7846 & 0.5057 \\
   \end{tabular}
   \end{frame}
-
-\section{Making Predictions} 
 
 \end{document}

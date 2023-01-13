@@ -20,21 +20,18 @@
 \newcommand{\V}{\text{V}}
 \newcommand{\cov}{\text{cov}}
 
-% \title{Week 6}
-% \subtitle{Hypothesis Testing}
+\title{Week 6}
+\subtitle{Hypothesis Testing}
 
-% \author{Paul Laskowski and D. Alex Hughes}
-% \institute{UC Berkeley, School of Information}
+\author{Paul Laskowski and D. Alex Hughes}
+\institute{UC Berkeley, School of Information}
 
 \begin{document}
 
-% \begin{frame}
-% \maketitle
-% \end{frame}
+\begin{frame}
+  \maketitle
+\end{frame}
 
-
-
-%Start of Section 6.1 Edits
 \section{Historical Development of Frequentist Statistics}
 \begin{frame}
   \frametitle{Introduction}
@@ -53,7 +50,7 @@
     \item The world is not a perfectly controlled lab
     \item Evidence collected contains information but does not begin to identify a unique model out of all the possible models
     \item We do not know how to weight all the possibilities out there
-  \end{itemize}
+ \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -86,7 +83,6 @@
     
 \end{frame}
 
-
 \begin{frame}
   \frametitle{Example 2 (cont.)}
 
@@ -98,8 +94,6 @@
     \item It may not even make sense to assign a probability to Newton's gravity (eg. true state of world or not)
   \end{itemize}
 \end{frame}
-
-
 
 \begin{frame}
   \frametitle{Example 3}
@@ -114,12 +108,12 @@
         \item No new numbers that have not been imagined
         \item A better grasp of the possibilities
     \end{itemize}
-    
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Example 3 (cont.)}
+
+\frametitle{Example 3 (cont.)}
   
     \begin{itemize}
         \item However, we don't know how representative the specimens are
@@ -131,18 +125,12 @@
   \textbf{We cannot deduce the probability of our model because we do not know enough about the structure of the world} 
 \end{frame}
 
-
 \begin{frame}
-  \frametitle{Two Branches of Statistics}
-    \begin{center}
-        \includegraphics[width=1.0\textwidth]{figures/two_branches_of_statistics.png}
-    \end{center}
+  \frametitle{Two Branches of Statistics }
+  \centering
+  \includegraphics[width=.9\linewidth]{./figures/two_worlds}
 \end{frame}
-%End of Section 6.1 Edits
 
-
-
-%Start of Section 6.4 Edits
 \section{The Frequentist Approach}
 
 \begin{frame}
@@ -155,7 +143,6 @@
       \item Before the 1930's, there were lots of statistical procedures but no coherent account of how to choose the right one
       \item Neyman and Pearson published articles that added a rigorous mathematical treatment, forming the basis of frequentist statistics
   \end{itemize}
-
 \end{frame}
 
 \begin{frame}
@@ -166,6 +153,7 @@
   \end{itemize}
   
   To a strict frequentist:
+
   \begin{itemize}
       \item Not just impossible to compute
       \item Does not even make sense to assign a probability to a hypothesis
@@ -176,8 +164,8 @@
 
 \begin{frame}
   \frametitle{Objective Probability}
-A frequentist defines probability as a matter of long-run frequencies
-\begin{itemize}
+  A frequentist defines probability as a matter of long-run frequencies
+  \begin{itemize}
     \item We need to specify a collective of elements
     \begin{itemize}
         \item Eg. throws of a dice
@@ -189,13 +177,12 @@ A frequentist defines probability as a matter of long-run frequencies
         \item Called \textbf{objective probability}
     \end{itemize}
 \end{itemize}
-    
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Objective Probability and Hypothesis}
-\begin{itemize}
+  \begin{itemize}
     \item If you view probability as objective, you cannot talk about the probability of a hypothesis
     \item it is just true or false
     \item \textbf{Subjective Probability:} The probability of a hypothesis
@@ -203,46 +190,42 @@ A frequentist defines probability as a matter of long-run frequencies
         \item Allows for disagreement about what it is
         \item Reflects our lack of information
     \end{itemize}
-\end{itemize}
+  \end{itemize}
 
-\textbf{So, what probabilities can we study?}
+  \textbf{So, what probabilities can we study?}
 
-\begin{itemize}
+  \begin{itemize}
     \item We need a long-run collective
-\end{itemize}
-
+  \end{itemize}
 \end{frame}
-
-
 
 \begin{frame}
   \frametitle{$PR(D|H)$}
-\begin{itemize}
+  \begin{itemize}
     \item $H$ = hypothesis
     \item $D$ = data
-\end{itemize}
+  \end{itemize}
 
-Assume H is true and call it the null hypothesis
-\begin{itemize}
+  Assume H is true and call it the null hypothesis
+
+  \begin{itemize}
     \item Has to be quite specific (the only extra assumption we're making)
     \item Is the basis for predictions we need to make about what data should come out of the experiment
     \item Governs how the experiment behaves as we run it over and over
-\end{itemize}
+  \end{itemize}
 \end{frame}
-
-
 
 \begin{frame}
   \frametitle{$PR(D|H)$ (cont.)}
-Now we have a meaningful collective
-\begin{itemize}
+  Now we have a meaningful collective
+  \begin{itemize}
     \item Can look at the relative frequencies of different outcomes
     \item Can specifically look at the number of hypothetical experiments in which we would get data at least as extreme as D
     \begin{itemize}
         \item Captured by $p$-value
         \item \textbf{\textit{p}-value:} The probability of getting data as extreme as our observations, assuming the null hypothesis is true
     \end{itemize}
-\end{itemize}    
+  \end{itemize}
 \end{frame}
 
 \section{Decision Rules}
@@ -268,7 +251,7 @@ Now we have a meaningful collective
 
 \begin{frame}
   \frametitle{Two Possible States of the World}
-  \textbf{Goal:} Begin with a resonable default supposition; leave
+  \textbf{Goal:} Begin with a reasonable default supposition; leave
   this supposition behind if data provides compelling evidence
   \begin{columns}[t]
     \column{.5\linewidth}
@@ -1054,9 +1037,6 @@ How to increase power
   \end{itemize}
 \end{frame}
 
-
-
-
 %Section 6.28 Edits start here
 \section{Guidelines For Statistical Reporting}
 
@@ -1069,10 +1049,7 @@ How to increase power
   \end{itemize}
  
   \textit{In this case, the guidelines are specific to exploratory analysis}
-
 \end{frame}
-
-
 
 \begin{frame}
   \frametitle{Guideline One}
@@ -1192,4 +1169,4 @@ How to increase power
   \end{exampleblock}
 \end{frame}
 
-\end{document} 
+\end{document}

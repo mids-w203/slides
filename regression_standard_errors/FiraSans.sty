@@ -1,0 +1,277 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{FiraSans}
+    [2019/10/10 (Bob Tennent and autoinst)  Style file for Fira Sans fonts.]
+
+\RequirePackage{ifxetex,ifluatex,xkeyval,textcomp}
+
+\newif\iffira@otf 
+\ifxetex
+  \fira@otftrue
+\else\ifluatex
+  \fira@otftrue
+\else  % [pdf]LaTeX
+  \fira@otffalse
+\fi\fi
+
+\newif\iffira@lining \fira@liningfalse
+\newif\iffira@tabular \fira@tabularfalse
+
+\newif\iffira@medium  \fira@mediumfalse
+\newif\iffira@semibold  \fira@semiboldfalse
+\newif\iffira@extrabold  \fira@extraboldfalse
+\newif\iffira@heavy  \fira@heavyfalse
+\newif\iffira@light  \fira@lightfalse
+\newif\iffira@extralight  \fira@extralightfalse
+\newif\iffira@ultralight  \fira@ultralightfalse
+\newif\iffira@book  \fira@bookfalse
+\newif\iffira@thin  \fira@thinfalse
+\newif\iffira@default \fira@defaultfalse
+
+\newcommand*{\FiraSans@scale}{1}
+\RequirePackage{xkeyval}
+\DeclareOptionX{scaled}{\renewcommand*{\FiraSans@scale}{#1}}
+\DeclareOptionX{scale}{\renewcommand*{\FiraSans@scale}{#1}}
+\DeclareOptionX{type1}{\fira@otffalse}
+\DeclareOptionX{lining}{\fira@liningtrue}
+\DeclareOptionX{lf}{\fira@liningtrue}
+\DeclareOptionX{oldstyle}{\fira@liningfalse}
+\DeclareOptionX{osf}{\fira@liningfalse}
+\DeclareOptionX{tabular}{\fira@tabulartrue}
+\DeclareOptionX{t}{\fira@tabulartrue}
+\DeclareOptionX{proportional}{\fira@tabularfalse}
+\DeclareOptionX{p}{\fira@tabularfalse}
+
+\DeclareOptionX{book}{\fira@booktrue}
+\DeclareOptionX{medium}{\fira@mediumtrue}
+\DeclareOptionX{mb}{\fira@mediumtrue}
+\DeclareOptionX{semibold}{\fira@semiboldtrue}
+\DeclareOptionX{sb}{\fira@semiboldtrue}
+\DeclareOptionX{light}{\fira@lighttrue}
+\DeclareOptionX{l}{\fira@lighttrue}
+\DeclareOptionX{extralight}{\fira@extralighttrue}
+\DeclareOptionX{ultralight}{\fira@ultralighttrue}
+\DeclareOptionX{thin}{\fira@thintrue}
+\DeclareOptionX{extrabold}{\fira@extraboldtrue}
+\DeclareOptionX{heavy}{\fira@heavytrue}
+\DeclareOptionX{default}{\fira@defaulttrue}
+\DeclareOptionX{sfdefault}{\fira@defaulttrue}
+
+
+\ProcessOptionsX
+
+\iffira@otf
+  \iffira@lining
+    \def\fira@otffigurestyle{Lining}
+  \else
+    \def\fira@otffigurestyle{OldStyle} 
+  \fi
+  \iffira@tabular
+    \def\fira@otffigurealign{Monospaced} 
+  \else
+    \def\fira@otffigurealign{Proportional} 
+  \fi
+\fi
+
+\iffira@lining
+  \def\fira@figurestyle{LF}
+\else
+  \def\fira@figurestyle{OsF}
+\fi
+\iffira@tabular
+  \def\fira@figurealign{T}
+\else
+  \def\fira@figurealign{}
+\fi
+
+\iffira@otf
+  \def\fira@boldstyle{Bold}
+  \iffira@medium\def\fira@boldstyle{Medium}\fi
+  \iffira@semibold\def\fira@boldstyle{SemiBold}\fi
+  \iffira@extrabold\def\fira@boldstyle{ExtraBold}\fi
+  \iffira@heavy\def\fira@boldstyle{Heavy}\fi
+
+  \def\fira@regstyle{Regular}
+  \iffira@book\def\fira@regstyle{Book}\fi
+  \iffira@light\def\fira@regstyle{Light}\fi
+  \iffira@extralight\def\fira@regstyle{ExtraLight}\fi
+  \iffira@ultralight\def\fira@regstyle{UltraLight}\fi
+  \iffira@thin\def\fira@regstyle{Thin}\fi
+
+\else % type1
+
+  \def\bfseries@sf{b}
+  \iffira@medium\def\bfseries@sf{medium}\fi
+  \iffira@semibold\def\bfseries@sf{sb}\fi
+  \iffira@extrabold\def\bfseries@sf{eb}\fi
+  \iffira@heavy\def\bfseries@sf{ub}\fi
+
+  \def\mdseries@sf{m}
+  \iffira@book\def\mdseries@sf{sl}\fi
+  \iffira@light\def\mdseries@sf{l}\fi
+  \iffira@extralight\def\mdseries@sf{el}\fi
+  \iffira@ultralight\def\mdseries@sf{ul}\fi
+  \iffira@thin\def\mdseries@sf{thin}\fi
+\fi
+
+
+\iffira@otf
+  \RequirePackage{fontspec}
+\else
+  \RequirePackage{mweights,fontaxes}
+\fi
+
+\iffira@otf
+  \def\fira@regular{Regular}
+  \ifxetex\XeTeXtracingfonts=1\fi
+  \defaultfontfeatures{
+        Ligatures = TeX ,
+        Scale     = \FiraSans@scale ,
+        Extension = .otf }
+  \setsansfont
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-\fira@regstyle ,
+        ItalicFont = *-\ifx\fira@regstyle\fira@regular\else\fira@regstyle\fi Italic,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  % grab current family in case of subsequent change:
+  \let\firafamily\sfdefault  
+  \iffira@default\renewcommand*\familydefault{\firafamily}\fi
+
+  \providecommand\sufigures{\addfontfeatures{VerticalPosition=Superior}}
+  \newfontfamily\firaoldstyle
+      [ Numbers = {\fira@otffigurealign,OldStyle},
+        UprightFont    = *-\fira@regstyle ,
+        ItalicFont = *-\ifx\fira@regstyle\fira@regular\else\fira@regstyle\fi Italic,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firalining
+      [ Numbers = {\fira@otffigurealign,Lining},
+        UprightFont    = *-\fira@regstyle ,
+        ItalicFont = *-\ifx\fira@regstyle\fira@regular\else\fira@regstyle\fi Italic,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firatabular
+    [ Numbers = {Monospaced,\fira@otffigurestyle},
+        UprightFont    = *-\fira@regstyle ,
+        ItalicFont = *-\ifx\fira@regstyle\fira@regular\else\fira@regstyle\fi Italic,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+    ]
+    {FiraSans}
+  \newfontfamily\firaproportional
+    [ Numbers = {Proportional,\fira@otffigurestyle},
+        UprightFont    = *-\fira@regstyle ,
+        ItalicFont = *-\ifx\fira@regstyle\fira@regular\else\fira@regstyle\fi Italic,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+    ]
+    {FiraSans}
+  \newfontfamily\firathin
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-Thin ,
+        ItalicFont     = *-ThinItalic ,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firalight
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-Light ,
+        ItalicFont     = *-LightItalic ,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firaextralight
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-ExtraLight ,
+        ItalicFont     = *-ExtraLightItalic ,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firaultralight
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-UltraLight ,
+        ItalicFont     = *-UltraLightItalic ,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firamedium
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-Medium ,
+        ItalicFont     = *-MediumItalic ,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firabook
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-Book ,
+        ItalicFont     = *-BookItalic ,
+        BoldFont    = *-\fira@boldstyle ,
+        BoldItalicFont     = *-\fira@boldstyle Italic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firasemibold
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-SemiBold ,
+        ItalicFont     = *-SemiBoldItalic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firaextrabold
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-ExtraBold ,
+        ItalicFont     = *-ExtraBoldItalic ,
+      ]
+      {FiraSans}
+  \newfontfamily\firaheavy
+      [ Numbers = {\fira@otffigurealign,\fira@otffigurestyle},
+        UprightFont    = *-Heavy ,
+        ItalicFont     = *-HeavyItalic ,
+      ]
+      {FiraSans}
+
+\else % type1
+
+
+  \def\fira@family{FiraSans-\fira@figurealign\fira@figurestyle}
+  \renewcommand*\sfdefault{\fira@family}
+  \iffira@default\edef\familydefault{\sfdefault}\edef\seriesdefault{\mdseries@sf}\fi
+
+  \fa@naming@exception{figures}{{superior}{proportional}}{Sup}
+  \fa@naming@exception{figures}{{superior}{tabular}}{Sup}
+  \def\sufigures{\@nomath\sufigures\fontfigurestyle{superior}\selectfont}
+
+  \def\firaoldstyle{\fontfamily{FiraSans-\fira@figurealign OsF}\selectfont}
+  \def\firalining{\fontfamily{FiraSans-\fira@figurealign LF}\selectfont}
+  \def\firatabular{\fontfamily{FiraSans-T\fira@figurestyle}\selectfont}
+  \def\firaproportional{\fontfamily{FiraSans-\fira@figurestyle}\selectfont}
+
+  \def\firathin{\fontfamily{\fira@family}\fontseries{thin}\selectfont}
+  \def\firalight{\fontfamily{\fira@family}\fontseries{l}\selectfont}
+  \def\firaextralight{\fontfamily{\fira@family}\fontseries{el}\selectfont}
+  \def\firaultralight{\fontfamily{\fira@family}\fontseries{ul}\selectfont}
+  \def\firamedium{\fontfamily{\fira@family}\fontseries{medium}\selectfont}
+  \def\firabook{\fontfamily{\fira@family}\fontseries{sl}\selectfont}
+  \def\firasemibold{\fontfamily{\fira@family}\fontseries{sb}\selectfont}
+  \def\firaextrabold{\fontfamily{\fira@family}\fontseries{eb}\selectfont}
+  \def\firaheavy{\fontfamily{\fira@family}\fontseries{ub}\selectfont}
+
+\fi
+
+%  Use FireSans-... as the family, even for otf.
+\def\firalgr{\fontencoding{LGR}\fontfamily{FiraSans-\fira@figurealign\fira@figurestyle}\selectfont}
+
+\iffira@otf
+  \defaultfontfeatures{}
+\fi
+
+\endinput

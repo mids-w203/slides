@@ -7,7 +7,8 @@
 \usepackage{pgfpages}
 \setbeameroption{hide notes} % Only slides
 % \setbeameroption{show only notes} % Only notes
- % \setbeameroption{show notes on second screen=right} % Both
+  % \setbeameroption{show notes on second screen=right}
+  % Both
 
 \definecolor{burntOrange}{rgb}{.8, .5, .1}
 \definecolor{textgray}{rgb}{.8,.8,.8}
@@ -20,7 +21,354 @@
 \newcommand{\V}{\text{V}}
 \newcommand{\cov}{\text{cov}}
 
+\title{Hypothesis Testing} 
+\subtitle{UC Berkeley, MIDS w203} 
+\author{Statistics for Data Science}
+
 \begin{document}
+
+\maketitle
+
+\section{Introducing the Two-Sample t-Test}
+
+\begin{frame}
+  \frametitle{Motivating the Two-Sample t-Test}
+  \begin{exampleblock}{An Important Data Science Question}
+    Is group A different from group B?
+  \end{exampleblock}
+
+\note[item]{The two-sample t-test is one of the most common procedures in inferential statistics. What is it for? As a data scientist you will often face a question about two groups - group A and group B. Someone will ask you if one is greater or less than than the other.}
+\note[item]{Questions like this are everywhere. In business, you have A-B testing.}
+\note[item]{In medicine, you may want to test a group of patients taking a vitamin against a control group}
+\note[item]{In political science, you may want to test whether democracies or autocracies start more wars.}
+\note[item]{What do these questions have in common? They all have two groups, and in all cases we're measuring the outcome on a metric scale. So it makes sense to ask about the expectation of each population - are the expectations different?}
+
+
+  Examples:
+  \begin{itemize}
+      \item Are customers who get a birthday gift less likely to leave than those who don't?
+      \item Do patients who take Vitamin W get over the flu faster than patients who don't?
+      \item Do democracies or autocracies start more wars?
+  \end{itemize}
+  \end{frame}
+
+\begin{frame}
+  \frametitle{Example Scenario}
+  \note[item]{Here's a specific example, with data.}
+  \note[item]{write on slide: 13.3-12.1 = 1.2 outfits}
+  \note[item]{Is this a big difference? is it just noise?}
+  \note[item]{To be more precise, is this evidence that SF'ans have more black outfits than NYers in expectation?}
+  \note[item]{To analyze this question, we need a model...}
+  \begin{exampleblock}{From the Journal of Empirical Fashion}
+  \begin{tabular}{c | c | c}
+  & New Yorkers & San Franciscans \\
+  \hline
+black outfits &  12.1 & 13.3  \\
+sample size & 50 & 50
+ \end{tabular}
+ \end{exampleblock}
+ 
+\vspace{1.5cm}
+ Is this evidence that San Franciscans have more black outfits than New Yorkers \textit{in expectation}? \end{frame}
+ 
+ 
+ \begin{frame}
+  \frametitle{Two-Sample Model Framework}
+  \note[item]{A model is a representation of the world built of RVs. for a two-sample t-test, the model begins like this.}
+  \note[item]{Let $X_1.. X_{n_1}$ be RVs representing group A. Similarly for Y.}
+  \note[item]{Let's assume that the X's are iid with mean $\mu_X$. same for Y}
+  \note[item]{We'll need more assumptions, but this is a start.}
+  \note[item]{The null is that our two means are the same.}
+  \note[item]{Our usual alternative is that the means are different.}
+  \note[item]{It is also possible to run a one-sided test in special circumstances. alt is one mean is greater than other.}
+  \note[item]{Given this model, how plausible is the null hypothesis?}
+
+  \begin{exampleblock}{Basic Model Setup} 
+    Suppose $(X_1,..,X_{n_1})$ are i.i.d. with mean $\mu_X$.    
+    
+    Suppose $(Y_1,..,Y_{n_2})$ are i.i.d. with mean $\mu_Y$. 
+       \end{exampleblock}
+
+  \begin{exampleblock}{Null Hypothesis}
+    $H_{0}: \mu_{X} = \mu_{Y}$ (The two population means are equal)
+  \end{exampleblock}
+  
+  \begin{exampleblock}{Alternative hypotheses}
+    $H_{1}: \mu_{X} \neq \mu_{Y}$ (best choice in most cases)\\
+    $H_{2}: \mu_{X} > \mu_{Y}$ \\
+    $H_{3}: \mu_{X} < \mu_{Y}$ 
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Comparing Population Means}
+  \note[item]{One important piece of information is how much does the number of black outfits vary in the population.}
+  \note[item]{Here's a picture with three different distributions for our sample averages.}
+  \note[item]{The top distribution has very high standard deviation. You can see that it doesn't seem unusual to get two sample averages that are 1.2 outfits apart.}
+  \note[item]{The middle distribution has medium deviation. Now it starts to look a little more surprising that our two sample averages were 1.2 apart.}
+  \note[item]{The bottom distribution has low standard deviation. Now it seems quite unlikely to get two sample averages 1.2 apart. The data seems inconsistent with this hypothesis.}
+    \begin{center}
+        \includegraphics[width = 0.8\linewidth]{figures/fashion_plot.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparing Population Means}
+  \note[item]{Putting these ideas together, we can make a statistic by taking the difference in sample averages, and dividing by an estimate of standard deviation - that's exactly the idea behind the two- sample t-test}
+  \begin{exampleblock}{Two-Sample t-Test}
+  
+ $$t = \frac{\overline X - \overline Y}{\text{Estimate of Standard Deviation}}$$
+ 
+    Assess whether two populations have the same expectation \textbf{while accounting for variability}
+  \end{exampleblock}
+
+
+\end{frame}
+
+
+%Section 7.06 Edits end
+
+
+%Section 7.08 Edits start
+
+\section{The Two-Sample z-Test}
+
+
+
+
+
+\begin{frame}[t]
+  \frametitle{Two-Sample \textit{z}-Test}
+  \begin{exampleblock}{Assumptions} 
+    Suppose $(X_1,..,X_{n_X})$ are i.i.d. with mean $\mu_X$.    
+    
+    Suppose $(Y_1,..,Y_{n_Y})$ are i.i.d. with mean $\mu_Y$. 
+    
+    Assume $X \sim N(\mu_X, \sigma_X)$.  $Y \sim N(\mu_Y, \sigma_Y)$.  We know $\sigma_X$, $\sigma_Y$.
+      \end{exampleblock}
+      \note[item]{Before we tackle the two-sample t-test, let's begin with the simpler 2 samp. z test. unrealistic, but build intuition.}
+      \note[item]{Same assumptions as before, but add assump. of equal var $\sigma$ which we know.}
+      \note[item]{How do we create a test statistic?}
+      \note[item]{What is the distribution of $\overline{X} - \overline{Y}$? Let's use fact that a difference of normal RVs is normal. but which normal?}
+      \note[item]{$V[\overline{X} - \overline{Y}] = V[\overline{X}] + V[\overline{Y}] = \sigma_X^2/n_X +  \sigma_Y^2/n_Y$}
+      \note[item]{$\overline{X} - \overline{Y} \sim N(0, \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}})$}
+      \note[item]{
+      We can standardize by dividing. $z = \frac{\overline{X} - \overline{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} \sim N(0,1)$}
+\note[item]{Here's the standard normal. 
+We can plot our statistic on this curve, to get a p-value or see if it's in a rejection region.}
+\vspace{.5cm}
+   \begin{flushright} \includegraphics[height=.5\textheight, width = .5\textwidth]{figures/normal.pdf}
+\end{flushright}
+\end{frame}
+
+\begin{frame}[t]
+  \note[item]{Here's an example with actual data.}
+  \begin{exampleblock}{From the Journal of Empirical Fashion}
+  \begin{tabular}{c | c | c}
+  & New Yorkers & San Franciscans \\
+  \hline
+black outfits &  12.1 & 13.3  \\
+sample size & 50 & 50
+ \end{tabular}
+ \end{exampleblock}
+   Let $X_1,...,X_{50}$ rep. New Yorkers. Assume iid, mean $\mu_X$.\\
+      Let $Y_1,...,Y_{50}$ rep. San Franciscans. Assume iid, mean $\mu_Y$.\\
+      Assume $\sigma_X = \sigma_Y = 2.$
+ \note[item]{$z = \frac{\overline{X} - \overline{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_T}}} = \frac{12.1 - 13.3}{\sqrt{\frac{4}{50}+\frac{4}{50}}} = \frac{-1.2}{ \sqrt{\frac{4}{25}}}  = -3.0$}
+ \note[item]{$z<-1.96$ REJECT}
+ \note[item]{We can also compute p-value 2*pnorm(-3) = .0027}
+ \end{frame}
+
+
+
+\begin{frame}
+  \frametitle{General Procedure for Testing}
+  \note[item]{From this example, I hope you see that the two-sample z-test is not all that different from the one-sample tests we did earlier.}
+  \note[item]{No matter what the test is, there's a general pattern that you follow...}
+  
+  Three steps:
+  \begin{enumerate}
+      \item Specify model, null hypothesis, rejection criterion
+      \item Calculate statistic
+      \item Plot statistic on the null distribution to get the $p$ value.
+  \end{enumerate}
+\end{frame}
+
+
+%Section 7.08 New section on t-tests
+
+\section{The Two-Sample t-Test}
+
+
+\begin{frame}
+  \frametitle{Types of Two-Sample t-Tests}
+  \note[item]{There are actually two versions of the two-sample t test you should be aware of.}
+\note[item]{Student's t-test is the original t-test. it's simpler, but requires strong assumptions}
+\note[item]{Welch's t-test is more general, and this is really the modern t-test.}
+  \begin{enumerate}
+  \item Student's t-Test
+  \item Welch's t-Test
+ \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Two-Sample z-Test}
+  
+  \note[item]{To explain these tests, let's remember our equation for the z test}
+  \note[item]{The big problem with this test is we're using the standard deviations $\sigma_X$ and $\sigma_Y$ - but we don't know what they are}
+  \note[item]{We're going to have to estimate these in some way.}
+  
+$$z = \frac{\overline{X} - \overline{Y}}{ \sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}}} $$
+    \begin{itemize}
+    \item Problem : we don't know $\sigma_X$ or $\sigma_Y$
+    \end{itemize}
+ 
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Student's t-Test}
+  
+  \note[item]{Here's what Student did..}
+  \note[item]{Student's idea is to create a single estimate for standard deviation - let's call it $s$.}
+  \note[item]{I'm not including the equation for $s$ - i don't think it's very important.}
+  \note[item]{You plug $s$ in both both unknown quantities}
+  \note[item]{Why would you do this? Well, it turns out that Student got a really clean, elegant result}
+  \note[item]{Theorem: this statistic follows a t dist. with $n_X + n_Y - 2$ degrees of freedom.}
+  
+  \begin{itemize}
+\item  Estimate a single "pooled" standard deviation, $s$.
+\item Substitute $s$ for both $s_X$ and $s_Y$.
+  $$t =  \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{s^2}{n_X}+\frac{s^2}{n_Y}}} $$
+  \end{itemize}
+
+\begin{exampleblock}{Theorem}
+if $\sigma_X = \sigma_Y$, $t$ has a T distribution with $n_X + n_Y -2$ degrees of freedom.
+  \end{exampleblock}
+  
+
+
+\end{frame}
+
+
+\begin{frame}
+  
+  \note[item]{Why is there a -2 in degrees of freedom?}
+  \note[item]{There's a pattern. Think of degrees of freedom in this way. (read def)}
+  \note[item]{For the one-sample test, our model had one parameter - the mean. it's the mean we wanted to test.}
+  \note[item]{If I gave you the sample mean, and n-1 rows of data, you could compute the last row.}
+  \note[item]{There's no more information in the last row of data. it's already locked in.}
+  \note[item]{so df is n minus 1 for the estimated parameter.}
+  \note[item]{For the two-sample test, we now have a model with two parameters...}
+  
+  \begin{exampleblock}{degrees of freedom \textit{(df)}}
+    Number of independent pieces of information that vary given estimated parameters
+  \end{exampleblock}
+  \begin{itemize}
+      \item \textbf{One sample t-test}
+    \begin{itemize}
+
+      \item Model has one parameter (the mean)
+      \item Given the sample mean, and $n-1$ observations, can compute the last one.
+      \item \textit{df} = $n - 1$
+    \end{itemize}
+    \item \textbf{Student's two-sample t-test}
+    \begin{itemize}
+      \item Model has two parameters ($\mu_X$ and $\mu_Y$)
+      \item Given the sample means, $n_X -1$ observations for $X$ and $n_Y - 1$ observations for Y, can compute the rest
+      \item \textit{df} = $n_{X} + n_{Y} -2$
+    \end{itemize}
+
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Student's t-Test Summary}
+  \note[item]{Let's take a moment to summarize Student's t-Test.}
+  \note[item]{We use the t-Test to see if $\mu_X = \mu_Y$.}
+  \note[item]{Student used a pooled estimate for standard deviation.}
+  \note[item]{But there's one problematic assumption: the test is only valid if $X$ and $Y$ have the same standard dev.}
+  \begin{itemize}
+  \item Tests if mean of $X$ equals mean of $Y$.
+  \item Uses a pooled estimate for standard deviation.
+  \item \textbf{Major disadvantage:} Only valid if $\sigma_X = \sigma_Y$.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Welch's t-Test}
+  
+  \note[item]{Let's move on to Welch's test.}
+  \note[item]{Unlike Student, Welch computed two different sample standard deviations.}
+  \note[item]{Then substitute in}
+  \note[item]{Unfortunately, this method just isn't as clean mathematically. }
+  \note[item]{You do get a similar theorem, but (1) the distribution is only approximately t. and (2) there's this complicated equation for degrees of freedom. the degrees of freedom you get are usually not an integer.}
+
+\begin{itemize}
+\item Compute two sample standard deviations: $s_X$ and $s_Y$.
+\item Substitute $s_X$ for $\sigma_X$ and $s_Y$ for $\sigma_Y$.
+\end{itemize}
+  
+    $$t =  \frac{\overline{X} - \overline{Y}}{\sqrt{\frac{s_X^2}{n_X}+\frac{s_Y^2}{n_Y}}} $$
+    
+    \begin{exampleblock}{Theorem}
+$t$ has \textit{approximately} a T distribution. The degrees of freedom are given by
+
+$$v = \frac{\left( s_X^2/n_X +  s_Y^2/n_Y\right)^2}{\frac{\left(s_X^2/n_X\right)^2}{n_X-1} + \frac{\left(s_Y^2/n_Y\right)^2}{n_Y-1}}$$
+  \end{exampleblock}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Choosing a Two-Sample t-Test}
+Some authors recommend a two step process:
+  \begin{enumerate}
+  \item Use Levine's test for equal variances ($H_0: \sigma_X = \sigma_Y$)
+  \item If non-significant, proceed with Student's t-Test
+  \end{enumerate}
+ 
+ Our advice: always use Welch's t-Test
+\note[item]{Why is this our advice? 3 reasons}
+\note[item]{First, the only reason you'd ever want more assumptions is to get more power. It's true that Student's test is more powerful - but studies have shown that the difference is too small to worry about}
+\note[item]{Second, you never know if the variances are equal - you can use a test, but a test is just a test - it's not proof. and the result really depends on the sample size. for small samples in particular, it's really hard to know.}
+\note[item]{Finally, this is the default setting in most software. not really a reason, but it is convenient.}
+ \begin{itemize}
+ \item Power is almost as high as for Student's test
+ \item We never know for sure if variances are equal
+ \item This is the default in most statistical software
+ \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Welch's Two-Sample t-Test Assumptions}
+  \note[item]{Let's summarize the assumptions in a more user-friendly form.}
+  
+  \begin{itemize}
+  \item \textbf{Metric Scale:} $X_1, X_2,..X_{n_X}$ and $Y_1, Y_2,...,Y_{n_Y}$ are random variables measured on a metric scale.
+  \item \textbf{Independence:} $X$'s are iid, $Y$'s are iid, and $X$'s and $Y$'s are mutually independent.
+  \item \textbf{Normality:} The distribution of the $X$'s is normal and the distribution of the $Y$'s is normal
+  \begin{itemize}
+\item The CLT guarantees normality for large samples
+\item Main concern is strong skewness with a small sample
+\end{itemize}
+
+  \end{itemize}
+
+  
+\end{frame}
+
+
+
+%Section 7.08 Edits end
+
+
+
 
 \section{Practical Significance of the T-Test}
 \begin{frame}
@@ -48,7 +396,7 @@
 
   \begin{block}{Difference in means}
     \[
-      \bar{X}_{A} - \bar{X}_{B}
+      \overline{X}_{A} - \overline{X}_{B}
     \]
   \end{block}
     \begin{itemize}
@@ -71,7 +419,7 @@
     \textit{Cohen's d} is a measure of difference of means
     standardized by the variance in the data.
     \[
-      \frac{ \bar{X}_{A} - \bar{X}_{B} }{s}
+      \frac{ \overline{X}_{A} - \overline{X}_{B} }{s}
     \]
     Where $s$ is a pooled standard deviation:
     $\sqrt \frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1+n_2}$
@@ -91,49 +439,56 @@
     correlation -- Cohen's d divides by the pooled standard deviation;
     correlation divides by the product of two group standard
     deviations.}
-  \begin{block}{Correlation}
-    \textit{Correlation} answers the question ``How strong is the
-    relationship between group identity and the outcome?''
-    \[
-      \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
-    \]
-  \end{block}
-
-  \begin{center}
-    \includegraphics[width = 0.5\linewidth]{./figures/biserial_00}
-  \end{center}
+  \begin{columns}
+    \column{0.5\linewidth}
+      \begin{block}{Biserial Correlation}
+        \textit{Correlation} answers the question ``How strong is the
+        relationship between group identity and the outcome?''
+        \[
+          \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
+        \]
+      \end{block}
+    \column{0.5\linewidth}
+      \begin{center}
+        \includegraphics[width = 0.9\linewidth]{./figures/biserial_00}
+      \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Correlation}
+  \begin{columns}
+    \column{.5\linewidth}
+    \begin{block}{Biserial Correlation}
+      \textit{Correlation} answers the question ``How strong
+      is the relationship between group identity and the outcome?''
+      \[
+        \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
+      \]
+    \end{block}
+    \column{0.5\linewidth}
+  \begin{center}
+    \includegraphics[width = 0.9\linewidth]{./figures/biserial_05}
+  \end{center}
+  \end{columns}
+\end{frame}
 
-  \begin{block}{Biserial correlation}
+\begin{frame}
+  \frametitle{Correlation}
+  \begin{columns}
+    \column{0.5\linewidth}
+  \begin{block}{Biserial Correlation}
     \textit{Correlation} answers the question ``How strong
     is the relationship between group identity and the outcome?''
     \[
       \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
     \]
   \end{block}
-
+\column{0.5\linewidth}
   \begin{center}
-    \includegraphics[width = 0.4\linewidth]{./figures/biserial_05}
+    \includegraphics[width = 0.9\linewidth]{./figures/biserial_09}
   \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Correlation}
-
-  \begin{block}{Biserial correlation}
-    \textit{Correlation} answers the question ``How strong
-    is the relationship between group identity and the outcome?''
-    \[
-      \rho = \frac{\cov(X, Y)}{\sigma_{X}\sigma_{Y}}
-    \]
-  \end{block}
-
-  \begin{center}
-    \includegraphics[width = 0.4\linewidth]{./figures/biserial_09}
-  \end{center}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -221,12 +576,12 @@
     \column{.49\linewidth}
     \textbf{Unpaired}
     \begin{itemize}
-      \item $t = \frac{\bar{A} - \bar{B}} {\sigma_{A\&B}}$
+      \item $t = \frac{\overline{A} - \overline{B}} {\sigma_{A\&B}}$
     \end{itemize}
     \column{.49\linewidth}
     \textbf{Paired}
     \begin{itemize}
-    \item $t = \frac{\bar{A} - \bar{B}}{\sigma_{(A - B)}}$
+    \item $t = \frac{\overline{A} - \overline{B}}{\sigma_{(A - B)}}$
     \end{itemize}
   \end{columns}
 
@@ -249,5 +604,321 @@
   \end{itemize}
 \end{frame}
 
+
+
+%Start section 7.17 edits
+\section{Introduction to Non-parametric Tests}
+
+\begin{frame}
+  \frametitle{Non-parametric Tests}
+  
+  \begin{itemize}
+    \item $t$-test is parametric, like all the tests we've seen so far
+    \begin{itemize}
+      \item Assumes the population comes from a parametric family of distributions
+      \item Typically the normal curves
+    \end{itemize}
+    \item It is not always possible to meet this assumption
+  \end{itemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Non-parametric Tests (cont.)}    
+
+  \textbf{Large sample} 
+  \begin{itemize}
+    \item No Problem
+    \item central limit theorem tells us that the sampling distribution of the mean will be approximately normal, so $t$-tests are valid
+    \item Parametric tests are generally valid for large samples
+  \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Non-parametric Tests (cont.)}
+  
+  \textbf{Small sample}
+  \begin{itemize}
+    \item $t$-test is fairly robust to deviations from normality, but you should look at your distribution and see how non-normal it is
+    \item Suppose you have a small sample and you suspect you have a major deviation from normality
+    \item You might be able to transform the variable to make it more normal, but that can alter the meaning and make results harder to interpret
+  \end{itemize}
+  
+  
+  \begin{exampleblock}{An alternative is to use a \textit{non-parametric} test}
+    
+  \end{exampleblock}
+  
+    
+\end{frame}
+
+\begin{frame}
+  \frametitle{Non-parametric Test Details}
+  
+  \begin{itemize}
+      \item Non-parametric tests can be also called \textbf{distribution- free tests}
+      \begin{itemize}
+          \item Still involve assumptions, but they are less restrictive than those of parametric tests
+      \end{itemize}
+      \item Many tests work on principle of ranking data
+      \begin{itemize}
+          \item List the scores from lowest to highest -- each score gets a rank, so higher scores have higher ranks
+          \item Only consider ranks instead of looking at the metric value of the variable
+          \item Use the order of variables to construct statistics that we can use to test hypotheses
+      \end{itemize}
+  \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Non-parametric Test Details (cont.)}
+  \begin{columns}[t]
+    \column{0.5\textwidth}
+    \textbf{Advantages}
+    \begin{itemize}
+        \item Population distribution doesn't have to be normal
+        \item Easier to justify a rank-based test
+    \end{itemize}
+    
+    \column{0.5\textwidth}
+    \textbf{Disadvantages}
+    \begin{itemize}
+        \item We throw out metric information
+        \item Rule of thumb: if you throw away information, you lose statistical pwoer
+    \end{itemize}
+  \end{columns}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Rank-Based Tests for Ordinal Variables}
+  \begin{itemize}
+      \item Rank-based tests are especially useful when we have an ordinal variable 
+      \begin{itemize}
+          \item eg. a Likert variable such as "how do you feel about a presidential campaign?"
+          \item Neutral, support, strongly support, etc.
+      \end{itemize} 
+      \item It is hard to argue that the difference between neutral and support is the same as the difference between support and strongly support
+  \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Love Tester Example}
+  
+  \includegraphics[width=1.0\textwidth]{figures/love_tester.png}
+
+  Do you trust that the difference between harmless and mild is the same as the difference between burning and passionate?
+    
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rank-Based Tests for Ordinal Variables (cont.)}
+  
+  If you run a $t$-test in these cases, you impose a linear structure on your variable, treating it as metric
+  \begin{itemize}
+      \item This method may or may not be reasonable
+      \item If you use a rank-based test that is okay--you are asking whether one group tends to rank below or above another 
+      \item The ranks are still meaningful
+  \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Conclusion}
+
+  \begin{itemize}
+    \item There are some situations in which you should consider non-parametric tests
+    \item Coye is going to tell you more about the specifics
+  \end{itemize}
+  
+\end{frame}
+
+
+
+
+%End section 7.17 edits
+
+
+
+
+
+
+
+%Start section 7.19 edits
+\section{Wilcoxon Rank-sum Test for Independent Groups}
+
+
+\begin{frame}
+  \frametitle{Parametric and Non-parametric Tests for Comparing Only Two Groups}
+
+  \begin{center}
+    \begin{tabular}{p{0.3\linewidth}||p{0.3\linewidth}|p{0.3\linewidth}}
+      \textbf{Type of Design} & \textbf{Parametric Tests} & \textbf{Non-parametric Tests}  \\
+      \hline \hline
+      \textit{Two independent samples}  & Independent samples $t$ test & Wilcoxon rank-sum test (Mann-Whitney test) \\
+      \hline
+      \textit{Two dependent Samples } & Dependent samples $t$ test & Wilcoxon signed-rank test
+    \end{tabular}   
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Comparing Two Independent Conditions: Wilcoxon Rank-Sum Test}
+  
+  \begin{itemize}
+    \item Data are ranked from lowest to highest across groups
+    \item This provides \textbf{potential rank} scores
+    \item If the same score occurs more than once then all scores of the same value receive the average of the potential ranks for those scores
+  \end{itemize}
+  
+  \begin{center}
+    \scalebox{0.4}{  
+      \begin{tabular}{c|cccc}
+        ID & Group & Score & Potential Rank & Final Rank \\ \hline
+        1  & A     & 10    & 1              & 1   \\ 
+        2  & A     & 11    & 2              & 2.5 \\ 
+        3  & B     & 11    & 3              & 2.5 \\ 
+        4  & B     & 12    & 4              & 4   \\ 
+        5  & A     & 20    & 5              & 6   \\
+        6  & B     & 20    & 6              & 6   \\
+        7  & B     & 20    & 7              & 6   \\
+        8  & A     & 33    & 8              & 8   \\
+      \end{tabular}
+    }
+  \end{center}
+
+  \begin{itemize}
+      \item This gives us the \textbf{final rank} scores
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Comparing Two Independent Conditions: Wilcoxon Rank-Sum Test}
+
+  \begin{center}
+    \begin{tabular}{c|cccc}
+      ID & Group & Score & Potential Rank & Final Rank \\ \hline
+      1  & A     & 10    & 1              & 1   \\ 
+      2  & A     & 11    & 2              & 2.5 \\ 
+      3  & B     & 11    & 3              & 2.5 \\ 
+      4  & B     & 12    & 4              & 4   \\ 
+      5  & A     & 20    & 5              & 6   \\ 
+      6  & B     & 20    & 6              & 6   \\ 
+      7  & B     & 20    & 7              & 6   \\ 
+      8  & A     & 33    & 8              & 8   \\
+    \end{tabular}
+  \end{center}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Calculating the Wilcoxon Rand-Sum Test}
+  
+  \begin{itemize}
+    \item After assigning final ranks, add up all the final ranks for each of the two groups
+    \item Subtract the mean rank for a group of the same size as our groups
+    \begin{itemize}
+      \item Otherwise, larger groups would always have larger values
+      \item For example, the mean group for a group of four = 1 + 2 + 3 + 4 = 10
+    \end{itemize}
+    \item Our final calculation in therefore:
+    \begin{itemize}
+      \item $W$ = sum of ranks - mean rank
+    \end{itemize}
+  \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Calculating the Wilcoxon Rank-Sum Test (cont.)}
+  
+  \begin{center}
+    \scalebox{0.75}{  
+      \begin{tabular}{c|cccc}
+        ID & Group & Score & Potential Rank & Final Rank \\ \hline
+        1  & A     & 10    & 1              & 1   \\
+        2  & A     & 11    & 2              & 2.5 \\ 
+        3  & B     & 11    & 3              & 2.5 \\ 
+        4  & B     & 12    & 4              & 4   \\ 
+        5  & A     & 20    & 5              & 6   \\
+        6  & B     & 20    & 6              & 6   \\
+        7  & B     & 20    & 7              & 6   \\
+        8  & A     & 33    & 8              & 8   \\
+      \end{tabular}
+    }
+  \end{center}
+
+  \begin{itemize}
+    \item Group A: W = sum of ranks (17.5) - mean rank (10) = 7.5
+  \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Interpretation of the Wilcoxon Rank-Sum Test}
+
+  \begin{exampleblock}{Default is a two-sided test, like a \textit{t} test}
+    \textbf{Null hypothesis:} There is no difference in ranks
+    \textbf{Alternative hypothesis:} There is a difference in ranks
+  \end{exampleblock}
+  
+  \begin{itemize}
+      \item You can also do a one-directional test if you hypothesize that one particular group will have higher ranks than the other
+      \item Always two values for $W$ (one for each group)
+      \item Lowest score for $W$ is typically used as the test statistic
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interpretation of the Wilcoxon Rank-Sum Test (cont.)}
+  
+  \begin{itemize}
+      \item For small sample sizes ($N<40$), R calculates the $p$ value with the Monte Carlo methods
+      \begin{itemize}
+          \item ie. simulated data are used to estimate the statistic
+      \end{itemize}
+      \item For larger samples, R calculates the $p$ value with a normal approximation method
+      \begin{itemize}
+          \item Assumes that the sampling distribution of the $W$ statistic is normal, not the data
+          \item Normal approximation method helpful because it calculates a z statistic in the process of calculating the $p$ value
+      \end{itemize}
+  \end{itemize}
+    
+\end{frame}
+
+\begin{frame}
+  \frametitle{Effect Size for the Wilcoxon Rank-Sum Test}
+
+  \begin{exampleblock}{Effect Size Correlation}
+    $$r = \frac{Z}{ \sqrt{N} }$$
+    Divide the z statistic by the square root of the total sample size
+  \end{exampleblock}
+
+  \begin{center}
+  \begin{tabular}{c|c}
+    r    & Effect Size  \\ \hline
+    0.10 & Small \\
+    0.30 & Medium \\
+    0.50 & Large 
+  \end{tabular}
+  \end{center} 
+\end{frame}
+
+%End section 7.19 edits
 
 \end{document}
