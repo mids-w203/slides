@@ -1,0 +1,92 @@
+{
+    "clipr::clipr_output": {
+        "name": "Output to clipboard",
+        "package": "clipr",
+        "title": "",
+        "description": "Copies the console output of a selected expression to the system clipboard",
+        "interactive": false,
+        "binding": "clipr_output",
+        "ordinal": 10
+    },
+    "clipr::clipr_result": {
+        "name": "Value to clipboard",
+        "package": "clipr",
+        "title": "",
+        "description": "Copies the results of a selected expression to the system clipboard",
+        "interactive": false,
+        "binding": "clipr_result",
+        "ordinal": 9
+    },
+    "devtools::document": {
+        "name": "Document a package",
+        "package": "devtools",
+        "title": "",
+        "description": "A wrapper for `roxygen`'s `roxygen2::roxygenize()`",
+        "interactive": true,
+        "binding": "document",
+        "ordinal": 4
+    },
+    "devtools::run_examples": {
+        "name": "Run examples",
+        "package": "devtools",
+        "title": "",
+        "description": "Runs R code in examples using `devtools::run_examples()`",
+        "interactive": true,
+        "binding": "run_examples",
+        "ordinal": 5
+    },
+    "devtools::test_active_file": {
+        "name": "Run a test file",
+        "package": "devtools",
+        "title": "",
+        "description": "Run the current test file, using `devtools::test_active_file()`.",
+        "interactive": true,
+        "binding": "test_active_file",
+        "ordinal": 1
+    },
+    "devtools::test_coverage": {
+        "name": "Report test coverage for a package",
+        "package": "devtools",
+        "title": "",
+        "description": "Calculate and report the test coverage for the current package, using `devtools::test_coverage()`.",
+        "interactive": true,
+        "binding": "test_coverage",
+        "ordinal": 3
+    },
+    "devtools::test_coverage_active_file": {
+        "name": "Report test coverage for a file",
+        "package": "devtools",
+        "title": "",
+        "description": "Calculate and report test coverage for the current test file, using `devtools::test_coverage_active_file()`.",
+        "interactive": true,
+        "binding": "test_coverage_active_file",
+        "ordinal": 2
+    },
+    "pkgdown::build_site_external": {
+        "name": "Build pkgdown",
+        "package": "pkgdown",
+        "title": "",
+        "description": "Runs pkgdown on the current package",
+        "interactive": true,
+        "binding": "build_site_external",
+        "ordinal": 6
+    },
+    "reprex::reprex_addin": {
+        "name": "Render reprex...",
+        "package": "reprex",
+        "title": "",
+        "description": "Run `reprex::reprex()` to prepare a reproducible example for sharing.",
+        "interactive": true,
+        "binding": "reprex_addin",
+        "ordinal": 7
+    },
+    "reprex::reprex_selection": {
+        "name": "Reprex selection",
+        "package": "reprex",
+        "title": "",
+        "description": "Prepare reprex from current selection",
+        "interactive": false,
+        "binding": "reprex_selection",
+        "ordinal": 8
+    }
+}

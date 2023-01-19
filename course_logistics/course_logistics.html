@@ -13,11 +13,21 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # w203: Statistics for Data Science
+]
+.subtitle[
 ## Course Logistics
+]
+.author[
 ### Alex Hughes
+]
+.institute[
 ### UC Berkeley
-### (Updated: 2021-05-03)
+]
+.date[
+### (Updated: 2022-08-18)
+]
 
 ---
 
@@ -50,20 +60,20 @@ Complete the homework for the unit. This homework will be due before the next li
 
 You will use these resources most frequently. 
 
-- [ISVC](http://learn.datascience.berkeley.edu)
-- [Github Org](http://github.com/mids-w203)
-- [Slack](ucbischool.slack.com): Join channel w203_mids_sp_21
-- [Gradescope](https://www.gradescope.com)
-- [University Library VPN](https://www.lib.berkeley.edu/using-the-libraries/)
+- [bCourses](http://bcourses.berkeley.edu) [CalNet Auth]
+- [Github Org](http://github.com/mids-w203) [Your GitHub Auth]
+- [Slack](ucbischool.slack.com): Join channel `#datasci-203-&lt;year&gt;-&lt;semester&gt;` [Your ISchool Auth]
+- [Gradescope](https://www.gradescope.com) [Auth from bCourses]
+- [University Library VPN](https://www.lib.berkeley.edu/using-the-libraries/) [CalNet Auth]
 
 ---
 
 # Course Language: R 
 
-- We will be providing all code for the course in .Rmd files. 
-  -  We continue to assess the software landscape, and continue to believe that there is a place for R. 
+- We will be providing all code for the course in `.Rmd` files. 
+  - We continue to assess the software landscape, and continue to believe that this form of descriptive and inferrential statistics is most easily handled in R (rather than, python+scipy, julia)
   - Dealing with data, conducting stats, plotting and building reports. 
-  - We (your instructors) all work in python, R, shell idioms and other baroque things that come along. 
+  - We (your instructors) all work across languages
 
 ---
 class: inverse, center, middle
@@ -75,7 +85,7 @@ class: inverse, center, middle
 #Software and Computing 
 ## R DataHub
 
-- For much of the work that you do in the course, you can use the UC Berkeley provided [R Datahub](http://r.datahub.berkeley.edu) instance. 
+- For much of the work that you do in the course, you can use the UC Berkeley provided [R Datahub](http://ischool.datahub.berkeley.edu) instance. 
   - This is a small instance, but for a lot of the exercises we do it will be sufficient. 
   - This resource has ephemeral compute (i.e. when you log-off your "state" will not be saved); 
   - But, persistent storage (i.e. what you save will be available for you when you return). 
@@ -85,7 +95,7 @@ class: inverse, center, middle
 ## Docker 
 - For larger projects that you want to work on, we'd suggest using a Docker image that has solved all of the dependencies. 
 - Several great images are maintained by the Rstudio group and are available at [Rocker Docker Hub](https://hub.docker.com/u/rocker). In particular, the `rocker/rstudio`, `rocker/tidyverse`, and `rocker/verse` images are go-to images. 
-- You can _always_ build on top of an image, to install smaller libraries that you need. 
+- You can _always_ build on top of an image, to install smaller libraries that you need.
 
 --- 
 
@@ -101,7 +111,7 @@ class: inverse, center, middle
 
 # Homework 
 
-- Most weeks of the course include a homework assignment.
+- There are individual homework assigments in the course. 
 - We are providing resources via GitHub, which means to access these resources, you need to _clone_ them to your computer.  
 - _To clone_:
   - On our GitHub Org:  
@@ -110,7 +120,7 @@ class: inverse, center, middle
     - Issue the command `git clone &lt;the link you just copied&gt;` 
     - Open the `unit_01` homework folder
 - _To submit the first homework_
-  - Navigate to `www.gradescope.com.` 
+  - Navigate to bCourses &gt; Assignments &gt; Homework
   - Upload scans of your homework to each appropriate question. 
   
 ---
@@ -232,6 +242,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

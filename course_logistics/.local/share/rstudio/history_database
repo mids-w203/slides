@@ -1,0 +1,2 @@
+1660864948994:library(faraway)
+1660864962445:install.packages('faraway')
