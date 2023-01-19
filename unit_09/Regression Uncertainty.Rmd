@@ -1,0 +1,61 @@
+---
+title: "Uncertainty in Regression Estimates"
+output: bookdown::gitbook
+---
+
+# Regression Sampling Variance 
+
+```{r}
+make_data <- function(
+  number_of_rows=30, homoskedastic=TRUE, x_variance='low') {
+  
+  require(tidyverse)
+
+  if(x_variance == 'low') { 
+    x_min <- -1
+    x_max <- 1
+  } else if(x_variance == 'medium') { 
+    x_min <- -25
+    x_max <- 25
+  } else if(x_variance == 'high') { 
+    x_min <- -50
+    x_max <- 50
+  }
+  
+  d <- data.frame(id=1:number_of_rows) %>% 
+    mutate(x=runif(n=n(), min=x_min, max=x_max)) %>% 
+    mutate(x=x[order(x)]) 
+  
+  if(homoskedastic) { 
+    d <- d %>% 
+      mutate(y=1+x+runif(n=number_of_rows, min=-10, max=10))
+  } else if(!homoskedastic){ 
+      d <- d %>% 
+        mutate(y=1+x+runif(n=number_of_rows, min=-1*abs(x), max=abs(x)))
+      }
+  
+  return(d)
+}
+
+make_data(
+  number_of_rows = 300, 
+  x_variance = 'medium', 
+  homoskedastic=FALSE) %>% 
+  ggplot() + 
+  aes(x=x, y=y) + 
+  geom_point() + 
+  lims(
+    x=c(-50,50), 
+    y=c(-100, 100)
+  )
+
+replicate(
+  n=10, 
+  expr = coef(lm(y ~ x, data = make_data()))[2])
+
+foo[2]
+
+library(magrittr)
+
+```
+
