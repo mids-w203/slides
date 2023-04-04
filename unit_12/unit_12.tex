@@ -333,7 +333,7 @@ $\implies$ No $X_i$ can be written as a linear combination of the other $X$'s.
   $$\E[Y|\boldsymbol{X}=\bs x]= \boldsymbol{x \beta}$$
   
  Where $\boldsymbol{\beta}$ is a vector of parameters, for all $\boldsymbol{x} \in \text{Supp}[\boldsymbol{X}]$
- 
+
  \note[item]{\paul{commented out the zero-conditional mean version}}
  \note[item]{\paul{Alex, can you remind students that $\bs X = [1,X_1,X_2,..,X_k]$}}
 \end{frame}
@@ -370,7 +370,7 @@ $\implies$ No $X_i$ can be written as a linear combination of the other $X$'s.
 \begin{frame}
   \frametitle{CLM Assumption 5}
   
-  \textbf{Normally Distributed Errors.}. Letting $\epsilon = Y - \boldsymbol{X \beta}$, the conditional distribution of $\epsilon$ given $\boldsymbol{X} = \boldsymbol{x}$ is normal.
+  \textbf{Normally Distributed Errors.} Letting $\epsilon = Y - \boldsymbol{X \beta}$, the conditional distribution of $\epsilon$ given $\boldsymbol{X} = \boldsymbol{x}$ is normal.
   
   \begin{itemize}
 \item Given previous assumptions, $\epsilon \sim N(0, \sigma^2)$.
@@ -562,8 +562,8 @@ NO
    $$ \boldsymbol{ \hat \beta} = \boldsymbol{\beta} +  (\X^T\X)^{-1}\X^T\boldsymbol{\epsilon}$$
    
     \begin{itemize}
-\item Each $\beta_i$ is normal
-\item Any linear combination (e.g. $\beta_i - \beta_j$) is normal
+\item Each $\hat{\beta}_i$ is normal
+\item Any linear combination (e.g. $\hat{\beta}_i - \hat{\beta}_j$) is normal
 \end{itemize}
 
 \end{frame}
