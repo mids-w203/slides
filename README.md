@@ -2,7 +2,6 @@
 
 | Unit    | Async                                                                               | Async                         |
 |---------|-------------------------------------------------------------------------------------|-------------------------------|
-| Unit 00 | [HTML](https://raw.githack.com/mids-w203/slides/main/unit_00/course_logistics.html) |                               |
 | Unit 01 | [PDF](./unit_01/week_01.pdf)                                                        | [.tex](./unit_01/week_01.tex) |
 | Unit 02 | [PDF](./unit_02/week_02.pdf)                                                        | [.tex](./unit_02/week_02.tex) |
 | Unit 03 | [PDF](./unit_03/week_03.pdf)                                                        | [.tex](./unit_03/week_03.tex) |
