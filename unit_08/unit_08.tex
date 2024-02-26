@@ -1,0 +1,1430 @@
+\documentclass[12pt, block=fill]{beamer}
+\usepackage{graphicx}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{FiraMono}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{mathtools}
+
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+\definecolor{burntOrange}{rgb}{.8, .5, .1}
+\definecolor{textgray}{rgb}{.8,.8,.8}
+\definecolor{berkeleyYellow}{HTML}{FDB515}
+
+\usepackage{dcolumn}
+
+\newcommand{\alex}[1]{\textcolor{berkeleyYellow}{#1}}
+\newcommand{\paul}[1]{\textcolor{red}{#1}}
+
+\newcommand*{\vertbar}{\rule[-1ex]{0.5pt}{2.5ex}}
+\newcommand*{\horzbar}{\rule[.5ex]{2.5ex}{0.5pt}}
+
+
+
+\usetheme[
+  titleformat frame = smallcaps,
+  subsectionpage = progressbar]
+  {metropolis}
+
+\metroset{
+  block=fill
+}
+
+\setbeamerfont{note page}{size=\footnotesize}
+
+\newcommand{\E}{\text{E}}
+\newcommand{\V}{\text{V}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\bs}{\boldsymbol}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\indep}{\mathrel{\text{\scalebox{1.07}{$\perp\mkern-10mu\perp$}}}}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slides
+% \setbeameroption{show only notes} % Only notes
+% \setbeameroption{show notes on second screen=right} % Both
+
+\begin{document}
+
+% \begin{frame}
+%   \tiny
+%   \tableofcontents
+% \end{frame} 
+
+\section{Introduction to Regression}
+
+\begin{frame}
+
+\includegraphics[width = \textwidth]{images/regression_example_1}
+
+\note[item]{If you open any academic paper that uses data today - there's a quite good chance that you'll find a linear regression inside. If you don't find a regression, you might find a technique that's based on linear regression.  Even the most cutting edge machine learning techniques - most still contain elements of linear regression.}
+
+\end{frame}
+
+
+\begin{frame}
+
+\includegraphics[width = \textwidth]{images/regression_example_2}
+
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+
+\includegraphics[width = \textwidth]{images/regression_example_3}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Regression Algorithm}
+  
+\center \textbf{Idea: Draw a line given a sample of data}
+
+\note[item]{ So regression is absolutely foundational to modern data science.}
+
+\note[item]{And, in one sense it's easy.}
+  \note[item]{The basic idea is quite simple}
+\note[item]{The algorithm is quite simple - I can show you how to calculate the line in a few minutes.  But just drawing a line isn't statistics - anyone can draw a line, but a line is just a line.}
+\note[item]{After you draw a line, there are two questions you need to ask...}
+ \end{frame}
+
+
+
+\begin{frame}[standout]
+
+What does this line \textit{mean}?
+
+Under what assumptions?
+
+\note[item]{What's interesting is that even though everyone agrees on how to compute a regression line, people have different answers to these questions.}
+\note[item]{There's a statistical perspective, a structural perspective, a machine learning perspective...}
+\note[item]{Which do you need to learn?  All of them.  As a data scientist, you'll need to converse with many types of people...}
+\note[item]{But you have to start somewhere.  We have a very strong opinion about this - we're going to teach you what we think is the most fundamental perspective on regression.}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Mechanics of OLS Regression}
+  
+  \begin{itemize}
+\item The OLS algorithm
+\item Statistical assumptions
+\item Statistical guarantees
+\end{itemize}
+\note[item]{You can think of this unit as covering the mechanics of linear regression.  The algorithm itself, statistical assumptions, and statistical guarantees.  This is a foundation, and later on, we'll move on to applications.  let's get started.}
+\end{frame}
+
+\section{Unit Plan}
+
+\begin{frame}
+  \frametitle{Goals of This Week}
+  At the end of this week, you will: 
+  \begin{enumerate}
+  \item Understand that regression is the plug-in estimator
+    of the best linear predictor (BLP). 
+  \item Understand overall model fit and use an F-test to assess
+    whether a candidate model is performing better than a baseline
+    model.
+  \item Understand how to appropriately interpret regression
+    coefficients.
+  \item Lay a foundation for careful interpretation. 
+  \end{enumerate}
+
+  \note[item]{When we discuss fitting, we're going to reason from the
+    closed-form solutions. But, we will also nod to how we might
+    produce estimates through a brute-force, numeric optimization
+    route.}
+\end{frame}
+
+\section{Reading: The Golem of Prague}
+
+\begin{frame}
+  \frametitle{Reading: The Golem of Prague}
+  \textbf{This is a placeholder for a reading call. We're just placing
+    it here for organization.} 
+  \begin{itemize}
+  \item Read Sections 1.0 and 1.1 of \textit{Statistical Rethinking},
+    which we have provided a copy of in PDF form from the publisher.
+  \item \textit{Statistical Rethinking} is a great book and reference
+    that you should consider later in your data science and statistics
+    path.
+  \end{itemize}
+\end{frame}
+
+\section{Regression, a Statistical Golem}
+
+\begin{frame}
+  \frametitle{Regression, a Statistical Golem}
+  \begin{itemize}
+  \item Regression—like all models—is a tool. 
+  \item We put tools to use toward a data scientific purpose; however,
+    tools are only tools.
+  \item Use of a straight-edge, scale, and T-square doesn't make
+    one an architect any more than use of \{\texttt{insert language}\}
+    or \{\texttt{insert technique}\} makes one a data scientist. 
+  \end{itemize}
+    
+  \note[item]{A major point in 201, and again here in 203 is that we
+    cannot, under any circumstance -- whether question formation,
+    ethics, data viz, model architecture -- be unthinking as data
+    scientists. Because our models \textit{are} unthinking.}
+  \note[item]{In the case of regression, it is \textit{very} literally
+    a measure of linear dependence between two dimensions of data.}
+  \note[item]{The tasks that we pursue require \textit{careful}
+    thought. This is the task that makes a pursuit a science, rather
+    than a psuedo-science; an art, rather than a craft.}
+  \note[item]{But, combined with how we \textit{know} human process --
+    we're limited processors of information; we need to develop
+    skills for managing where we are working.}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Machinery of OLS Regression}
+  \begin{itemize}
+  \item OLS regression is a plug-in estimator for the best linear
+    predictor (BLP).
+  \item The BLP is the lowest mean squared error (MSE) estimator, out of all linear functions.
+  \end{itemize}
+
+\note[item]{\paul{ I removed CEF, because it's an intermediary step - the target variable is the ultimate estimation goal}}
+  \note[item]{On the one hand, there is little special about
+    regression.}
+  \note[item]{It is a simple formula, with a closed form solution that
+    is both easy to fit (because of squared loss). It just so happens
+    that minimizing MSE happens to be desirable in many cases.} 
+  \note[item]{But this is quite literally the beginning and end of
+    what it does. If we wanted to minimize quadratic squared error; or
+    absolute deviations, we would derive another estimator.}
+  \note[item]{What if we wanted to make a model that was usefully
+    understandable by a stakeholder for descriptive purposes? What if
+    we wanted to identify a causal effect? There is no guarantee that
+    minimizing MSE will accomplish these goals. We as scientists have
+    to carefully define the question and task that we are
+    undertaking.} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Applications of OLS Regression}
+  \textbf{Regression is fantastically versatile}
+  \begin{itemize}
+    \item Under some circumstances, regression has explainable
+      internal weights (coefficients) that are of interest.
+    \item Under other circumstances, regression identifies causal
+      effects. 
+    \item Under many circumstances, regression is the \textit{de facto}
+      baseline estimator. 
+  \end{itemize} 
+  \note[item]{But, on the other hand...} 
+\end{frame}
+
+\section{Elements of a Linear Model}
+
+\begin{frame}
+  \frametitle{Elements in a Linear Model}
+  \note[item]{Before we dive into OLS regression, let's discuss linear
+    models more broadly.}
+  \note[item]{By a linear model, we mean that
+    we have one random variable $Y$ and we're going to represent or
+    summarize it as a linear function of other random variables
+    $X_1,X_2,...,X_k$}
+
+  \begin{block}{Linear model A.K.A. linear predictor}
+    A \textbf{linear model} is a representation of a random variable
+    ($Y$) as a linear function of other random variables
+    $\bs X = (X_1,X_2,...,X_k)$.
+  \end{block} 
+
+  \note[item]{These variables go by many different names.}
+  \note[item]{In ML, Y is usually the target, X's are features}
+  \note[item]{In classical stats, dependent and independent variables,
+    or sometimes RHS and LHS are more popular}
+  \note[item]{Those are ok, but we don't like that
+    dependent variable sounds like a causal effect.  As we'll discuss,
+    we can't just assume that a linear model represents any kind of
+    causal relationship.  For that reason, we'll try to stick with the
+    more prediction-focused terms, like target and features }
+
+  \centering
+    \begin{tabular}{l|l}
+      \multicolumn{1}{c}{$Y$} & \multicolumn{1}{c}{$X_1, X_2,...,X_k$} \\
+      \hline
+      Target & Features\\
+      Outcome & Predictors\\
+      Dependent variable & Independent variables\\
+      Output & Inputs \\
+      Response & Controls\\
+      Left-hand side (LHS) & Right-hand side (RHS)\\
+      \multicolumn{1}{c}{$\vdots$} & \multicolumn{1}{c}{$\vdots$} \\
+    \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Linear Model Formula}
+  
+  \note[item]{Here's what the linear model looks like}
+  \note[item]{We may write g of the X's to emphasize that this is a function}
+  \note[item]{The number that comes out of the function is called a prediction}
+  \note[item]{Since we're putting random variables into the function,
+    the output is also a random variable} 
+  \note[item]{We'll label the prediction $\hat{Y}$.  The hat means
+    that this is a prediction for $Y$,  it's not the same random
+    variable, but it is related.}
+  \note[item]{$\beta_{k}$ are the coefficients.  we can also call them weights}
+  \note[item]{Depending on the type of linear model building that
+    you're doing, either $\beta$ or $\hat{Y}$ might be the target of
+    your inquiry.} 
+
+  \begin{block}{The linear model formula} 
+    \begin{align*}
+      \hat{Y} &= g(X_1,X_2,...,X_k)\\
+              &=\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_k X_k
+    \end{align*}
+  \end{block}  
+
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{A Linear Model Example}
+
+  \begin{block}{Brunch in Berkeley}
+    \[
+      \widehat{\text{Avocados}} = 2 + 1 \cdot \text{Lemons} + 2 \cdot
+      \text{Loaves\_Bread}
+    \]
+  \end{block} 
+\end{frame}
+
+
+
+\section{Review: Outcome, Prediction, and Error}
+
+\begin{frame}
+  \frametitle{Review: Outcome, Prediction, and Error}
+  \centering
+  \includegraphics[width = .7 \textwidth]{images/linear_model}
+
+ \note[item]{Here's a picture of a joint distribution, with just one X and Y.}
+  \note[item]{And here's a line representing a linear model.}
+  \note[item]{Is this a good model?  Doesn't look great to my eyes,
+    but that's actually intentional.  We haven't said anything about
+    what makes a good model yet!} 
+  \note[item]{If I imagine drawing a point $(x,y)$ from this
+    distribution, I can draw the distance from the point to the line.
+    that distance is a random variable, with a special name: the
+    error.  This point on the y axis is the predicted y, $\hat{y}$}
+  \note[item]{\includegraphics[width=0.5\linewidth]{images/linear_model_drawn}}
+\end{frame}
+
+\section{Concept Check: Making Predictions with a Linear Model}
+
+\begin{frame}
+  \frametitle{Concept Check: Making Predictions with a Linear Model}
+  \begin{itemize}
+\item Students will be given a model and (x,y) and compute prediction and error.
+\end{itemize}
+
+\end{frame}
+
+\section{Metric Inputs}
+
+\begin{frame}[t]
+  \frametitle{Interpreting Model Weights (Coefficients)}
+  
+  \note[item]{How do we interpret the betas in a linear model?}
+  \note[item]{A linear model is a \textit{sharp} abstraction of the
+    world. \textbf{But}, because it is linear, the \textit{model} is
+    easily interpretable. However, it is important to note that we frequently
+    want our \textit{inference} to be about the world, not our
+    data. Only when the data meets certain assumptions does what we
+    learn from model tell us about the world. (Recall properties of
+    estimators.)} 
+  \note[item]{To get an idea, try taking the partial derivative of the
+    predicted outcome, with respect to some $X_i$} 
+  \note[item]{This means that you can think of $\beta_i$ as the change
+    in the outcome when $X_i$ changes by 1 unit, but the partial is
+    very important.  This is ONLY true if the other $X$'s are held
+    constant.}
+  
+  \[
+    \hat{Y} =\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_k X_k
+  \]
+
+  \vspace{0.5em}
+  \begin{block}{Interpretation of coefficients}
+    \begin{itemize}
+      \item If $X_{i}$ changes by $\Delta X_{i}$ units, the predicted value
+      of the target, $\hat{Y}$ changes by $\beta_{i} \cdot \Delta X_{i}$
+      units.
+      \item If $X_{i}$ and $X_{j}$ change by $\Delta X_{i}$ and $\Delta
+      X_{j}$ respectively, then the predicted value of the target,
+      $\hat{Y}$ changes by $(\beta_{i}\Delta X_{i}) + (\beta_{j}
+      \Delta X_{j})$.
+    \end{itemize} 
+    \textbf{Ceteris paribus:} all else equal
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Interpreting Model Coefficients: Example}
+ 
+  Does this model say peacocks with longer tails fly slower?  
+
+  \[
+    \text{air\_speed} = 4.3 - 1.2 \cdot \text{tail\_length} + 0.8
+    \cdot \text{muscle\_mass}
+  \]
+ 
+ \centering
+
+ \includegraphics[width = .6 \textwidth]{images/peacock}\\
+  \vspace{-.3cm} \scalebox{.5}{Photo by Thimindu Goonatillake CC BY-SA
+    2.0}
+
+  \note[item]{Here's a model that we developed to describe the flying
+    speed of male peacocks.} 
+  \note[item]{Notice the coefficient on the tail length variable: $-1.2$}
+  \note[item]{Does this mean that peacocks with longer tails are
+    slower flyers?}  
+  
+  \note[item]{The answer is no - we have to remember ceteris paribus}
+  \note[item]{The correct interpretation is that peacocks with1 unit
+    longer tails, but the same muscle mass, are predicted to fly 1.2
+    units slower.  But what about peacocks with longer tails as a
+    whole?  We just don't know.  You can imagine that peacocks with
+    longer tails also tend to have more muscle mass.  Maybe they fly
+    faster.} 
+\end{frame}
+
+\section{Categorical Inputs}
+
+\begin{frame}[t]
+  \frametitle{Categorial Inputs, Part I}
+  What if, rather than \textit{numeric} inputs, we had \textit{categorical} inputs?
+  \begin{itemize}
+    \item Information that says it belongs to one category or another, but doesn't provide a value to that category?
+    \item \textbf{Reminder}: There are four ``levels'' of information -- (1) Categorical; (2) Ordinal; (3) Interval; (4) Ratio
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Categorical Inputs, Part II}
+  How is this represented in a model?
+  \begin{itemize}
+    \item The model aims only to distinguish one category from another, and so switches from stacked \textit{labels} to \textit{one-hot encoded}, or \textit{dummy} variables.
+    \item Practically, in this model, one of the labels is identified as the \textit{baseline}, \textit{default}, or \textit{omitted} category
+    \item Indicators for \textit{alternate} levels mark changes from the baseline to the alternate level. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Categorical Inputs, Part II}
+
+\end{frame} 
+
+\section{Learnosity: Interpreting Model Weights}
+
+\begin{frame}
+  \textbf{This is a placeholder for a Learnosity activity.}
+
+  \begin{itemize}
+  \item \paul{have to change this, so it's about interpretation, not prediction}
+  \item In this activity, students will be given a fitted model that
+    conforms with the data that they have for the peacock
+  \item They will make predictions \textit{first} from the data,
+    and then
+  \item Second, from newly created data to see how the predictions
+    change
+  \end{itemize} 
+\end{frame}
+
+\section{Part 2: Selecting a Linear Model with OLS}
+
+\section{OLS is Regression for Estimating the BLP}
+
+\begin{frame}
+  \frametitle{Fitting Linear Models}
+  \note[item]{Where do linear models come from?  Up till now, we've
+    just made up numbers.} 
+  \note[item]{But what we really want to do is choose the model
+    using data.}
+  \note[item]{There are a lot of different algorithms that you can use to choose a linear model.  We've listed a few famous ones here, but there are many options.} 
+  \note[item]{If you start with a different objective, you will design a different algorith..} 
+  \note[item]{Out of these, the most foundational type of regression
+    is OLS, so what is it designed to do?} 
+  
+  \textbf{Linear regression:} an algorithm for fitting a linear model
+  given a sample of data
+  \begin{itemize}
+  \item Ordinary least squares (OLS) regression
+  \item Quantile regression
+  \item Regularized regression
+    \begin{itemize}
+    \item Lasso
+    \item Ridge regression
+    \end{itemize} 
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Understanding OLS}
+  
+  \note[item]{In this unit, our main topic is a type of regression called OLS}
+  \begin{block}{Ordinary least squares (OLS) regression}
+    \begin{itemize}
+    \item The most well-known type of linear regression
+    \item A foundation for many other types of regression
+    \item Key goal: estimating the best linear predictor (BLP)
+    \end{itemize}
+  \end{block}
+  
+  \note[item]{A key goal is estimating the BLP.  Let's review what the BLP is and why it's so great.} 
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{The BLP Minimizes Expected Squared Error}
+  \includegraphics[width=\textwidth]{images/mpg_lm}
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{The Best Linear Predictor}
+
+  \begin{block}{The BLP (population regression function)}
+    The best linear predictor is defined by the function 
+    \[g(\mathbf{X}) = \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +
+      \dots + \beta_{k}X_{k}\] 
+    where $\boldsymbol{\beta} = (\beta_0, \beta_1,...,\beta_k)$ are
+    chosen to minimize the expected squared error.
+    
+    \[
+      \min_{(b_{0}, \dots, b_{k})}
+      \E\big[ (Y - (b_0  + b_1 X_1 + ... +b_k X_k))^2\big]
+    \] 
+  \end{block}
+  \note[item]{If we are working with a best linear predictor, then we
+    know we have a function that must take the following form: [read
+    the formula]}
+  \note[item]{Remember the formula for the BLP in the single variable
+    case; it is a more complex now -- complex enough that we can't
+    work through the statement, but it is just a bit more than $\beta
+    = \frac{Cov[X,Y]}{Var[X]}$} 
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Great Things About the BLP}
+  The best linear predictor...
+  \begin{itemize}
+\item minimizes MSE out of all linear models.
+\item captures an infinitely complex distribution in a few parameters.
+\item can be estimated with much less data compared to a probability density.
+\item is easy to reason about.
+\item is easy to communicate to others, helping knowledge advance.
+\item has a closed form solution that is relatively easy to work with.
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+  
+  \begin{frame}
+  \frametitle{Applying the Plug-In Principle}
+    \includegraphics[width=\textwidth]{images/mpg_data}
+  \note[item]{We can't see the joint distribution, so we can't analyze the true error}
+  \note[item]{But we do have this data, so can use a plug-in estimate}
+  \note[item]{Instead of an expectation, we'll look at the distance to each data point and take an average}
+  \note[item]{These distances are called residuals}
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{OLS Regression Is the BLP Plug-In Estimator}
+  \begin{block}{Plug-in strategy}
+    The OLS regression line is given by
+    \[
+      \hat{g}(\mathbf{X}) = \hat{\beta}_{0} + \hat{\beta}_{1}X_{1} + \hat{\beta}_{2}X_{2} +
+      \dots + \hat{\beta}_{k}X_{k} 
+    \]
+    where $\boldsymbol{\hat \beta} = (\hat \beta_0,\hat
+    \beta_1,...,\hat \beta_k)$ are given by
+      \[
+      \min_{(b_{0}, \dots, b_{k})} \frac{1}{n}  \sum_{i=1}^n \big(Y_i
+      - (b_0 + b_1 X_{[1]i} + ... + b_k X_{[k]i}) \big)^2.     
+    \]
+  \end{block}
+
+  
+  \note[item]{The general plug-in principle says that we write down
+    the sample analogue for the population quantity that we're
+    interested in. Lets do just that.}
+  \note[item]{Basically, we had an expectation in the formula
+    before, but now we replace that by taking an average over the n
+    datapoints.} 
+  \note[item]{Instead of minimizing squared error, we are now
+    minimizing squared residuals} 
+  \note[item]{The hope is that by doing this, we'll get a good
+    estimator.  But we still have to prove it.  we'll do that soon.} 
+
+\end{frame} 
+
+
+\begin{frame}
+  \frametitle{An Analogy with the Mean}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{p{5cm} | p{5cm}}
+  Given only Y & Given Y and X \\
+  \hline
+  $\E[Y]$ minimizes MSE out of all numbers. & the BLP minimizes MSE out of all linear models. \\ 
+  We can't compute $\E[Y]$ without knowing the distribution. & We can't compute the BLP without knowing the distribution. \\
+  $\bar X$ is the plug-in estimator for $\E[Y]$. & OLS is the plug-in estimator for the BLP.
+  \end{tabular}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Coming Up Soon...}
+  We still have to:
+  \begin{itemize}
+\item solve the minimization problem
+\item show that OLS is \textit{consistent} for the BLP
+\end{itemize}
+
+  \note[item]{Here's what we have to do.}
+  \note[item]{First, we have to get the equation into a more useful form.  We want to minimize the sum squared residuals.  we have to actually solve that minimization problem and write down the solution.}
+  \note[item]{Second, we have to show that it really has good statistical properties}
+  \note[item]{Once we do all that, we'll have a great justification for the OLS algorithm.  it is a consistent estimator for the model that minimizes MSE.} 
+\end{frame}
+
+
+
+\section{Learnosity: You Minimize It!}
+
+\begin{frame}
+  \frametitle{Learnosity: You Minimize It!}
+  \textbf{Note: This is a Learnosity Activity. We're just placing it
+    here for organization.}
+
+  This is the activity that is currently coded% \includegraphics{•}
+  
+  \texttt{regression\_fit\_2d\_exercise/}.
+  \textbf{Note that we would
+    like to expand this to ask students to work through several
+    examples in a row. Presently we have a single example made;
+    expanding this to a broader set is relatively easy. In the
+    expanded set, we should ensure that we have some complexity in the
+    data—e.g., a sine curve.} 
+\end{frame}
+
+
+
+
+\section{Reading: OLS Regression Estimates the BLP}
+
+\begin{frame}
+  \frametitle{Reading: Linear Regression is a Plug-in Estimator for the BLP}
+
+  \textbf{Note: this is a reading call, we're just placing it here for
+    organization.}
+
+  Read pages 143–147 of \textit{Foundations of Agnostic Statistics.} 
+\end{frame} 
+
+
+
+
+%
+%
+%\section{Estimating Coefficients} 
+%
+%\begin{frame}
+%  \frametitle{Estimating Coefficients}
+%  \begin{itemize}
+%  \item Regression is the plug-in estimator for the BLP.
+%  \item We need a method to actually \textit{estimate} values for
+%    $\hat{\beta}$, the coefficients of the regression.
+%  \item This is actually remarkably easy—at least some of the
+%    time.
+%  \end{itemize}
+%  \note[item]{In the last section, we talked about the statistical
+%    properties of regression -- that it is the plug-in estimator for
+%    the BLP and that its estimates converge to the true $\beta$.}
+%  \note[item]{But this guarantee isn't useful if we can't actually
+%    estimate!}
+%  \note[item]{Our contention is that this estimation is actually
+%    remarkably \textit{easy} compared to other methods in data
+%    science. Not that it is \textit{easy} to see or reason about, but
+%    rather that the squared error in a linear function is easy for a
+%    computer.}
+%  \note[item]{In the next exercise, we're asking you to visually fit a
+%    regression line. You'll see how easy it becomes after a little
+%    practice.} 
+%\end{frame}
+
+
+
+\section{Choosing Assumptions for OLS Regression}
+
+\begin{frame}
+  \frametitle{When Does OLS "Work"?}
+  The OLS regression line is
+  \[
+    \hat{g}(\mathbf{X}) = \hat{\beta}_{0} + \hat{\beta}_{1}X_{1} + \hat{\beta}_{2}X_{2} +
+    \dots + \hat{\beta}_{k}X_{k}
+  \]
+  where $\boldsymbol{\hat{\beta}}$ are chosen to minimize
+  squared residuals.
+  \pause 
+
+\center Different assumptions 
+
+$\Downarrow$ 
+
+Different statistical guarantees
+
+  \note[item]{You've already seen one definition of OLS regression.} 
+  \note[item]{OLS is just an algorithm.  No matter what the situation
+    is, you can always run it and get some numbers out.  (It is a Golem!)} 
+  \note[item]{So you might want to know, ``What assumptions are needed
+    for OLS regression to work?'' It's not so easy - there are different sets of assumptions out there.}
+    \note[item]{Depending on which assumptions you choose, you get different guarrantees.}
+  \note[item]{We're going to teach you two main sets of assumptions.}
+\end{frame}
+
+
+\begin{frame}[standout]
+\normalsize \begin{itemize}
+  \item \textbf{More data} $\implies$ less restrictive assumptions
+  \item \textbf{More data} $\implies$ easier to assess assumptions
+  \end{itemize} 
+
+    \note[item]{First, a very general point: the more data you have, the better off you are.}
+  \note[item]{More data helps in two major ways.}
+  \note[item]{First, we don't need as many assumptions with more data.
+    That's because of asymptotics - statistics behave in predictable
+    ways when $n \rightarrow \infty$ } 
+  \note[item]{Second, having more data helps you to assess your
+    assumptions.  It's hard to defend an assumption of normality when
+    you have 5 data points.  if you have 100, you have an argument.}     
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{OLS in a Large Sample}
+  
+  \begin{block}{The large-sample model (not an official name)}
+    
+    Just two assumptions:
+    \begin{itemize}
+    \item I.I.D.
+    \item Unique BLP exists
+    \end{itemize}
+  \end{block}
+
+  \textbf{Asymptotic behavior as $n\to\infty$ provides considerable
+    guarantees.}
+  \note[item]{With a lot of data, $n \to \infty$, we need to believe very few assumptions for OLS to have good properties.}
+  \note[item]{All we need is that the data is distributed i.i.d., and
+    that there is a unique solution to the BLP.}
+      \note[item]{If there isn't a unique solution, then we just can't
+    solve for it!} 
+    \note[item]{When you package these two assumptions together, we'll call them the large-sample model.}
+    \note[item]{That's not an official name, so don't use it outside of this class.  But it will help us to give it a name.}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{OLS in a Small Sample}
+ 
+ 
+  \begin{block}{ The classical linear model}
+    \begin{itemize}
+    \item A parametric model—fully specifies $f_{Y|X}$
+    \item Traditional starting point for regression
+    \item Even with extensive transformations, may be hard to justify assumptions
+    \end{itemize}
+  \end{block}
+  
+    \centering
+    \textbf{Guarantees come from strict assumptions.}
+  \note[item]{We want to draw your attention to the fact that we're
+    presenting the large-sample (asymptotic) version of regression
+    this week. In the future, we will talk about the smaller sample
+    variant known as the \textit{Classic Linear Model.}}
+  \note[item]{Whereas we get \textit{consistent} estimates with very
+    minimal assumptions in the infinite data-case, we get a lot less
+    in the more limited CLM case. It is kind of like buying a used car
+    with no warranty.} 
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{OLS in Very Small Samples}
+  
+  \note[item]{I want to say a few words about very small samples.} 
+\note[item]{very small isn't a technical phrase, but think $n \leq
+  15$.}
+\note[item]{First, should you \textit{really} be doing data quantitative
+  work with this much data? Is what you give up in richness worth it?} 
+\note[item]{The problems really compound in this range.} 
+\note[item]{First, you get no help from asymptotics, which means that
+  you need to meet the CLM exactly.} 
+\note[item]{Second, you don't have enough data to assess the CLM.
+  even if things look ok, how can you convince someone when you only
+  have 10 datapoints?} 
+ \note[item]{One suggestion: if you need to work with very small data,
+   especially from experiments, you should read up on a field called
+   randomization inference.  It can give you a principled way to test
+   hypotheses (at least special types of hypotheses) without any
+   distributional assumptions.} 
+ Special difficulties when $n < \sim15$
+ \begin{itemize}
+ \item No help from asymptotics
+ \item Not enough data to assess CLM
+ \end{itemize}
+
+ \begin{block}{ Randomization inference}
+   \begin{itemize}
+   \item A framework for testing (restrictive) null hypotheses 
+   \end{itemize}
+ \end{block} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Rules of Thumb for OLS Assumptions}
+  
+  \note[item]{These are our 3 main frameworks. I want to put down
+    some numbers to help you choose a framework.} 
+  \note[item]{These are ONLY rules of thumb. } 
+  \note[item]{First, you can consider the large-sample model if
+    $n>60$.  That's really just a starting number.} 
+  \note[item]{It depends on how extreme the violations of the CLM are.
+    In particular, if the error distribution has a really large skew,
+    you may need $n>100$ or $n>1000$ or even more.  So it's important
+    for you to learn how to do diagnostics for the CLM, even if you
+    think you have a large sample} 
+  \note[item]{from 15 to 60, we're recommending the CLM as your framework.}
+  \note[item]{below 15, the CLM is no longer very credible.  you can
+    report your coefficients, and possibly use randomization inference
+    to get p-values.} 
+    \note[item]{Out of these models, we're going to start with the large sample model. and we're going to spend the most time on the large-sample model.  That's because we expect a data scientist to spend more time with with large samples, but we will come back and talk about the CLM later in the course.}
+
+  \begin{block}{Rules of thumb}
+  In general, you might reason about data and regression models in the
+  following way.
+
+  \centering
+  
+    \begin{tabular}{l|l}
+      \textbf{Sample size} & \textbf{Required assumptions} \\
+      \hline
+      $100 \leq n$ & Large-sample linear model\\
+      $15 \leq n < 100$ & Classical linear model\\
+      $5 \leq n < 15$ & Randomization inference\\
+    \end{tabular}
+  \end{block}
+\end{frame}
+
+
+
+
+
+
+
+
+\section{The Bivariate OLS Solution}
+
+\begin{frame}
+ Existing Content (in distinct format) 
+ 
+ 9.5 Deriving the Bivariate OLS Estimators
+ 
+\end{frame}
+
+
+
+\section{Consistency of Bivariate OLS Under the Large-Sample Model}
+
+\begin{frame}[t]
+\textbf{Continuous mapping theorem:} Let $(S^{(1)},
+S^{(2)},S^{(3)},...)$ and $(T^{(1)}, T^{(2)},T^{(3)},...)$ be
+sequences of random variables.  Let $g: \R^2 \rightarrow \R$ be a
+function that is continuous at $(a,b)  
+\in \R^2$.  If $S^{(n)}  \overset{p}{\to}  a$ and $T^{(n)}
+\overset{p}{\to}  b$, then $g(S^{(n)} ,T^{(n)} )  \overset{p}{\to}
+g(a,b)$ 
+
+Assumptions: 1) I.I.D.  2) Unique BLP exists ($\V(X) > 0$)
+
+\note[item]{In the last lightboard we derived that $\hat{\beta}_{1} =
+  \frac{\widehat{cov}(x,y)}{\widehat{\V}(x)}$. This \textit{looks}
+  just like the formula that we use for the BLP!}
+\note[item]{Here, we'll prove that these estimates are consistent
+  estimates in the large sample case.} 
+\end{frame}
+
+
+\begin{frame}
+\textbf{Continuous mapping theorem:} Let $(S^{(1)},
+S^{(2)},S^{(3)},...)$ and $(T^{(1)}, T^{(2)},T^{(3)},...)$ be
+sequences of random variables.  Let $g: \R^2 \rightarrow \R$ be a
+function that is continuous at $(a,b)  
+\in \R^2$.  If $S^{(n)}  \overset{p}{\to}  a$ and $T^{(n)}
+\overset{p}{\to}  b$, then $g(S^{(n)} ,T^{(n)} )  \overset{p}{\to}
+g(a,b)$ 
+
+Assumptions: 1) I.I.D.  2) Unique BLP exists ($\V(X) > 0$)
+\begin{align*}
+  \quad x^{(n)} &= (x_1,x_2,...,x_n) \quad y^{(n)} = (y_1,y_2,...,y_n)\\
+  S^{(n)} &= \widehat{\cov}(x^{(n)}, y^{(n)  }) \quad T^{(n)} = \widehat{\V}(x^{(n)})\\
+  \hat \beta^{(n)}_1 &=  S^{(n)} / T^{(n)}\\
+  S^{(n)} &   \overset{p}{\to} \cov[X,Y], \qquad 
+            T^{(n)}    \overset{p}{\to} \V[X]\\
+  g(c,d) &= c/d\text{ is continuous where } d \neq 0 \\
+  \hat \beta^{(n)}_1 &= g(  S^{(n)}, T^{(n)})
+                       \overset{p}{\to}  
+                       g(  \cov[X,Y], \V[X,Y] ) = \beta_1 
+\end{align*}
+
+\note[item]{In the last lightboard we derived that $\hat{\beta}_{1} =
+  \frac{\widehat{cov}(x,y)}{\widehat{\V}(x)}$. This \textit{looks}
+  just like the formula that we use for the BLP!}
+\note[item]{Here, we'll prove that these estimates are consistent
+  estimates in the large sample case.} 
+\end{frame}
+
+
+
+\section{The Matrix Formulation of a Linear Model}
+
+\begin{frame}
+  \frametitle{The Matrix Formulation of a Linear Model}
+  \begin{itemize}
+  \item Insert content from previous version of course: 10.7 Matrix
+    Form of the Linear Model
+  \item This content leads into the next lightboard of the
+    derivation of the OLS normal equations
+  \end{itemize}   
+\end{frame}
+
+
+\section{Reading: The Matrix Solution For OLS Regression}
+
+\begin{frame}
+  \frametitle{Reading: The Matrix Solution For OLS Regression}
+Read section 4.1.3, which is on pages 147 - 151.
+\end{frame}
+
+\section{The Multiple OLS Solution}
+
+
+\begin{frame}
+  \frametitle{The Multiple OLS Solution}
+  
+  \begin{itemize}
+    \item Pull in the lightboard called \textit{Matrix Derivation of
+        the OLS Estimator}.
+    \item In the next iteration of the course, pull in a geometric
+      derivation of the OLS coefficients. 
+  \end{itemize} 
+\end{frame}
+
+
+
+\section{Sample Moment Conditions}
+
+\begin{frame}[t]
+  \frametitle{Review: Population Moment Conditions}
+\textbf{Population:}  Let $\epsilon$ represent error from the BLP.
+
+\vspace{.1cm}
+Version 1: $\E[\epsilon]=0, \E[X_j \epsilon] = 0$  for all $j$.  
+
+Version 2: $\E[\epsilon]=0, \cov[X_j,\epsilon]=0$ for all $j$. 
+
+
+\end{frame}
+
+
+
+\begin{frame}[t]
+  \frametitle{Sample Moment Conditions}
+
+\textbf{Sample:} Let $\bs e = \left[ \begin{matrix} e_1 \\ \vdots \\ e_n \end{matrix} \right]$ represent OLS residuals.
+
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{Sample Moment Conditions}
+
+\textbf{Sample:} Let $\bs e = \left[ \begin{matrix} e_1 \\ \vdots \\ e_n \end{matrix} \right]$ represent OLS residuals.
+
+$\X^T \bs Y = \X^T \X \bs \beta$, $\qquad 0 = \X^T ( \bs Y - \X \bs \beta) = \X^T \bs e$
+
+$\left[ \begin{matrix} 1 & 1 & \hdots & 1 \\
+X_{[1]1} & X_{[1]2} & \hdots & X_{[1]n} \\
+\vdots & \vdots & \ddots & \vdots \\
+X_{[k]1} & X_{[k]2} & \hdots & X_{[k]n} \\
+\end{matrix} \right]. \left[ \begin{matrix} e_1 \\ e_2 \\ \vdots \\ e_n \end{matrix} \right]$
+
+$\sum e_i = 0$, $\sum X_{[j]i} e_i = 0$. or $\widehat{\cov}(\bs X_{[j]}, \bs e) = 0$
+\end{frame}
+
+
+\section{Consistency of Multiple OLS}
+
+\begin{frame}[t]
+  \frametitle{Consistency of Multiple OLS} 
+  Assumptions: 1) I.I.D.  2) Unique BLP exists
+
+  \note[item]{To apply the continuous mapping theorem, we need to know that $f(A,B)= A^{-1}B$ is continuous.  unique BLP tells us that $E[\X^T\X]$ is invertible.  each element of $f(A,B)$ is }
+  
+$  \text{In population: } \boldsymbol{  \beta } = \E[ X^TX]^{-1} \E[X^TY] $
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Consistency of Multiple OLS} 
+  Assumptions: 1) I.I.D.  2) Unique BLP exists
+  \note[item]{Is this useful, or should we just do the bivariate case?  it's a lot of content for one lightboard and I think it's too hard to actually prove continuity for the CMT}
+  \note[item]{\paul{Maybe just call this a sketch, but show key part about turning the matrix products into sample means}}
+  \note[item]{Can write $\boldsymbol{Y} = \X \beta + \epsilon$ where $E(X^T \epsilon) = 0$}
+  \note[item]{First, here's a useful way to write our vector of coefficients.  as the true parameter plus a random error term.}
+  \note[item]{Next, we have to open up these matrices and think about what's inside.  Let the rows of $\X$ be $x_1,...,x_n$}
+  \note[item]{To apply the continuous mapping theorem, we need to know that $f(A,B)= A^{-1}B$ is continuous.  unique BLP tells us that $E[\X^T\X]$ is invertible.  each element of $f(A,B)$ is }
+  \begin{align*}
+    \text{In population: } \boldsymbol{  \beta } &= \E[ X^TX]^{-1} \E[X^TY]
+  \end{align*}
+  \begin{align*}
+    \boldsymbol{ \hat \beta }^{(n)} &= (\frac{1}{n}  \X^{(n)T} \X^{(n)})^{-1} \frac{1}{n}  \X^{(n)T} \boldsymbol{Y^{(n)}} \\
+    \frac{1}{n}  \X^{(n)T} \boldsymbol{Y^{(n)}}  &=
+                                     \frac{1}{n}   \left[
+                                          \begin{array}{cccc}
+                                            \vertbar & \vertbar &        & \vertbar \\
+                                            x_{1}    & x_{2}    & \ldots & x_{n}    \\
+                                            \vertbar & \vertbar &        & \vertbar 
+                                          \end{array}
+                                       \right]
+                                       \left[
+                                         \begin{array}{c}
+                                           y_1 \\
+                                           y_2  \\
+                                           \vdots \\
+                                           y_n
+                                         \end{array}
+                                           \right]
+    =\frac{1}{n}  \sum_{i=1}^n x_i^T y_i \\
+  \frac{1}{n}   \X^T\X &= \frac{1}{n} 
+             \left[
+             \begin{array}{cccc}
+               \vertbar & \vertbar &        & \vertbar \\
+               x_{1}    & x_{2}    & \ldots & x_{n}    \\
+               \vertbar & \vertbar &        & \vertbar 
+             \end{array}
+                                              \right]
+                                              \left[
+                                              \begin{array}{ccc}
+                                                \horzbar & x_{1} & \horzbar \\
+                                                \horzbar & x_{2} & \horzbar \\
+                                                         & \vdots    &          \\
+                                                \horzbar & x_{n} & \horzbar
+                                              \end{array}
+                                                                   \right]
+                                                                   = \frac{1}{n}  \sum_{i=1}^n x_i^T x_i
+  \end{align*}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Consistency of OLS}
+  
+  \begin{align*} 
+    \text{WLLN} &\implies \frac{1}{n} \sum_{i=1}^n x_i^T x_i  \overset{p}{\to} \E[X^TX]  \qquad  
+                  \frac{1}{n} \sum x_i^T y_i  \overset{p}{\to} \E[X^T Y]  \\
+    \text{CMT} &\implies \boldsymbol{ \hat \beta } = \beta + (\frac{1}{n} \sum_{i=1}^n x_i^T x_i) ^{-1} (\frac{1}{n}  \X^T \epsilon)
+                 \overset{p}{\to} \beta + 0 = \beta \\
+  \end{align*}
+\end{frame} 
+
+
+
+
+\section{Unique Variation and Regression Anatomy}
+
+\begin{frame}
+  \frametitle{How Can We Understand a Specific $\hat \beta_i$?}
+
+  \[
+    \boldsymbol{\hat \beta}= (\X^T\X)^{-1}\X^T\boldsymbol Y
+  \]
+
+ 
+  \note[item]{We've written before that OLS is a \textit{linear}
+    regression. As a result of this, we showed that $\frac{\partial
+      Y}{\partial X_{i} }= \beta_{i} \Delta\cdot X_{i}$.}
+    \note[item]{Another, very interesting consequence of the
+      underlying geometry of OLS regression is that each of the
+      coefficients are fitted only on the \textit{unique} variation in
+      Y.}
+    \note[item]{Agrist and Pichke (2009) term this the
+      \textit{Regression Anatomy} formula.} 
+
+  
+  \note[item]{You've seen the matrix solution for ols regression, so you can now go and compute ols coefficients.}
+  \note[item]{But what if you want to understand a specific
+    coefficient? what makes it go up and down?  You could invert the
+    matrix, but that's really complicated} 
+  \note[item]{You might wonder, can you write down a formula for a
+    single coefficient, that will help you understand what's going
+    on.} 
+  \note[item]{It turns out, yes.  There is a helpful formula, which we
+    call the regression anatomy formula.} 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Partialling Out}
+  
+  $$ \hat Y = \hat \beta_0 + \hat \beta_1 X_1 + \hat \beta_2 X_2 + ... + \hat \beta_k X_k$$
+  
+  \note[item]{Let's say we're interested in computing $\beta_1$}
+  \note[item]{It turns out that we can compute it in stages:}
+  \note[item]{First, regress $X_1$ on the other X's (we can regress any var on any other vars)}
+  \note[item]{We have some residuals from that regression, $r_1$.  those represent the unique variation in $X_1$ - the part not explainable by other variables.}
+  
+  Step 1: Regress $X_1$ on other $X$s
+  $$\hat X_1 = \hat \delta_0 + \hat \delta_2 X_2 + ... + \hat \delta_k X_k + r_1$$
+  
+  \note[item]{Next, we take those residuals and regress Y on them.}
+  \note[item]{It turns out that we get the same $\beta_1$. We'll prove that soon}
+  \note[item]{This is a powerful idea.  ols works on unique variation in each X, variation that is collinear with the other variables doesn't contribute, you may as well subtract it out.  As we'll see later, the more unique variation we have in X, the more precision we'll have.}
+  
+  Step 2: Regress $Y$ on the residuals from Step 1
+  
+  $$\hat Y = \hat \gamma_0 + \hat \beta_1 r_1$$
+  
+  
+ Regression anatomy: $\hat \beta_1 = \frac{\widehat{ \cov} ( \boldsymbol{Y}, \boldsymbol{r_1})}{\widehat{\V}(\boldsymbol{r_1})}$
+  
+\end{frame}
+
+\section{Deriving the Regression Anatomy Formula}
+
+\begin{frame}
+  \frametitle{Deriving the Regression Anatomy Formula}
+
+Use content from old course:
+
+10.5 Regression Anatomy
+\end{frame}
+
+
+\section{Segment for Consideration: Applying the Regression Anatomy Formula}
+
+\begin{frame}
+  \frametitle{Applying the Regression Anatomy Formula}
+  
+  Consider using the old concept check:  10.6 Applying the Regression Anatomy Formula
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Interpreting Model Coefficients: Warnings}
+  
+\note[item]{Ceteris paribus hints at some of the care we need when putting variables into a linear model.}
+\note[item]{Here's a model for wage, with two variables, Age and Birth Year, how do you interpret $\beta_1$?}
+
+$$\widehat{Wage} = \beta_0 + \beta_1 Age + \beta_2 Birth\_Year $$
+
+What does it mean to hold \textit{Age} constant while increasing \textit{Birth\_Year}?
+ 
+\note[item]{You can fit a model like this (many do), but is it telling you something about the joint distribution?}
+
+\note[item]{\paul{Alex, this slide is a bit of a struggle - my current suggestion is to postpone it till late in the unit.  We haven't mentioned fitting yet, so can't really say things like "picking up on noise" or multicollinearity.  What I think we can address here feels like a small point.}}
+
+\end{frame}
+
+\section{Evaluating the Large-Sample Linear Model}
+
+\begin{frame}
+
+\note[item]{The great thing about regression with large samples, is that you don't need a lot of assumptions.}
+\note[item]{A lot of books heavily stress the CLM, and people get the impression that regression takes a lot of assumptions }
+\note[item]{Actually, if you're seeing this for the first time, you might be really surprised that we are doing everything with just two assumptions, which we are calling the large sample linear model.}
+\note[item]{But we do need these two assumptions, so it's important that we stop to assess them.}
+\note[item]{We can't just blindly assume they're true.  we have to look at the situation we're modeling and ask, are they plausible?  or are they realistic.}
+
+
+  \frametitle{The Large-Sample Linear Model}
+  \begin{itemize}
+\item I.I.D. data
+\item A unique BLP exists
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{What Does I.I.D. Mean?}
+  \includegraphics[width=\textwidth]{images/dory}
+Imagine selecting each new datapoint...
+\begin{itemize}
+\item from the same distribution
+\item with no memory of any past datapoints
+\end{itemize}
+\note[item]{This is a model, and we have to look at the real world and see how much it resembles this model}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Common Violations of Independence}
+  
+  \note[item]{It helps to know some common violations so that you can watch out for them }
+  
+ \begin{itemize}
+\item Clustering
+\begin{itemize}
+\item Geographic areas
+\item School cohorts
+\item Families
+\end{itemize}
+
+\item Strategic Interaction
+\begin{itemize}
+\item Competition among sellers
+\item Imitation of species
+\end{itemize}
+
+\item Autocorrelation
+\begin{itemize}
+\item One time period may affect the next
+\end{itemize}
+
+\vspace{.4cm}
+\center \textbf{How can observing one unit provide information about some other unit?}
+
+\note[item]{In general, the question is how can observing one unit give information about some other unit.}
+
+\note[item]{For some of these violations, you can devise a statistical test.  But there's no test can can detect an arbitrary network of dependencies.  To assess this assumption you really need to use your background knowledge.}
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{A Unique BLP Exists}
+  
+A BLP exists:
+\begin{itemize}
+\item $\cov[X_i,X_j]$ and $\cov[X_i,Y]$ are finite (no heavy tails)
+\end{itemize}
+
+\note[item]{What does it mean for the BLP to exist? we need all the covariances in the solution to be finite.  that basically means that the random variables can't have tails that are too heavy.}
+\note[item]{This is usually true.  actually, some textbooks don't even mention this assumption.}
+\note[item]{I think it's good to mention it, because researchers do believe that some variables have heavy tails: wealth is one example. air emissions. financial returns...}
+
+The BLP is unique:
+\begin{itemize}
+\item No perfect collinearity
+\item $\E[X^TX]$ is invertible
+\note[item]{What does this mean? Each X has to have some unique variation.} 
+\note[item]{That makes sense because we know ols works on unique variation.  If we combine this assumption with the previous one, we can prove that a unique BLP exists.}
+\end{itemize}
+\hspace{.5cm} $\implies$ No $X_i$ can be written as a linear combination of the other $X$'s.
+  
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Perfect Collinearity Example 1}
+  
+  \note[item]{Here's an example to help understand why we need this assumption}
+  \note[item]{You regress the price on both number of donuts and number of dozens of donuts.}
+  \note[item]{it's 50 cents per donut, so you can write the price as 50 cents times number of donuts}
+  \note[item]{But you can also write it as 6 dollars times number of dozens.}
+  \note[item]{Both are equivalent for predicting the price - this problem doesn't affect prediction.}
+  \note[item]{But you can't estimate coefficients, because they aren't uniquely defined.}
+  
+  $$\widehat{Price} =  .5\ Donuts + 0.0\ Dozens $$
+  
+  \center or
+  $$\widehat{Price} =  0.0\ Donuts + 6.0\ Dozens$$
+\end{frame}
+
+\begin{frame}
+  \frametitle{Perfect Collinearity Example 2}
+  
+  \note[item]{Here's another example, to show you that multicollinearity isn't always about pairs of variables, it might be more variables}
+  \note[item]{Here you have a regression with number of positive ads, number of negative ads, and the total number of ads.}
+  \note[item]{Once again, you can find multiple ways to write the same model. }
+  
+  $$\widehat{Voters} =  200\ Positive\_Ads + 100\ Negative\_Ads + 0\ Total\_Ads  $$
+  
+  \center or
+  $$\widehat{Voters} =  100\ Positive\_Ads + 0\ Negative\_Ads + 100\ Total\_Ads  $$
+\end{frame}
+
+
+
+
+
+
+\section{Goodness of Fit}
+
+\begin{frame}
+  \frametitle{}
+  \note[item]{We've seen how to compute regression coefficients, and you know a little about interpreting them.}
+  \note[item]{But we sometimes you also want to step back and assess the model as a whole.}
+  \note[item]{One question you might ask is this: How well does a model fit the data?}
+  \note[item]{I know that's a fuzzy question, but it seems important.  Is there a really close match between model and data or are they far apart?}
+  \note[item]{Can we come up with a single number to capture that idea?}
+\note[item]{There are a number of statistics for that purpose, and we can call them measures of fit. }
+  \note[item]{The most famous one is $R^2$.  you've probably heard of it.  but exactly what does it measure? and how do you use it properly?}
+  
+  \textbf{Goodness of fit:} How well does a model fit the data?
+
+  \begin{itemize}
+  \item $R^2$
+  \item Adjusted $R^2$
+  \item Akaike information criterion (AIC)
+  \item Bayesian information criterion (BIC)
+  \end{itemize}
+  
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{Breaking Down Variance}
+ \textbf{ Total variance = explained variance + residual variance }
+  \note[item]{$R^2$ is about breaking down the variance in the outcome variable.}
+  \note[item]{This may remind you of the law of total variance, but it's a different decomposition,  this only works for OLS}
+  \note[item]{$\hat V[Y] = \hat V[ \hat Y + \hat \epsilon] = \hat V[\hat Y] + \hat V [ \hat \epsilon ] + 2 \widehat{cov}[\hat Y, \hat \epsilon]$}
+  \note[item]{$\widehat{cov}[\hat Y, \hat \epsilon] =  \widehat{cov}[\beta_0 + \beta_1 X_1 + ...+\beta_k X_k, \hat \epsilon] =0 $}
+  \note[item]{One technical note: these are regular sample variances - so the denominator is n-1 everywhere.  I'm saying that because when people say "residual variance" it usually includes a correction for the number of coefficients.  If you do that, you get something called adjusted R squared.  I want to talk about regular R squared so no corrections.}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Defining $R^2$}
+  \note[item]{Now that you understand these components of variance, here's the definition of $R^2$.}
+  $$R^2 = 1- \frac{\hat \V(\bs{\hat \epsilon}) }{ \hat \V (\bs{Y} )  } = 1 - \frac{\text{residual variance}}{\text{total variance}}$$
+  
+  $$\text{For OLS: } R^2 =  \frac{\text{explained variance}}{\text{total variance}}$$
+  
+  \vspace{.7cm}
+  
+  
+\center \textit{ How much of the variation in the outcome does the model explain?}
+
+\note[item]{$R^2$ is a number between 0 and 1.  it's the fraction of the variation in the outcome that's explained by the model.}
+\note[item]{You can think about variance as information.  The independent variables are giving you some information about the outcome.  If you could predict the outcome perfectly, $R^2$ would be 1.  but of course, the predictions usually don't match the outcomes, so $R^2$ is lower.}
+\end{frame}
+
+
+\begin{frame}[t]
+  \frametitle{R is Correlation}
+  \note[item]{Here's another way to look at $R^2$.  The R is a correlation r.  For ols regression, you could really make it a lowercase r.}
+  
+   \Large $R^2 = \frac{\hat \V( \bs{ \hat Y}) }{ \hat \V ( \bs Y )  } $
+    \note[item]{I can rewrite the numerator:
+     \begin{align*} \hat V(\hat Y) &= \widehat{cov}(\hat Y, \hat Y) =  \widehat{cov}(\hat Y, Y - \hat \epsilon)  \\ 
+     &= \widehat{cov}(\hat Y, Y )- \widehat{cov}(\hat Y, \hat \epsilon)  = \widehat{cov}(\hat Y, Y) 
+     \end{align*}
+     }
+     \note[item]{     $$R^2 = \frac{\hat V(\hat Y) \hat V(\hat Y) }{ \hat V ( Y )  \hat V(\hat Y) } 
+      = \frac{\widehat{cov}(\hat Y, Y)^2}{ \hat V ( Y )  \hat V(\hat Y)}  = \widehat{corr}(\hat Y, Y) ^2
+      $$   
+      }
+     \note[item]{So we learned that $R^2$ is also the squared correlation between our predicted and the actual outcomes.  It's a measure of agreement between the model predictions and the data.}
+\end{frame}
+
+
+
+
+\begin{frame}
+  \frametitle{Understanding Sums of Squares}
+ \note[item]{I want to warn you that when you read about R-squared, the formula is usually different.}
+ \note[item]{Instead of variances, most people learn about these things called sums of squares}
+ Total sum of squares: TSS $= \sum_{i=1}^n (y_i - \bar y)^2$
+ 
+ Explained sum of squares: ESS $= \sum_{i=1}^n (\hat y_i - \bar y)^2$
+ 
+ Residual sum of squares: RSS $= \sum_{i=1}^n (\hat \epsilon_i)^2$
+ 
+ $$\text{For OLS:  TSS} = \text{ESS} + \text{RSS}$$
+ 
+ $$R^2 =1 - \frac{\text{RSS}}{\text{TSS}}$$
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Things to Remember About $R^2$}
+  
+  \begin{itemize}
+\item Adding variables always makes $R^2$ go up.
+\note[item]{First, adding variables makes $R^2$ go up.  this is because OLS is essentially an $R^2$ maximizing machine.  you give it more variables and it can't do any worse.}
+\item With many variables, consider alternatives.
+\begin{itemize}
+\item Adjusted $R^2$
+% \item Akaike Information Criterion (AIC)
+% \item Bayesian Information Criterion (BIC)
+\end{itemize}
+
+\note[item]{If you have a lot of variables, you might want to consider
+  alternatives.  These are measures of fit that penalize extra
+  variables.} 
+\item $R^2$ is not a measure of practical significance.
+\begin{itemize}
+\item For example, regress hospital admissions on being shot
+\end{itemize}
+\item A low $R^2$ is a negative, but assess it in context.
+  \note[item]{For example, if you are trying to model the purchasing
+  decision that someone makes, there are \textit{all} kinds of things
+  that affect that choice. Having a low R2 on a behavioral outcome is
+  pretty common.}
+\note[item]{This is a general test -- if you're including a lot of new
+  model features, you would expect R2 to increase -- but this could
+  just happen as a result of chance!}
+\note[item]{The real concern is one of \textit{overfitting} where your
+  model is fitting to ``noise'' in the data, rather than to systematic
+  patterns.}
+\note[item]{If we were to just keep increasing the number of terms --
+  building a bigger and bigger Golem -- we could perfectly fit the
+  data.}
+\note[item]{But, what would we do with a new datapoint that comes in?} 
+\end{itemize}
+\end{frame}
+
+\end{document}
